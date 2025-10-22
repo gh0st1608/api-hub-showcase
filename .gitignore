@@ -1,0 +1,13 @@
+# Archivos de estado
+*.tfstate
+*.tfstate.backup
+
+# Directorios generados por Terraform
+.terraform/
+modules/.build/
+
+# Archivos de secretos (ejemplos)
+*.tfvars.private
+secrets.yaml
+*.tfvars
+credentials.tfrc.json
