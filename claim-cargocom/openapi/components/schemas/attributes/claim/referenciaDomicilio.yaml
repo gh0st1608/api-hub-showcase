@@ -1,0 +1,3 @@
+type: string
+description: Referencia adicional para ubicar el domicilio.
+example: "Frente al parque"

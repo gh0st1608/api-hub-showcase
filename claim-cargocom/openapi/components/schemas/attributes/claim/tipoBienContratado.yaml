@@ -1,0 +1,3 @@
+type: string
+description: Tipo de bien o servicio contratado.
+example: "Servicio de transporte"

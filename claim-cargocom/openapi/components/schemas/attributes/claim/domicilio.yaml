@@ -1,0 +1,3 @@
+type: string
+description: Dirección de domicilio del usuario.
+example: "Av. Los Alamos 123, Lima"

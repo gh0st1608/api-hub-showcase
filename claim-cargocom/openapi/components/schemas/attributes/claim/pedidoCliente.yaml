@@ -1,0 +1,3 @@
+type: string
+description: Código del pedido asignado por el cliente.
+example: "CUST-223344"

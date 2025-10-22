@@ -1,0 +1,5 @@
+type: string
+description: >
+  Nombres del autor del reclamo
+maxLength: 50
+example: 'Christian Michael'

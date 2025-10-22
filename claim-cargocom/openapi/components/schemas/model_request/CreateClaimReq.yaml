@@ -1,0 +1,54 @@
+type: object
+description: Entidad que permite crear un reclamo
+properties:
+  Data:
+    type: object
+    properties:
+      Claim:
+        required:
+          - nombre
+          - apellidos
+          - correo
+          - asunto
+          - autorizaDatos
+          - tipoSolicitud
+        type: object
+        properties:
+          nombre:
+            $ref: ../attributes/claim/nombre.yaml
+          apellidos:
+            $ref: ../attributes/claim/apellidos.yaml
+          correo:
+            $ref: ../attributes/claim/correo.yaml
+          asunto:
+            $ref: ../attributes/claim/asunto.yaml
+          autorizaDatos:
+            $ref: ../attributes/claim/autorizaDatos.yaml
+          menorEdad:
+            $ref: ../attributes/claim/menorEdad.yaml
+          datosApoderado:
+            $ref: ../attributes/claim/datosApoderado.yaml
+          detalleBienContratado:
+            $ref: ../attributes/claim/detalleBienContratado.yaml
+          detalleIncidencia:
+            $ref: ../attributes/claim/detalleIncidencia.yaml
+          domicilio:
+            $ref: ../attributes/claim/domicilio.yaml
+          fechaSolicitud:
+            $ref: ../attributes/claim/fechaSolicitud.yaml
+          numeroDocumento:
+            $ref: ../attributes/claim/numeroDocumento.yaml
+          numeroPedido:
+            $ref: ../attributes/claim/numeroPedido.yaml
+          nombreProveedor:
+            $ref: ../attributes/claim/nombreProveedor.yaml
+          pedidoCliente:
+            $ref: ../attributes/claim/pedidoCliente.yaml
+          referenciaDomicilio:
+            $ref: ../attributes/claim/referenciaDomicilio.yaml
+          telefono:
+            $ref: ../attributes/claim/telefono.yaml
+          tipoBienContratado:
+            $ref: ../attributes/claim/tipoBienContratado.yaml
+          tipoSolicitud:
+            $ref: ../attributes/claim/tipoSolicitud.yaml

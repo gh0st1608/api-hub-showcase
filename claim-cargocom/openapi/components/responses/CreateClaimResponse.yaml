@@ -1,0 +1,16 @@
+description: Retorna mensaje de creación de reclamo
+content:
+  application/json:
+    schema:
+      allOf:
+        - $ref: ../schemas/model_response/StandardResponse.yaml
+        - $ref: ../schemas/model_response/CreateClaimRes.yaml
+    examples:
+      Caso-Prueba-01:
+        summary: Crear reclamo
+        value:
+          Data:
+            claimCode: CG-Q-000001
+            statusCode: 200
+            message: Creación de queja exitosa
+            

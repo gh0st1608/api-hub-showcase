@@ -1,0 +1,6 @@
+type: string
+description: Tipo de solicitud
+enum:
+  - R
+  - C
+example: 'Christian Michael'

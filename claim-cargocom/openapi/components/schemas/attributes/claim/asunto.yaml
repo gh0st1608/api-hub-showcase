@@ -1,0 +1,5 @@
+type: string
+description: >
+  Nombre descriptivo del asunto
+maxLength: 100
+example: 'Error en la entrega'

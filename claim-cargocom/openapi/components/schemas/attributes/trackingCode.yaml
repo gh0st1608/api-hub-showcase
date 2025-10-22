@@ -1,0 +1,5 @@
+type: string
+description: >
+  Código único de solicitud o respuesta generado por el sistema.
+pattern: '^(CG|CC|CP)-[QR]-\d{6}$'
+example: 'CG-Q-000002'

@@ -1,0 +1,33 @@
+openapi: 3.0.3
+info:
+  version: 1.0.0
+  title: API de Negocio Cargocom
+  description: >
+    API de negocio Cargocom, donde se define los alcances recursos.
+      - Claim
+
+  contact:
+    name: Erick Galindo Aguilar
+    email: erickmga123@gmail.com
+    url: 'https://storage.googleapis.com/formcorp-design/formcorp.html'
+    x-role: API Designer
+servers:
+  - url: 'https://api.solutionserj'
+    description: Servidor de ambiente Desarrollo
+
+tags:
+  - name: Claim
+    description: >
+      Agrupa los servicios de gestión sobre el recurso de: Reclamo
+
+paths: 
+  '/claims/register':
+    $ref: 'paths/Claim@create.yaml'
+
+components:
+  securitySchemes:
+    api_key:
+      description: Código único del Cliente.
+      type: "apiKey"
+      name: "x-api-key"
+      in: "header"

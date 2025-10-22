@@ -1,0 +1,10 @@
+name: x-client-domain
+in: header
+description: >
+  Origen de la solicitud. Solo se permiten los dominios:
+  cargocomperu.net, cargocomgroup.com, cargocomcustoms.com
+required: true
+schema:
+  type: string
+  pattern: '^(cargocomperu\.net|cargocomgroup\.com|cargocomcustoms\.com)$'
+  example: cargocomperu.net

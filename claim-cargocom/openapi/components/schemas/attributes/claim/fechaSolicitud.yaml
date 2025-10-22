@@ -1,0 +1,4 @@
+type: string
+format: date-time
+description: Fecha de presentación de la solicitud en formato ISO 8601.
+example: "2025-09-21T12:00:00Z"

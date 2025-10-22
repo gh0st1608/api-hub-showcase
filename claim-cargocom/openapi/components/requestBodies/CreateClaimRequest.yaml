@@ -1,0 +1,31 @@
+description: Entidad para crear un reclamo
+required: true
+content:
+  application/json:
+    schema:
+      $ref: ../schemas/model_request/CreateClaimReq.yaml
+    examples:
+      Caso-Prueba-01:
+        summary: Caso Prueba 01
+        value:
+          Data:
+            Claim:
+              nombre: 'Omar Alex'
+              apellidos: 'Huerta Condori'
+              correo: 'xxxyyyzzz@gmail.com'
+              asunto: 'Error en entrega'
+              autorizaDatos: true
+              menorEdad: false
+              datosApoderado: 'Padre del menor'
+              detalleBienContratado: 'Paquete express 123'
+              detalleIncidencia: 'Entrega fuera de tiempo'
+              domicilio: 'Av. Los Álamos 123, Lima'
+              fechaSolicitud: '2025-09-21T12:00:00Z'
+              numeroDocumento: '12345678'
+              numeroPedido: 'ORD-78945'
+              nombreProveedor: 'CargoCom Perú'
+              pedidoCliente: 'CUST-223344'
+              referenciaDomicilio: 'Frente al parque'
+              telefono: '+51 987654321'
+              tipoBienContratado: 'Servicio de transporte'
+              tipoSolicitud: Q

@@ -1,0 +1,3 @@
+type: string
+description: Detalle específico del bien o servicio contratado.
+example: "Paquete express 123"

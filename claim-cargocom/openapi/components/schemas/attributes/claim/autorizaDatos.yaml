@@ -1,0 +1,3 @@
+type: boolean
+description: Indica si el usuario autoriza el tratamiento de sus datos personales.
+example: true

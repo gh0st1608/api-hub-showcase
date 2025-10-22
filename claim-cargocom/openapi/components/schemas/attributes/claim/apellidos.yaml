@@ -1,0 +1,5 @@
+type: string
+description: >
+  Apellidos del autor del reclamo
+maxLength: 50
+example: 'Ojeda Perez'
