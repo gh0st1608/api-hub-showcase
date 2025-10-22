@@ -6,7 +6,7 @@ phases:
       nodejs: 20
     commands:
       - echo "Instalando dependencias.."
-      - cd api/design
+      - cd foodstore-sdc
       - npm install
 
   build:
@@ -21,6 +21,7 @@ phases:
       - aws s3 cp dist/ s3://apihub-designs/ --recursive
       - echo "Haciendo público el HTML..."
       - aws s3api put-object-acl --bucket apihub-designs --key foodstore-sdc.html --acl public-read
+      - node update-manifest.js
 
 artifacts:
   files:

@@ -6,7 +6,7 @@ phases:
       nodejs: 20
     commands:
       - echo "Instalando dependencias.."
-      - cd api/design
+      - cd claim-cargocom
       - npm install
 
   build:
