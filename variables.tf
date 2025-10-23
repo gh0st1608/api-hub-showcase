@@ -22,6 +22,6 @@ variable "tags" {
 
 variable "aliases" {
   description = "Lista de subdominios/dominios adicionales para el certificado"
-  type = list(string)
+  type        = list(string)
   default     = []
 }

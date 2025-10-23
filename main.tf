@@ -30,32 +30,32 @@ module "iam" {
 } */
 
 module "hub_site" {
-  source              = "./modules/s3-static-site"
-  bucket_name         = "hub.solutionserj.com"
-  cloudfront_oai_id   = module.cloudfront_multisite.cf_oai_id  # ✅ usar ID, no path
-  tags                = local.common_tags
+  source            = "./modules/s3-static-site"
+  bucket_name       = "hub.solutionserj.com"
+  cloudfront_oai_id = module.cloudfront_multisite.cf_oai_id # ✅ usar ID, no path
+  tags              = local.common_tags
 }
 
 module "showcase_site" {
-  source              = "./modules/s3-static-site"
-  bucket_name         = "showcase.solutionserj.com"
-  cloudfront_oai_id   = module.cloudfront_multisite.cf_oai_id  # ✅ usar ID, no path
-  tags                = local.common_tags
+  source            = "./modules/s3-static-site"
+  bucket_name       = "showcase.solutionserj.com"
+  cloudfront_oai_id = module.cloudfront_multisite.cf_oai_id # ✅ usar ID, no path
+  tags              = local.common_tags
 }
 
 module "designs_bucket" {
-  source  = "./modules/s3-bucket"
+  source      = "./modules/s3-static-site"
   bucket_name = "apihub-designs"
-  tags         = local.common_tags
+  tags        = local.common_tags
 
   # Si tu módulo requiere el parámetro, puedes pasar null o comentarlo
   cloudfront_oai_id = null
 }
 
 module "cloudfront_multisite" {
-  source             = "./modules/cloudfront-multisite"
-  aliases            = var.aliases
-  cf_cert_arn        = var.cf_cert_arn
+  source      = "./modules/cloudfront-multisite"
+  aliases     = var.aliases
+  cf_cert_arn = var.cf_cert_arn
 
   sites = [
     {
