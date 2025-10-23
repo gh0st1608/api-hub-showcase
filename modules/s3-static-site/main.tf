@@ -31,13 +31,18 @@ module "s3_bucket" {
 }
 
 # ✅ Política que permite acceso SOLO desde CloudFront OAI
+data "aws_cloudfront_origin_access_identity" "this" {
+  id = var.cloudfront_oai_id
+}
+
 data "aws_iam_policy_document" "allow_cf_access" {
   statement {
     actions   = ["s3:GetObject"]
     resources = ["${module.s3_bucket.s3_bucket_arn}/*"]
+
     principals {
-      type        = "AWS"
-      identifiers = [var.cloudfront_oai_path]
+      type        = "CanonicalUser"
+      identifiers = [data.aws_cloudfront_origin_access_identity.this.s3_canonical_user_id]
     }
   }
 }

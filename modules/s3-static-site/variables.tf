@@ -3,8 +3,8 @@ variable "bucket_name" {
   type        = string
 }
 
-variable "cloudfront_oai_path" {
-  description = "Path del Origin Access Identity de CloudFront que tendrá acceso al bucket"
+variable "cloudfront_oai_id" {
+  description = "ID of the CloudFront Origin Access Identity"
   type        = string
 }
 
