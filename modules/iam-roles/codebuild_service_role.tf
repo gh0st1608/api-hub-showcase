@@ -34,6 +34,33 @@ resource "aws_iam_role_policy_attachment" "codebuild_logs" {
   policy_arn = "arn:aws:iam::aws:policy/CloudWatchLogsFullAccess"
 }
 
+# Permisos para usar CodeConnections (GitHub)
+resource "aws_iam_policy" "codeconnections_policy" {
+  name        = "AllowUseCodeConnections"
+  description = "Permite a CodeBuild usar la conexión de CodeConnections con GitHub"
+  policy      = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Effect = "Allow"
+        Action = [
+          "codeconnections:UseConnection",
+          "codeconnections:GetConnection",
+          "codeconnections:ListConnections"
+        ]
+        Resource = "arn:aws:codeconnections:us-east-1:248268265208:connection/a1e7bba0-3f3b-4399-a9e1-5b1e6f710c99"
+      }
+    ]
+  })
+}
+
+# Asociar la política al rol de CodeBuild
+resource "aws_iam_role_policy_attachment" "attach_codeconnections_policy_to_codebuild" {
+  role       = aws_iam_role.codebuild_service_role.name
+  policy_arn = aws_iam_policy.codeconnections_policy.arn
+}
+
+
 output "codebuild_service_role_arn" {
   value = aws_iam_role.codebuild_service_role.arn
 }
