@@ -5,7 +5,7 @@ variable "aws_region" {
 }
 
 variable "aws_env" {
-  description = "Ambiente de despliegue (dev, staging, prod)"
+  description = "Ambiente de despliegue (dev, stage, prod)"
   type        = string
 }
 
