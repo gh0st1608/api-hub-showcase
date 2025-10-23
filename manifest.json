@@ -1,0 +1,19 @@
+{
+  "updatedAt": "2025-10-23T22:15:00.000Z",
+  "designs": [
+    {
+      "id": "claim-cargocom",
+      "name": "API Claim Service",
+      "yaml": "https://d27ymv8t5c7e8n.cloudfront.net/claim-cargocom.yaml",
+      "html": "https://d27ymv8t5c7e8n.cloudfront.net/claim-cargocom.html",
+      "lastUpdated": "2025-10-23T22:15:00.000Z"
+    },
+    {
+      "id": "foodstore-sdc",
+      "name": "API Foodstore Service",
+      "yaml": "https://d27ymv8t5c7e8n.cloudfront.net/foodstore-sdc.yaml",
+      "html": "https://d27ymv8t5c7e8n.cloudfront.net/foodstore-sdc.html",
+      "lastUpdated": "2025-10-22T14:00:00.000Z"
+    }
+  ]
+}
