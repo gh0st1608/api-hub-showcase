@@ -26,4 +26,4 @@ phases:
 artifacts:
   files:
     - '**/*'
-  base-directory: api/design/dist
+  base-directory: foodstore-sdc/dist

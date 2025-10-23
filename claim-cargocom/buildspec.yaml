@@ -25,4 +25,4 @@ phases:
 artifacts:
   files:
     - '**/*'
-  base-directory: api/design/dist
+  base-directory: claim-cargocom/dist
