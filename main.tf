@@ -49,7 +49,7 @@ module "designs_bucket" {
   tags        = local.common_tags
 
   # Si tu módulo requiere el parámetro, puedes pasar null o comentarlo
-  cloudfront_oai_id = null
+  cloudfront_oai_id = module.cloudfront_multisite.cf_oai_id
 }
 
 module "cloudfront_multisite" {
