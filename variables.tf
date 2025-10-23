@@ -5,22 +5,19 @@ variable "aws_region" {
 }
 
 variable "aws_env" {
-  description = "Environment."
-  type        = string
-  default     = "dev"
-}
-
-variable "fqdn" {
-  description = "Nombre del bucket del frontend"
+  description = "Ambiente de despliegue (dev, staging, prod)"
   type        = string
 }
 
-variable "certificate_arn" {
-  description = "ACM certificate ARN for CloudFront (must be in us-east-1)"
+variable "cf_oai_arn" {
+  description = "ARN del Origin Access Identity (OAI) usado por CloudFront para acceder a los buckets S3"
   type        = string
-  default     = ""
 }
 
+variable "cf_cert_arn" {
+  description = "ARN del certificado ACM usado por CloudFront"
+  type        = string
+}
 
 variable "tags" {
   description = "Common tags map"
@@ -34,7 +31,7 @@ variable "aliases" {
   default     = []
 }
 
-variable "repository_form" {
+/* variable "repository_form" {
   description = "Repositorio del proyecto"
   type        = string
 }
@@ -42,4 +39,4 @@ variable "repository_form" {
 variable "dynamodb_tables" {
   type    = list(string)
   default = ["claim", "claim_counter"]
-}
+} */

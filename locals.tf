@@ -1,8 +1,7 @@
 locals {
-  fqdn        = var.fqdn
   common_tags = merge({
-    Project     = "forms-serverless"
-    Environment = "dev"
-    Owner       = "erick"
+    Project     = "apihub-showcase"
+    Environment = var.aws_env
+    Owner       = "ghost1608"
   }, var.tags)
 }

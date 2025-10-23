@@ -3,7 +3,7 @@ terraform {
     organization = "solutionserj"
 
     workspaces {
-      name = "api-hub-showcase"
+      name = "apihub-showcase"
     }
   }
 }
