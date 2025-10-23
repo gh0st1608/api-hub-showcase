@@ -1,2 +1,2 @@
 # api-hub-showcase
-Api catalogo - Demo Apps 
+Api catalogo - Demo
