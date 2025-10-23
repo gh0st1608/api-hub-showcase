@@ -46,7 +46,7 @@ module "trigger_design_claim" {
   repo_url         = "https://github.com/gh0st1608/api-hub-showcase"
   buildspec_path   = "claim-cargocom/buildspec.yml"
   branch           = "designs"
-  service_role_arn = module.iam.codebuild_service_role_arns
+  service_role_arn = module.iam.codebuild_service_role_arn
 }
 
 
