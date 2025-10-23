@@ -1,6 +1,11 @@
+resource "aws_cloudfront_origin_access_identity" "oai" {
+  comment = "OAI for multi-site CloudFront"
+}
+
 resource "aws_cloudfront_distribution" "multi_site" {
   enabled = true
   comment = "CloudFront multi-site"
+  default_root_object = "index.html"
 
   aliases = var.aliases
 
@@ -11,7 +16,7 @@ resource "aws_cloudfront_distribution" "multi_site" {
       origin_id   = "${origin.value.name}-origin"
 
       s3_origin_config {
-        origin_access_identity = var.cf_oai_arn
+        origin_access_identity = aws_cloudfront_origin_access_identity.oai.cloudfront_access_identity_path
       }
     }
   }
@@ -60,6 +65,9 @@ resource "aws_cloudfront_distribution" "multi_site" {
       restriction_type = "none"
     }
   }
+}
 
-  default_root_object = "index.html"
+
+output "cf_oai_id" {
+  value = aws_cloudfront_origin_access_identity.oai.id
 }

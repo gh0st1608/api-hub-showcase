@@ -9,11 +9,6 @@ variable "aws_env" {
   type        = string
 }
 
-variable "cf_oai_arn" {
-  description = "ARN del Origin Access Identity (OAI) usado por CloudFront para acceder a los buckets S3"
-  type        = string
-}
-
 variable "cf_cert_arn" {
   description = "ARN del certificado ACM usado por CloudFront"
   type        = string

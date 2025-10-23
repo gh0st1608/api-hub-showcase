@@ -37,7 +37,7 @@ data "aws_iam_policy_document" "allow_cf_access" {
     resources = ["${module.s3_bucket.s3_bucket_arn}/*"]
     principals {
       type        = "AWS"
-      identifiers = [var.cloudfront_oai_arn]
+      identifiers = [var.cloudfront_oai_path]
     }
   }
 }

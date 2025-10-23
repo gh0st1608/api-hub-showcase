@@ -7,10 +7,6 @@ variable "cf_cert_arn" {
   description = "ARN del certificado ACM"
 }
 
-variable "cf_oai_arn" {
-  description = "ARN del Origin Access Identity"
-}
-
 variable "sites" {
   type = list(object({
     name   = string
