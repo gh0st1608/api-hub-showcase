@@ -43,6 +43,15 @@ module "showcase_site" {
   tags                = local.common_tags
 }
 
+module "designs_bucket" {
+  source  = "./modules/s3-bucket"
+  bucket_name = "apihub-designs"
+  tags         = local.common_tags
+
+  # Si tu módulo requiere el parámetro, puedes pasar null o comentarlo
+  cloudfront_oai_id = null
+}
+
 module "cloudfront_multisite" {
   source             = "./modules/cloudfront-multisite"
   aliases            = var.aliases
