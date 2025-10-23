@@ -29,6 +29,27 @@ module "iam" {
   lambda_invoke_arn = module.lambda_telemedicine.lambda_arn
 } */
 
+module "trigger_design_foodstore" {
+  source           = "./modules/codebuild"
+  name             = "trigger-design-foodstore-sdc"
+  description      = "Build para diseño de Foodstore"
+  repo_url         = "https://github.com/gh0st1608/api-hub-showcase"
+  buildspec_path   = "foodstore-sdc/buildspec.yml"
+  branch           = "designs"
+  service_role_arn = module.iam.codebuild_service_role_arn
+}
+
+module "trigger_design_claim" {
+  source           = "./modules/codebuild"
+  name             = "trigger-design-claim-cargocom"
+  description      = "Build para diseño de Claim"
+  repo_url         = "https://github.com/gh0st1608/api-hub-showcase"
+  buildspec_path   = "claim-cargocom/buildspec.yml"
+  branch           = "designs"
+  service_role_arn = module.iam.codebuild_service_role_arns
+}
+
+
 module "hub_site" {
   source            = "./modules/s3-static-site"
   bucket_name       = "hub.solutionserj.com"
