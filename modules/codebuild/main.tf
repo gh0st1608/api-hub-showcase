@@ -30,8 +30,15 @@ resource "aws_codebuild_project" "this" {
     type            = "GITHUB"
     location        = var.repo_url
     buildspec       = var.buildspec_path
+    report_build_status = true
     git_clone_depth = 1
+
+    auth {
+      type     = "OAUTH"
+      resource = var.codeconnection_arn
+    }
   }
+
 }
 
 resource "aws_codebuild_webhook" "this" {

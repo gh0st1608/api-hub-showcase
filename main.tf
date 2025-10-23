@@ -30,23 +30,25 @@ module "iam" {
 } */
 
 module "trigger_design_foodstore" {
-  source           = "./modules/codebuild"
-  name             = "trigger-design-foodstore-sdc"
-  description      = "Build para diseño de Foodstore"
-  repo_url         = "https://github.com/gh0st1608/api-hub-showcase"
-  buildspec_path   = "foodstore-sdc/buildspec.yml"
-  branch           = "designs"
-  service_role_arn = module.iam.codebuild_service_role_arn
+  source             = "./modules/codebuild"
+  name               = "trigger-design-foodstore-sdc"
+  description        = "Build para diseño de Foodstore"
+  repo_url           = "https://github.com/gh0st1608/api-hub-showcase"
+  buildspec_path     = "foodstore-sdc/buildspec.yml"
+  branch             = "designs"
+  service_role_arn   = module.iam.codebuild_service_role_arn
+  codeconnection_arn = "arn:aws:codeconnections:us-east-1:248268265208:connection/a1e7bba0-3f3b-4399-a9e1-5b1e6f710c99"
 }
 
 module "trigger_design_claim" {
-  source           = "./modules/codebuild"
-  name             = "trigger-design-claim-cargocom"
-  description      = "Build para diseño de Claim"
-  repo_url         = "https://github.com/gh0st1608/api-hub-showcase"
-  buildspec_path   = "claim-cargocom/buildspec.yml"
-  branch           = "designs"
-  service_role_arn = module.iam.codebuild_service_role_arn
+  source             = "./modules/codebuild"
+  name               = "trigger-design-claim-cargocom"
+  description        = "Build para diseño de Claim"
+  repo_url           = "https://github.com/gh0st1608/api-hub-showcase"
+  buildspec_path     = "claim-cargocom/buildspec.yml"
+  branch             = "designs"
+  service_role_arn   = module.iam.codebuild_service_role_arn
+  codeconnection_arn = "arn:aws:codeconnections:us-east-1:248268265208:connection/a1e7bba0-3f3b-4399-a9e1-5b1e6f710c99"
 }
 
 
