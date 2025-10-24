@@ -34,6 +34,24 @@ resource "aws_iam_role_policy_attachment" "codebuild_logs" {
   policy_arn = "arn:aws:iam::aws:policy/CloudWatchLogsFullAccess"
 }
 
+resource "aws_iam_role_policy" "codebuild_cloudfront_invalidation" {
+  name = "CodeBuildCloudFrontInvalidation"
+  role = aws_iam_role.codebuild_service_role.id
+
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Effect = "Allow"
+        Action = [
+          "cloudfront:CreateInvalidation"
+        ]
+        Resource = "arn:aws:cloudfront::248268265208:distribution/E1VD9H39FYQZIE"
+      }
+    ]
+  })
+}
+
 # Permisos para usar CodeConnections (GitHub)
 resource "aws_iam_policy" "codeconnections_policy" {
   name        = "AllowUseCodeConnections"
