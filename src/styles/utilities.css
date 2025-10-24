@@ -1,6 +1,30 @@
+
 @reference "tailwindcss";
 
 @layer components {
+  /* Botones base */
+  .btn {
+    @apply inline-flex items-center px-4 py-2 rounded-lg font-medium transition-colors;
+  }
+
+  .btn-primary {
+    @apply inline-flex items-center px-4 py-2 rounded-lg font-medium bg-blue-600 text-white hover:bg-blue-700 transition-colors;
+  }
+
+  .btn-outline {
+    @apply inline-flex items-center px-4 py-2 rounded-lg font-medium border border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white transition-colors;
+  }
+
+  /* Navbar */
+  .navbar-link {
+    @apply text-slate-700 hover:text-blue-600 transition-colors;
+  }
+
+  .navbar-button {
+    @apply inline-flex items-center px-4 py-2 rounded-lg font-medium border border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white transition-colors text-sm;
+  }
+
+  /* Cards, secciones y footer */
   .card {
     @apply bg-white border border-slate-200 rounded-xl p-6 shadow-sm hover:shadow-lg transition;
   }
@@ -11,18 +35,6 @@
 
   .card-desc {
     @apply text-slate-600 mb-4;
-  }
-
-  .btn {
-    @apply inline-flex items-center px-4 py-2 rounded-lg font-medium transition-colors;
-  }
-
-  .btn-primary {
-    @apply bg-blue-600 text-white hover:bg-blue-700;
-  }
-
-  .btn-outline {
-    @apply border border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white;
   }
 
   .section-title {
