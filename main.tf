@@ -88,6 +88,10 @@ module "cloudfront_multisite" {
     {
       name   = "showcase"
       bucket = module.showcase_site.bucket_name
+    },
+    {
+      name   = "apihub-designs"
+      bucket = module.designs_bucket.bucket_name
     }
   ]
 
