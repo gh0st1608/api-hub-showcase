@@ -1,0 +1,29 @@
+version: 0.2
+
+env:
+  variables:
+    S3_BUCKET_NAME: "hub.solutionserj.com"          # Cambia por tu bucket
+    CLOUDFRONT_DISTRIBUTION_ID: "E1VD9H39FYQZIE" # Cambia por tu ID de distribución CloudFront
+
+phases:
+  install:
+    runtime-versions:
+      nodejs: 20
+    commands:
+      - echo "Instalando dependencias..."
+      - npm install
+  build:
+    commands:
+      - echo "Construyendo la app React..."
+      - npm run build
+  post_build:
+    commands:
+      - echo "Sincronizando archivos con S3..."
+      - aws s3 sync dist/ s3://$S3_BUCKET_NAME --delete
+      - echo "Invalidando cache de CloudFront..."
+      - aws cloudfront create-invalidation --distribution-id $CLOUDFRONT_DISTRIBUTION_ID --paths "/index.html" "/assets/*" "/vite.svg"
+
+artifacts:
+  files:
+    - '**/*'
+  base-directory: build
