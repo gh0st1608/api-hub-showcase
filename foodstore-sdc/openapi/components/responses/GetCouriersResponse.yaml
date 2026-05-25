@@ -1,0 +1,26 @@
+description: Retorna el listado paginado de couriers.
+content:
+  application/json:
+    schema:
+      allOf:
+        - $ref: ../schemas/model_response/StandardResponse.yaml
+        - $ref: ../schemas/model_response/CourierListRes.yaml
+    examples:
+      Couriers-Encontrados:
+        summary: Lista de couriers
+        value:
+          Data:
+            items:
+              - courierId: a0271854-eed8-486d-9ab4-74ef822aa1f4
+                name: Luis Soto
+                phone: '987654321'
+                vehicleType: MOTO
+                status: AVAILABLE
+                currentOrderId: null
+                currentLat: -12.0464
+                currentLng: -77.0428
+                createdAt: '2026-05-24T18:30:00Z'
+            count: 1
+            nextCursor: null
+            statusCode: 200
+            message: Courier obtenido con exito

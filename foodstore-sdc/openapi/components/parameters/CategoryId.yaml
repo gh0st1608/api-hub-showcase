@@ -1,0 +1,11 @@
+name: categoryId
+in: query
+description: Identificador de categoria para filtrar productos.
+required: false
+schema:
+  type: string
+  format: uuid
+  minLength: 36
+  maxLength: 36
+  pattern: '[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}'
+  example: 3d808990-5158-4af0-8a24-9326f59419a2

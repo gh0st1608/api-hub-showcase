@@ -1,20 +1,26 @@
-description: Entidad para crear un producto
 required: true
 content:
   application/json:
     schema:
       $ref: ../schemas/model_request/CreateProduct.yaml
     examples:
-      Caso-Prueba-01:
-        summary: Caso Prueba 01
+      Crear-Producto:
+        summary: Registro de producto
         value:
           Data:
             Product:
-              status: true
-              business: 'RESTAURANT'
-              type: 'CARTA'
-              name: 'ARROZ CON POLLO'
-              price : 10
-              category: 'ARROCES'
-              description: Arroz graneado con pollo fresco.
-              image: https://restaurante-images.s3.us-east-1.amazonaws.com/uploads/1743964953
+              name: Hamburguesa Clasica
+              description: Hamburguesa artesanal con queso cheddar
+              categoryId: 3d808990-5158-4af0-8a24-9326f59419a2
+              storeId: 62977d46-7a50-41c9-8d84-38272ac2a8df
+              price: 24.9
+              currency: PEN
+              stock: 35
+              ingredients:
+                - name: Carne
+                  quantity: 180
+                  unit: g
+                  image: https://cdn.foodstore.com/ingredients/carne.png
+                - name: Pan
+                  quantity: 1
+                  unit: unit

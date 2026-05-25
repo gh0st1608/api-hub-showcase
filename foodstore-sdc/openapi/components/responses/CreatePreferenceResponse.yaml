@@ -1,0 +1,17 @@
+description: Retorna los identificadores de las preferencias creadas.
+content:
+  application/json:
+    schema:
+      allOf:
+        - $ref: ../schemas/model_response/StandardResponse.yaml
+        - $ref: ../schemas/model_response/PreferenceCreateRes.yaml
+    examples:
+      Preferencias-Creadas:
+        summary: Preferencias creadas correctamente
+        value:
+          Data:
+            preference:
+              - 7d4be61b-72a3-414d-ac3a-3b1ddb9b96e0
+              - 117752b9-cfed-4fb4-ae2e-f67b2f65d5d3
+            statusCode: 200
+            message: Preferencia creado con exito

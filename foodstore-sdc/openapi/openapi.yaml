@@ -3,11 +3,20 @@ info:
   version: 1.0.0
   title: API de Negocio Foodstore
   description: >
-    API de negocio Foodstore, donde se define los alcances recursos.
-      Recuros:
+    API de negocio Foodstore, donde se definen los alcances funcionales
+    de los microservicios del ecosistema.
+      Recursos:
 
-        - Product
-        - 
+        - Auth
+        - Users
+        - Preferences
+        - Products
+        - Categories
+        - Stores
+        - Orders
+        - Couriers
+        - Payments
+        - Checkouts
 
   contact:
     name: Erick Galindo Aguilar
@@ -23,37 +32,102 @@ servers:
     description: Servidor de ambiente Desarrollo
 
 tags:
-  - name: Products
-    description: >
-      Agrupa los servicios de gestión sobre el recurso de: Producto
-  - name: Orders
-    description: >
-      Agrupa los servicios de gestión sobre el recurso de: Orden
-  - name: Payments
-    description: >
-      Agrupa los servicios de gestión sobre el recurso de: Pago
   - name: Auths
     description: >
-      Agrupa los servicios de gestión sobre el recurso de: Auth
+      Agrupa los servicios de gestion sobre el recurso de: Auth
+  - name: Users
+    description: >
+      Agrupa los servicios de gestion sobre el recurso de: User
+  - name: Preferences
+    description: >
+      Agrupa los servicios de gestion sobre el recurso de: Preference
+  - name: Products
+    description: >
+      Agrupa los servicios de gestion sobre el recurso de: Product
+  - name: Categories
+    description: >
+      Agrupa los servicios de gestion sobre el recurso de: Category
+  - name: Stores
+    description: >
+      Agrupa los servicios de gestion sobre el recurso de: Store
+  - name: Orders
+    description: >
+      Agrupa los servicios de gestion sobre el recurso de: Order
+  - name: Couriers
+    description: >
+      Agrupa los servicios de gestion sobre el recurso de: Courier
+  - name: Payments
+    description: >
+      Agrupa los servicios de gestion sobre el recurso de: Payment
+  - name: Checkouts
+    description: >
+      Agrupa los servicios de gestion sobre el recurso de: Cart
 
-paths: 
-  '/products/register':
-    $ref: 'paths/Product@create.yaml'
-  '/orders/register':
-    $ref: 'paths/Order@create.yaml'
-  '/payments/register':
-    $ref: 'paths/Payment@create.yaml'
-  '/products/{id}':
-    $ref: 'paths/Product@upd@del@get.yaml'
-  '/auths/login':
+paths:
+  '/auth/login':
     $ref: 'paths/Auth@login.yaml'
-  #'/auths/register':
-  #  $ref: 'paths/Auth@register'  
+  '/auth/register':
+    $ref: 'paths/Auth@register.yaml'
+  '/auth/verify-email':
+    $ref: 'paths/Auth@verify-email.yaml'
+  '/auth/verify-code':
+    $ref: 'paths/Auth@verify-code.yaml'
+  '/auth/set-password':
+    $ref: 'paths/Auth@set-password.yaml'
+  '/auth/preferences':
+    $ref: 'paths/Preference@create@get.yaml'
+  '/auth/users':
+    $ref: 'paths/User@get-list.yaml'
+  '/auth/users/{id}':
+    $ref: 'paths/User@get-by-id.yaml'
+  '/auth/me':
+    $ref: 'paths/Auth@me.yaml'
+  '/shop/products':
+    $ref: 'paths/Product@create@get-list.yaml'
+  '/shop/products/{id}':
+    $ref: 'paths/Product@get-by-id.yaml'
+  '/shop/categories':
+    $ref: 'paths/Category@create@get-list.yaml'
+  '/shop/stores/{id}/location':
+    $ref: 'paths/Store@get-location.yaml'
+  '/order':
+    $ref: 'paths/Order@create@get-list.yaml'
+  '/order/{id}':
+    $ref: 'paths/Order@get-by-id.yaml'
+  '/order/{orderId}/status':
+    $ref: 'paths/Order@update-status.yaml'
+  '/order/{orderId}/status-delivery':
+    $ref: 'paths/Order@get-status-delivery.yaml'
+  '/order/{orderId}/assign/{courierId}':
+    $ref: 'paths/Order@assign-courier.yaml'
+  '/courier':
+    $ref: 'paths/Courier@create@get-list.yaml'
+  '/courier/{courierId}':
+    $ref: 'paths/Courier@get-by-id.yaml'
+  '/courier/{courierId}/presence':
+    $ref: 'paths/Courier@update-presence.yaml'
+  '/payment':
+    $ref: 'paths/Payment@create@get-list.yaml'
+  '/payment/paypal':
+    $ref: 'paths/Payment@create-paypal.yaml'
+  '/payment/confirm':
+    $ref: 'paths/Payment@confirm.yaml'
+  '/checkout/carts/{userId}':
+    $ref: 'paths/Checkout@cart@get@clear.yaml'
+  '/checkout/carts/{userId}/items':
+    $ref: 'paths/Checkout@cart-item@create.yaml'
+  '/checkout/carts/{userId}/items/{productId}':
+    $ref: 'paths/Checkout@cart-item@delete.yaml'
 
 components:
   securitySchemes:
     api_key:
-      description: Código único del Cliente.
-      type: "apiKey"
-      name: "x-api-key"
-      in: "header"
+      description: Codigo unico del Cliente.
+      type: apiKey
+      name: x-api-key
+      in: header
+    bearerAuth:
+      description: Token JWT de acceso.
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

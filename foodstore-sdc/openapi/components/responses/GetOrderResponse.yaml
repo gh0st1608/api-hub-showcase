@@ -1,0 +1,33 @@
+description: Retorna la informacion detallada de la orden.
+content:
+  application/json:
+    schema:
+      allOf:
+        - $ref: ../schemas/model_response/StandardResponse.yaml
+        - $ref: ../schemas/model_response/OrderRes.yaml
+    examples:
+      Orden-Encontrada:
+        summary: Consulta de orden por identificador
+        value:
+          Data:
+            order:
+              orderId: 62977d46-7a50-41c9-8d84-38272ac2a8df
+              userId: 0af43a51-a4f0-4f7d-a798-2372456d6a19
+              courierId: null
+              pickupLat: -12.0432
+              pickupLng: -77.0282
+              dropoffLat: -12.0505
+              dropoffLng: -77.0332
+              items:
+                - productId: 3d808990-5158-4af0-8a24-9326f59419a2
+                  name: Hamburguesa Clasica
+                  price: 24.9
+                  quantity: 2
+              totalAmount: 49.8
+              status: PENDING
+              statusDelivery: ASSIGNED
+              createdAt: '2026-05-24T18:30:00Z'
+              updatedAt: '2026-05-24T18:45:00Z'
+              deletedAt: null
+            statusCode: 200
+            message: Orden obtenido con exito

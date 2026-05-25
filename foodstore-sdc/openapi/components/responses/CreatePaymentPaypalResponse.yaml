@@ -1,0 +1,18 @@
+description: Retorna la orden creada en Paypal.
+content:
+  application/json:
+    schema:
+      allOf:
+        - $ref: ../schemas/model_response/StandardResponse.yaml
+        - $ref: ../schemas/model_response/PaymentPaypalRes.yaml
+    examples:
+      Pago-Paypal-Creado:
+        summary: Orden Paypal creada
+        value:
+          Data:
+            payment:
+              providerOrderId: 8S123456AB123456C
+              redirectUrl: https://www.sandbox.paypal.com/checkoutnow?token=8S123456AB123456C
+              paymentId: 117752b9-cfed-4fb4-ae2e-f67b2f65d5d3
+            statusCode: 200
+            message: Pago de paypal creado con exito

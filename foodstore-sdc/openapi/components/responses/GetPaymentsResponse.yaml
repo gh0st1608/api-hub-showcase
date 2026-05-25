@@ -1,0 +1,29 @@
+description: Retorna el listado paginado de pagos.
+content:
+  application/json:
+    schema:
+      allOf:
+        - $ref: ../schemas/model_response/StandardResponse.yaml
+        - $ref: ../schemas/model_response/PaymentRes.yaml
+    examples:
+      Pagos-Encontrados:
+        summary: Lista de pagos
+        value:
+          Data:
+            items:
+              - paymentId: 117752b9-cfed-4fb4-ae2e-f67b2f65d5d3
+                orderId: 62977d46-7a50-41c9-8d84-38272ac2a8df
+                providerOrderId: 8S123456AB123456C
+                amount: 49.8
+                currency: USD
+                status: APROBADO
+                provider: Paypal
+                providerPaymentId: 3GG279541U471931P
+                payerEmail: buyer@foodstore.com
+                createdAt: '2026-05-24T18:30:00Z'
+                updatedAt: '2026-05-24T18:35:00Z'
+                deletedAt: null
+            count: 1
+            nextCursor: null
+            statusCode: 200
+            message: Lista de pagos obtenido con exito

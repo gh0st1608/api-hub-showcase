@@ -1,0 +1,16 @@
+description: Retorna el estado de validacion del codigo de verificacion.
+content:
+  application/json:
+    schema:
+      allOf:
+        - $ref: ../schemas/model_response/StandardResponse.yaml
+        - $ref: ../schemas/model_response/VerifyEmailRes.yaml
+    examples:
+      Codigo-Verificado:
+        summary: Codigo validado correctamente
+        value:
+          Data:
+            User:
+              verifyEmail: true
+            statusCode: 200
+            message: Email verificado correctamente

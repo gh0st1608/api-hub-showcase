@@ -1,0 +1,106 @@
+parameters:
+  - $ref: ../components/parameters/Channel.yaml
+  - $ref: ../components/parameters/ApiKey.yaml
+  - name: userId
+    in: path
+    description: Identificador unico del usuario asociado al carrito.
+    required: true
+    schema:
+      type: string
+      format: uuid
+      minLength: 36
+      maxLength: 36
+      pattern: '[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}'
+      example: 0af43a51-a4f0-4f7d-a798-2372456d6a19
+
+get:
+  summary: Get Cart By User
+  operationId: getCartByUser
+  description: >
+    Procesos: Consulta del carrito por usuario.
+
+
+    Funcionalidad: Recuperar el detalle actual de items del carrito.
+
+
+    Objetivo: Exponer el estado del checkout antes de pagar.
+
+
+    Comentarios:
+
+  tags:
+    - Checkouts
+
+  responses:
+    '200':
+      $ref: ../components/responses/GetCartResponse.yaml
+    '400':
+      $ref: ../components/statusCodes/BadRequestResponse.yaml
+    '401':
+      $ref: ../components/statusCodes/UnauthorizedResponse.yaml
+    '403':
+      $ref: ../components/statusCodes/ForbiddenResponse.yaml
+    '404':
+      $ref: ../components/statusCodes/NotFoundResponse.yaml
+    '407':
+      $ref: ../components/statusCodes/ProxyAuthenticationResponse.yaml
+    '409':
+      $ref: ../components/statusCodes/ConflictResponse.yaml
+    '411':
+      $ref: ../components/statusCodes/LengthRequiredResponse.yaml
+    '414':
+      $ref: ../components/statusCodes/UriTooLongResponse.yaml
+    '429':
+      $ref: ../components/statusCodes/TooManyRequestsResponse.yaml
+    '500':
+      $ref: ../components/statusCodes/InternalServerErrorResponse.yaml
+    default:
+      $ref: ../components/statusCodes/UnexpectedErrorResponse.yaml
+  security:
+    - api_key: []
+
+delete:
+  summary: Clear Cart By User
+  operationId: clearCartByUser
+  description: >
+    Procesos: Vaciado completo del carrito.
+
+
+    Funcionalidad: Eliminar todos los items asociados al usuario.
+
+
+    Objetivo: Reiniciar el checkout del cliente.
+
+
+    Comentarios:
+
+  tags:
+    - Checkouts
+
+  responses:
+    '200':
+      $ref: ../components/responses/ClearCartResponse.yaml
+    '400':
+      $ref: ../components/statusCodes/BadRequestResponse.yaml
+    '401':
+      $ref: ../components/statusCodes/UnauthorizedResponse.yaml
+    '403':
+      $ref: ../components/statusCodes/ForbiddenResponse.yaml
+    '404':
+      $ref: ../components/statusCodes/NotFoundResponse.yaml
+    '407':
+      $ref: ../components/statusCodes/ProxyAuthenticationResponse.yaml
+    '409':
+      $ref: ../components/statusCodes/ConflictResponse.yaml
+    '411':
+      $ref: ../components/statusCodes/LengthRequiredResponse.yaml
+    '414':
+      $ref: ../components/statusCodes/UriTooLongResponse.yaml
+    '429':
+      $ref: ../components/statusCodes/TooManyRequestsResponse.yaml
+    '500':
+      $ref: ../components/statusCodes/InternalServerErrorResponse.yaml
+    default:
+      $ref: ../components/statusCodes/UnexpectedErrorResponse.yaml
+  security:
+    - api_key: []

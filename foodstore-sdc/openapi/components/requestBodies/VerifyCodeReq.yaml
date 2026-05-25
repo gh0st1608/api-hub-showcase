@@ -1,0 +1,13 @@
+required: true
+content:
+  application/json:
+    schema:
+      $ref: ../schemas/model_request/VerifyCode.yaml
+    examples:
+      Validar-Codigo:
+        summary: Verificar codigo de 4 digitos
+        value:
+          Data:
+            User:
+              email: user@foodstore.com
+              code: '1234'

@@ -1,0 +1,15 @@
+description: Retorna el identificador del courier creado.
+content:
+  application/json:
+    schema:
+      allOf:
+        - $ref: ../schemas/model_response/StandardResponse.yaml
+        - $ref: ../schemas/model_response/CreateCourierRes.yaml
+    examples:
+      Courier-Creado:
+        summary: Creacion de courier
+        value:
+          Data:
+            courier: a0271854-eed8-486d-9ab4-74ef822aa1f4
+            statusCode: 200
+            message: Courier obtenido con exito

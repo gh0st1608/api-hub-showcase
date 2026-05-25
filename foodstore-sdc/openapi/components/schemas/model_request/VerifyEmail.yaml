@@ -1,0 +1,19 @@
+type: object
+description: Esquema para enviar un codigo de verificacion por correo.
+properties:
+  Data:
+    type: object
+    properties:
+      User:
+        type: object
+        properties:
+          email:
+            type: string
+            format: email
+            example: user@foodstore.com
+        required:
+          - email
+    required:
+      - User
+required:
+  - Data

@@ -1,0 +1,50 @@
+type: object
+description: Devuelve una lista paginada de preferencias.
+properties:
+  Data:
+    type: object
+    properties:
+      items:
+        type: array
+        items:
+          type: object
+          properties:
+            preferenceId:
+              $ref: ../attributes/id.yaml
+            userId:
+              $ref: ../attributes/id.yaml
+            categoryId:
+              $ref: ../attributes/id.yaml
+            active:
+              type: boolean
+              example: true
+            createdAt:
+              type: string
+              format: date-time
+              example: '2026-05-24T18:30:00Z'
+            updatedAt:
+              type: string
+              format: date-time
+              nullable: true
+              example: '2026-05-24T18:45:00Z'
+            deletedAt:
+              type: string
+              format: date-time
+              nullable: true
+              example: null
+      count:
+        type: integer
+        example: 2
+      nextCursor:
+        type: string
+        nullable: true
+        example: null
+      statusCode:
+        $ref: ../attributes/code.yaml
+      message:
+        $ref: ../attributes/message.yaml
+    required:
+      - items
+      - count
+      - statusCode
+      - message

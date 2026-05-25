@@ -1,0 +1,27 @@
+description: Retorna la informacion detallada del courier.
+content:
+  application/json:
+    schema:
+      allOf:
+        - $ref: ../schemas/model_response/StandardResponse.yaml
+        - $ref: ../schemas/model_response/CourierRes.yaml
+    examples:
+      Courier-Encontrado:
+        summary: Consulta de courier por identificador
+        value:
+          Data:
+            courier:
+              courierId: a0271854-eed8-486d-9ab4-74ef822aa1f4
+              name: Luis Soto
+              phone: '987654321'
+              vehicleType: MOTO
+              status: AVAILABLE
+              currentOrderId: null
+              currentLat: -12.0464
+              currentLng: -77.0428
+              lastLocationAt: '2026-05-24T18:45:00Z'
+              createdAt: '2026-05-24T18:30:00Z'
+              updatedAt: '2026-05-24T18:45:00Z'
+              deletedAt: null
+            statusCode: 200
+            message: Courier obtenido con exito

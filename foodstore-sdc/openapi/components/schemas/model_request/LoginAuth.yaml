@@ -1,16 +1,35 @@
 type: object
-description: Esquema para autenticar un usuario en el sistema
+description: Esquema para autenticar un usuario con credenciales.
 properties:
   Data:
     type: object
     properties:
-      Login:
-        description: Tipos de autenticación soportados por el sistema.
-        oneOf:
-          - $ref: ../attributes/auth/authPassword.yaml
-          - $ref: ../attributes/auth/authOAuth.yaml
-        discriminator:
-          propertyName: authType
-          mapping:
-            password: ../attributes/auth/authPassword.yaml
-            oauth: ../attributes/auth/authOAuth.yaml
+      Auth:
+        type: object
+        properties:
+          authType:
+            type: string
+            description: Tipo de autenticacion soportado por el microservicio.
+            enum: [password]
+            example: password
+          email:
+            type: string
+            format: email
+            example: user@foodstore.com
+          password:
+            type: string
+            minLength: 8
+            maxLength: 128
+            example: Password123!
+          captchaToken:
+            type: string
+            description: Token de captcha opcional.
+            example: 03AGdBq24-example-token
+        required:
+          - authType
+          - email
+          - password
+    required:
+      - Auth
+required:
+  - Data

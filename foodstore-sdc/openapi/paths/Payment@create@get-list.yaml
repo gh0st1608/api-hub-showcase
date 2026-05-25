@@ -1,0 +1,103 @@
+parameters:
+  - $ref: ../components/parameters/Channel.yaml
+  - $ref: ../components/parameters/ApiKey.yaml
+
+post:
+  summary: Create Payment
+  operationId: createPayment
+  description: >
+    Procesos: Registro de un pago.
+
+
+    Funcionalidad: Persistir una intencion de pago asociada a una orden.
+
+
+    Objetivo: Iniciar la trazabilidad del cobro.
+
+
+    Comentarios:
+
+  tags:
+    - Payments
+
+  requestBody:
+    $ref: ../components/requestBodies/CreatePaymentReq.yaml
+
+  responses:
+    '200':
+      $ref: ../components/responses/CreatePaymentResponse.yaml
+    '400':
+      $ref: ../components/statusCodes/BadRequestResponse.yaml
+    '401':
+      $ref: ../components/statusCodes/UnauthorizedResponse.yaml
+    '403':
+      $ref: ../components/statusCodes/ForbiddenResponse.yaml
+    '404':
+      $ref: ../components/statusCodes/NotFoundResponse.yaml
+    '407':
+      $ref: ../components/statusCodes/ProxyAuthenticationResponse.yaml
+    '409':
+      $ref: ../components/statusCodes/ConflictResponse.yaml
+    '411':
+      $ref: ../components/statusCodes/LengthRequiredResponse.yaml
+    '414':
+      $ref: ../components/statusCodes/UriTooLongResponse.yaml
+    '429':
+      $ref: ../components/statusCodes/TooManyRequestsResponse.yaml
+    '500':
+      $ref: ../components/statusCodes/InternalServerErrorResponse.yaml
+    default:
+      $ref: ../components/statusCodes/UnexpectedErrorResponse.yaml
+  security:
+    - api_key: []
+
+get:
+  summary: Get Payments
+  operationId: getPayments
+  description: >
+    Procesos: Consulta paginada de pagos.
+
+
+    Funcionalidad: Recuperar pagos por limite, cursor y usuario.
+
+
+    Objetivo: Exponer el historial de transacciones.
+
+
+    Comentarios:
+
+  tags:
+    - Payments
+
+  parameters:
+    - $ref: ../components/parameters/Limit.yaml
+    - $ref: ../components/parameters/Cursor.yaml
+    - $ref: ../components/parameters/UserId.yaml
+
+  responses:
+    '200':
+      $ref: ../components/responses/GetPaymentsResponse.yaml
+    '400':
+      $ref: ../components/statusCodes/BadRequestResponse.yaml
+    '401':
+      $ref: ../components/statusCodes/UnauthorizedResponse.yaml
+    '403':
+      $ref: ../components/statusCodes/ForbiddenResponse.yaml
+    '404':
+      $ref: ../components/statusCodes/NotFoundResponse.yaml
+    '407':
+      $ref: ../components/statusCodes/ProxyAuthenticationResponse.yaml
+    '409':
+      $ref: ../components/statusCodes/ConflictResponse.yaml
+    '411':
+      $ref: ../components/statusCodes/LengthRequiredResponse.yaml
+    '414':
+      $ref: ../components/statusCodes/UriTooLongResponse.yaml
+    '429':
+      $ref: ../components/statusCodes/TooManyRequestsResponse.yaml
+    '500':
+      $ref: ../components/statusCodes/InternalServerErrorResponse.yaml
+    default:
+      $ref: ../components/statusCodes/UnexpectedErrorResponse.yaml
+  security:
+    - api_key: []

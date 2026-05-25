@@ -1,0 +1,15 @@
+required: true
+content:
+  application/json:
+    schema:
+      $ref: ../schemas/model_request/CreatePreference.yaml
+    examples:
+      Guardar-Preferencias:
+        summary: Registrar categorias favoritas del usuario
+        value:
+          Data:
+            Preference:
+              userId: 62977d46-7a50-41c9-8d84-38272ac2a8df
+              categoryIds:
+                - 3d808990-5158-4af0-8a24-9326f59419a2
+                - 1f58d65b-6b1d-4d8d-84f0-c0f7afad1323

@@ -1,32 +1,34 @@
 type: object
-description: Entidad que permite registrar un pago realizado por un cliente
+description: Esquema para registrar un pago.
 properties:
   Data:
     type: object
     properties:
       Payment:
         type: object
-        required:
-          - orderId
-          - provider
-          - state
-          - amountTotal
-          - currency
-          - datePayment
         properties:
           orderId:
-            $ref: ../attributes/mongoId.yaml
-          provider:
-            $ref: ../attributes/payment/providerPayment.yaml
-          state:
-            $ref: ../attributes/payment/statePayment.yaml
-          amountTotal:
-            $ref: ../attributes/products/price.yaml
+            $ref: ../attributes/id.yaml
+          amount:
+            type: number
+            format: double
+            example: 49.8
           currency:
-            $ref: ../attributes/currency.yaml
-          transactionId:
-            $ref: ../attributes/transactionId.yaml
-          datePayment:
-            $ref: ../attributes/payment/datePayment.yaml
-          description:
-            $ref: ../attributes/message.yaml
+            type: string
+            example: USD
+          provider:
+            type: string
+            enum: [Paypal, Stripe]
+            example: Paypal
+          providerOrderId:
+            type: string
+            example: 8S123456AB123456C
+        required:
+          - orderId
+          - amount
+          - currency
+          - provider
+    required:
+      - Payment
+required:
+  - Data

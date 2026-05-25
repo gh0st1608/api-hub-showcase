@@ -1,36 +1,64 @@
 type: object
-description: Entidad permite crear un producto
+description: Esquema para crear un producto.
 properties:
   Data:
     type: object
     properties:
       Product:
-        required:
-          - status
-          - business
-          - type
-          - name
-          - price
-          - category
-          - description
         type: object
         properties:
-          status:
-            $ref: ../attributes/products/status.yaml
-          business:
-            $ref: ../attributes/products/business.yaml
-          type:
-            $ref: ../attributes/products/type.yaml
           name:
-            $ref: ../attributes/products/name.yaml
-          price:
-            $ref: ../attributes/products/price.yaml
-          category:
-            $ref: ../attributes/products/category.yaml
+            type: string
+            example: Hamburguesa Clasica
           description:
-            $ref: ../attributes/products/description.yaml
-          image:
-            $ref: ../attributes/products/image.yaml
-
-
-          
+            type: string
+            example: Hamburguesa artesanal con queso cheddar
+          categoryId:
+            $ref: ../attributes/id.yaml
+          storeId:
+            $ref: ../attributes/id.yaml
+          price:
+            type: number
+            format: double
+            example: 24.9
+          currency:
+            type: string
+            example: PEN
+          stock:
+            type: number
+            format: double
+            example: 35
+          ingredients:
+            type: array
+            items:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: Carne
+                quantity:
+                  type: number
+                  format: double
+                  example: 180
+                unit:
+                  type: string
+                  enum: [g, kg, ml, l, unit]
+                  example: g
+                image:
+                  type: string
+                  format: uri
+                  example: https://cdn.foodstore.com/ingredients/carne.png
+              required:
+                - name
+                - quantity
+                - unit
+        required:
+          - name
+          - description
+          - categoryId
+          - storeId
+          - price
+    required:
+      - Product
+required:
+  - Data

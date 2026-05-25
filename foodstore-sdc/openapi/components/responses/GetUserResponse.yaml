@@ -1,0 +1,26 @@
+description: Retorna la informacion detallada de un usuario.
+content:
+  application/json:
+    schema:
+      allOf:
+        - $ref: ../schemas/model_response/StandardResponse.yaml
+        - $ref: ../schemas/model_response/UserRes.yaml
+    examples:
+      Usuario-Encontrado:
+        summary: Consulta de usuario por identificador
+        value:
+          Data:
+            user:
+              userId: 62977d46-7a50-41c9-8d84-38272ac2a8df
+              name: Juan Perez
+              lastname: Aguilar
+              email: user@foodstore.com
+              roles: user
+              photo: https://cdn.foodstore.com/users/photo.png
+              onboardingRequired: false
+              active: true
+              createdAt: '2026-05-24T18:30:00Z'
+              updatedAt: '2026-05-24T18:45:00Z'
+              deletedAt: null
+            statusCode: 200
+            message: Usuario obtenido con exito

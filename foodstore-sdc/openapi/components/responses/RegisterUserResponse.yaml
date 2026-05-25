@@ -1,0 +1,17 @@
+description: Retorna los tokens generados luego del registro del usuario.
+content:
+  application/json:
+    schema:
+      allOf:
+        - $ref: ../schemas/model_response/StandardResponse.yaml
+        - $ref: ../schemas/model_response/LoginAuthRes.yaml
+    examples:
+      Registro-Exitoso:
+        summary: Usuario registrado correctamente
+        value:
+          Data:
+            Auth:
+              accessToken: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.access
+              refreshToken: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.refresh
+            statusCode: 201
+            message: Usuario registrado correctamente

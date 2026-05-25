@@ -1,0 +1,25 @@
+description: Retorna el listado paginado de categorias.
+content:
+  application/json:
+    schema:
+      allOf:
+        - $ref: ../schemas/model_response/StandardResponse.yaml
+        - $ref: ../schemas/model_response/CategoryListRes.yaml
+    examples:
+      Categorias-Encontradas:
+        summary: Lista paginada de categorias
+        value:
+          Data:
+            items:
+              - categoryId: 3d808990-5158-4af0-8a24-9326f59419a2
+                name: Hamburguesas
+                description: Categoria de hamburguesas y sandwiches
+                image: https://cdn.foodstore.com/categories/hamburguesas.png
+                active: true
+                createdAt: '2026-05-24T18:30:00Z'
+                updatedAt: null
+                deletedAt: null
+            count: 1
+            nextCursor: null
+            statusCode: 200
+            message: Categorias encontrados con exito

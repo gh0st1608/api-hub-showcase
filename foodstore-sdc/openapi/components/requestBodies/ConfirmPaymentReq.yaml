@@ -1,0 +1,14 @@
+required: true
+content:
+  application/json:
+    schema:
+      $ref: ../schemas/model_request/ConfirmPayment.yaml
+    examples:
+      Confirmar-Pago:
+        summary: Confirmar pago Paypal
+        value:
+          Data:
+            Payment:
+              token: 8S123456AB123456C
+              PayerID: ABCD1234EFGH
+              provider: Paypal

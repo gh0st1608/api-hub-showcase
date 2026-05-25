@@ -1,0 +1,21 @@
+type: object
+description: Devuelve el identificador de la categoria creada.
+properties:
+  Data:
+    type: object
+    properties:
+      category:
+        type: object
+        properties:
+          id:
+            $ref: ../attributes/id.yaml
+        required:
+          - id
+      statusCode:
+        $ref: ../attributes/code.yaml
+      message:
+        $ref: ../attributes/message.yaml
+    required:
+      - category
+      - statusCode
+      - message

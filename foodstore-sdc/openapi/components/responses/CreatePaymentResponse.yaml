@@ -1,4 +1,4 @@
-description: Retorna mensaje de creación de producto
+description: Retorna el identificador del pago creado.
 content:
   application/json:
     schema:
@@ -6,11 +6,10 @@ content:
         - $ref: ../schemas/model_response/StandardResponse.yaml
         - $ref: ../schemas/model_response/CreatePaymentRes.yaml
     examples:
-      Caso-Prueba-01:
-        summary: Crear producto
+      Pago-Creado:
+        summary: Creacion de pago
         value:
           Data:
-            id: 3b24cf17-8908-4fe0-ac09-fbd9174685f1
+            payment: 117752b9-cfed-4fb4-ae2e-f67b2f65d5d3
             statusCode: 200
-            message: Creación de producto exitosa
-            
+            message: Pago confirmado con exito

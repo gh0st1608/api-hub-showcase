@@ -1,0 +1,16 @@
+type: object
+description: Devuelve el identificador del courier creado.
+properties:
+  Data:
+    type: object
+    properties:
+      courier:
+        $ref: ../attributes/id.yaml
+      statusCode:
+        $ref: ../attributes/code.yaml
+      message:
+        $ref: ../attributes/message.yaml
+    required:
+      - courier
+      - statusCode
+      - message

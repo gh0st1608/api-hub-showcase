@@ -1,0 +1,16 @@
+description: Retorna el estado de entrega de la orden.
+content:
+  application/json:
+    schema:
+      allOf:
+        - $ref: ../schemas/model_response/StandardResponse.yaml
+        - $ref: ../schemas/model_response/OrderStatusRes.yaml
+    examples:
+      Estado-Entrega:
+        summary: Estado actual de entrega
+        value:
+          Data:
+            order:
+              statusDelivery: ON_THE_WAY
+            statusCode: 200
+            message: Status de orden obtenido con exito

@@ -1,0 +1,15 @@
+description: Retorna la ubicacion geografica de la tienda.
+content:
+  application/json:
+    schema:
+      allOf:
+        - $ref: ../schemas/model_response/StandardResponse.yaml
+        - $ref: ../schemas/model_response/StoreLocationRes.yaml
+    examples:
+      Ubicacion-Tienda:
+        summary: Coordenadas de la tienda
+        value:
+          Data:
+            Store:
+              lat: -11.98108
+              lng: -77.08323

@@ -1,19 +1,16 @@
-description: Entidad para registrar un pago
 required: true
 content:
   application/json:
     schema:
       $ref: ../schemas/model_request/CreatePayment.yaml
     examples:
-      Caso-Prueba-01:
-        summary: Caso Prueba 01
+      Crear-Pago:
+        summary: Registrar pago interno
         value:
           Data:
             Payment:
-              orderId: "5d6314c5-7878-4c82-97d1-5764722c8978"
-              provider: "paypal"
-              state: "pendiente"
-              amountTotal: 32.80
-              currency: "PEN"
-              transaccionId: "PAYID-ABC123"
-              datePayment: "2025-05-20T13:46:00Z"
+              orderId: 62977d46-7a50-41c9-8d84-38272ac2a8df
+              amount: 49.8
+              currency: USD
+              provider: Paypal
+              providerOrderId: 8S123456AB123456C

@@ -1,0 +1,32 @@
+type: object
+description: Esquema para agregar un item al carrito.
+properties:
+  Data:
+    type: object
+    properties:
+      Cart:
+        type: object
+        properties:
+          productId:
+            $ref: ../attributes/id.yaml
+          name:
+            type: string
+            example: Hamburguesa Clasica
+          price:
+            type: number
+            format: double
+            example: 24.9
+          quantity:
+            type: number
+            format: double
+            minimum: 1
+            example: 2
+        required:
+          - productId
+          - name
+          - price
+          - quantity
+    required:
+      - Cart
+required:
+  - Data

@@ -1,0 +1,13 @@
+type: object
+description: Devuelve la relacion entre orden y courier asignado.
+properties:
+  Data:
+    type: object
+    properties:
+      orderId:
+        $ref: ../attributes/id.yaml
+      courierId:
+        $ref: ../attributes/id.yaml
+    required:
+      - orderId
+      - courierId

@@ -1,0 +1,97 @@
+type: object
+description: Devuelve la informacion de una orden.
+properties:
+  Data:
+    type: object
+    properties:
+      order:
+        type: object
+        properties:
+          orderId:
+            $ref: ../attributes/id.yaml
+          userId:
+            $ref: ../attributes/id.yaml
+          courierId:
+            type: string
+            nullable: true
+            example: null
+          pickupLat:
+            type: number
+            format: double
+            example: -12.0432
+          pickupLng:
+            type: number
+            format: double
+            example: -77.0282
+          dropoffLat:
+            type: number
+            format: double
+            example: -12.0505
+          dropoffLng:
+            type: number
+            format: double
+            example: -77.0332
+          items:
+            type: array
+            items:
+              type: object
+              properties:
+                productId:
+                  $ref: ../attributes/id.yaml
+                name:
+                  type: string
+                  example: Hamburguesa Clasica
+                price:
+                  type: number
+                  format: double
+                  example: 24.9
+                quantity:
+                  type: number
+                  format: double
+                  example: 2
+          totalAmount:
+            type: number
+            format: double
+            example: 49.8
+          status:
+            type: string
+            enum: [PENDING, PAID, FAILED, CANCELLED]
+            example: PENDING
+          statusDelivery:
+            type: string
+            enum: [CREATED, ASSIGNED, PREPARING, PICKED_UP, ON_THE_WAY, DELIVERED, CANCELED]
+            example: ASSIGNED
+          createdAt:
+            type: string
+            format: date-time
+            example: '2026-05-24T18:30:00Z'
+          updatedAt:
+            type: string
+            format: date-time
+            nullable: true
+            example: '2026-05-24T18:45:00Z'
+          deletedAt:
+            type: string
+            format: date-time
+            nullable: true
+            example: null
+        required:
+          - orderId
+          - userId
+          - pickupLat
+          - pickupLng
+          - dropoffLat
+          - dropoffLng
+          - items
+          - totalAmount
+          - status
+          - statusDelivery
+          - createdAt
+      statusCode:
+        $ref: ../attributes/code.yaml
+      message:
+        $ref: ../attributes/message.yaml
+    required:
+      - order
+      - statusCode
+      - message

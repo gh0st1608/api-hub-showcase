@@ -1,0 +1,19 @@
+type: object
+description: Esquema para actualizar el estado de entrega de una orden.
+properties:
+  Data:
+    type: object
+    properties:
+      Order:
+        type: object
+        properties:
+          statusDelivery:
+            type: string
+            enum: [ASSIGNED, PREPARING, PICKED_UP, ON_THE_WAY, DELIVERED, CANCELED]
+            example: ON_THE_WAY
+        required:
+          - statusDelivery
+    required:
+      - Order
+required:
+  - Data

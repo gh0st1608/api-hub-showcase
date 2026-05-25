@@ -1,0 +1,14 @@
+required: true
+content:
+  application/json:
+    schema:
+      $ref: ../schemas/model_request/RegisterUser.yaml
+    examples:
+      Registro-Usuario:
+        summary: Registro de un usuario nuevo
+        value:
+          Data:
+            User:
+              email: user@foodstore.com
+              password: Password123!
+              name: Juan Perez

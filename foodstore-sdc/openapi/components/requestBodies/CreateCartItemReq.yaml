@@ -1,0 +1,15 @@
+required: true
+content:
+  application/json:
+    schema:
+      $ref: ../schemas/model_request/CreateCartItem.yaml
+    examples:
+      Agregar-Item-Carrito:
+        summary: Agregar item al carrito
+        value:
+          Data:
+            Cart:
+              productId: 3d808990-5158-4af0-8a24-9326f59419a2
+              name: Hamburguesa Clasica
+              price: 24.9
+              quantity: 2

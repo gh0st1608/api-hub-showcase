@@ -1,0 +1,61 @@
+type: object
+description: Devuelve una lista paginada de couriers.
+properties:
+  Data:
+    type: object
+    properties:
+      items:
+        type: array
+        items:
+          type: object
+          properties:
+            courierId:
+              $ref: ../attributes/id.yaml
+            name:
+              type: string
+              example: Luis Soto
+            phone:
+              type: string
+              example: '987654321'
+            vehicleType:
+              type: string
+              enum: [BIKE, MOTO, CAR]
+              example: MOTO
+            status:
+              type: string
+              enum: [AVAILABLE, BUSY, OFFLINE]
+              example: AVAILABLE
+            currentOrderId:
+              type: string
+              nullable: true
+              example: null
+            currentLat:
+              type: number
+              format: double
+              nullable: true
+              example: -12.0464
+            currentLng:
+              type: number
+              format: double
+              nullable: true
+              example: -77.0428
+            createdAt:
+              type: string
+              format: date-time
+              example: '2026-05-24T18:30:00Z'
+      count:
+        type: integer
+        example: 1
+      nextCursor:
+        type: string
+        nullable: true
+        example: null
+      statusCode:
+        $ref: ../attributes/code.yaml
+      message:
+        $ref: ../attributes/message.yaml
+    required:
+      - items
+      - count
+      - statusCode
+      - message

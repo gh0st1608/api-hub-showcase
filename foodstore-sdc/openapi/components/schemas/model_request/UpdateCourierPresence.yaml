@@ -1,0 +1,33 @@
+type: object
+description: Esquema para actualizar presencia y ubicacion del courier.
+properties:
+  Data:
+    type: object
+    properties:
+      Courier:
+        type: object
+        properties:
+          location:
+            type: object
+            properties:
+              lat:
+                type: number
+                format: double
+                example: -12.0464
+              lng:
+                type: number
+                format: double
+                example: -77.0428
+            required:
+              - lat
+              - lng
+          status:
+            type: string
+            enum: [AVAILABLE, BUSY, OFFLINE]
+            example: AVAILABLE
+        required:
+          - location
+    required:
+      - Courier
+required:
+  - Data

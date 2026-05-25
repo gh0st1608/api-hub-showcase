@@ -1,0 +1,7 @@
+name: search
+in: query
+description: Texto de busqueda para filtrar productos o categorias.
+required: false
+schema:
+  type: string
+  example: hamburguesa

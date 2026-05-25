@@ -1,0 +1,103 @@
+parameters:
+  - $ref: ../components/parameters/Channel.yaml
+  - $ref: ../components/parameters/ApiKey.yaml
+
+post:
+  summary: Create Order
+  operationId: createOrder
+  description: >
+    Procesos: Creacion de una orden de delivery.
+
+
+    Funcionalidad: Registrar la orden y disparar la autoasignacion de courier.
+
+
+    Objetivo: Iniciar el flujo operativo del pedido.
+
+
+    Comentarios:
+
+  tags:
+    - Orders
+
+  requestBody:
+    $ref: ../components/requestBodies/CreateOrderReq.yaml
+
+  responses:
+    '200':
+      $ref: ../components/responses/CreateOrderResponse.yaml
+    '400':
+      $ref: ../components/statusCodes/BadRequestResponse.yaml
+    '401':
+      $ref: ../components/statusCodes/UnauthorizedResponse.yaml
+    '403':
+      $ref: ../components/statusCodes/ForbiddenResponse.yaml
+    '404':
+      $ref: ../components/statusCodes/NotFoundResponse.yaml
+    '407':
+      $ref: ../components/statusCodes/ProxyAuthenticationResponse.yaml
+    '409':
+      $ref: ../components/statusCodes/ConflictResponse.yaml
+    '411':
+      $ref: ../components/statusCodes/LengthRequiredResponse.yaml
+    '414':
+      $ref: ../components/statusCodes/UriTooLongResponse.yaml
+    '429':
+      $ref: ../components/statusCodes/TooManyRequestsResponse.yaml
+    '500':
+      $ref: ../components/statusCodes/InternalServerErrorResponse.yaml
+    default:
+      $ref: ../components/statusCodes/UnexpectedErrorResponse.yaml
+  security:
+    - api_key: []
+
+get:
+  summary: Get Orders
+  operationId: getOrders
+  description: >
+    Procesos: Consulta paginada de ordenes.
+
+
+    Funcionalidad: Recuperar ordenes por limite, cursor y usuario.
+
+
+    Objetivo: Exponer seguimiento y exploracion del recurso Order.
+
+
+    Comentarios:
+
+  tags:
+    - Orders
+
+  parameters:
+    - $ref: ../components/parameters/Limit.yaml
+    - $ref: ../components/parameters/Cursor.yaml
+    - $ref: ../components/parameters/UserId.yaml
+
+  responses:
+    '200':
+      $ref: ../components/responses/GetOrdersResponse.yaml
+    '400':
+      $ref: ../components/statusCodes/BadRequestResponse.yaml
+    '401':
+      $ref: ../components/statusCodes/UnauthorizedResponse.yaml
+    '403':
+      $ref: ../components/statusCodes/ForbiddenResponse.yaml
+    '404':
+      $ref: ../components/statusCodes/NotFoundResponse.yaml
+    '407':
+      $ref: ../components/statusCodes/ProxyAuthenticationResponse.yaml
+    '409':
+      $ref: ../components/statusCodes/ConflictResponse.yaml
+    '411':
+      $ref: ../components/statusCodes/LengthRequiredResponse.yaml
+    '414':
+      $ref: ../components/statusCodes/UriTooLongResponse.yaml
+    '429':
+      $ref: ../components/statusCodes/TooManyRequestsResponse.yaml
+    '500':
+      $ref: ../components/statusCodes/InternalServerErrorResponse.yaml
+    default:
+      $ref: ../components/statusCodes/UnexpectedErrorResponse.yaml
+  security:
+    - api_key: []

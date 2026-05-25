@@ -1,28 +1,20 @@
-description: Entidad para crear un pedido
 required: true
 content:
   application/json:
     schema:
       $ref: ../schemas/model_request/CreateOrder.yaml
     examples:
-      Caso-Prueba-01:
-        summary: Caso Prueba 01
+      Crear-Orden:
+        summary: Registro de orden
         value:
           Data:
             Order:
-              userId: "5d6314c5-7878-4c82-97d1-5764722c8978"
-              state: "pendiente"  # pendiente | en_proceso | entregado | cancelado
-              typePayment: "qr" # qr | efectivo | link | transferencia | pos
-              providerPayment: "yape"
-              created_at: "2025-05-20T13:45:00Z"
-              updated_at: "2025-06-20T13:45:00Z"
-              items: 
-                - productId: "238280be-3b8a-40d0-9fdc-2c17cbdc7a4a"
-                  name: "Hamburguesa Clásica"
-                  quantity: 5
-                  unitPrice: 5
-                - productId: "671c4fa7-8009-4d36-98bc-a527aafca961"
-                  name: "Inka Kola 500ml"
+              userId: 62977d46-7a50-41c9-8d84-38272ac2a8df
+              storeId: a0271854-eed8-486d-9ab4-74ef822aa1f4
+              deliveryLat: -12.0505
+              deliveryLng: -77.0332
+              items:
+                - productId: 3d808990-5158-4af0-8a24-9326f59419a2
+                  name: Hamburguesa Clasica
+                  price: 24.9
                   quantity: 2
-                  unitPrice: 4
-

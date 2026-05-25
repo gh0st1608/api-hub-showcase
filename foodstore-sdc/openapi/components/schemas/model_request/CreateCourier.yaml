@@ -1,0 +1,31 @@
+type: object
+description: Esquema para registrar un courier.
+properties:
+  Data:
+    type: object
+    properties:
+      Courier:
+        type: object
+        properties:
+          name:
+            type: string
+            example: Luis Soto
+          phone:
+            type: string
+            example: '987654321'
+          vehicleType:
+            type: string
+            enum: [BIKE, MOTO, CAR]
+            example: MOTO
+          status:
+            type: string
+            enum: [AVAILABLE, BUSY, OFFLINE]
+            example: AVAILABLE
+        required:
+          - name
+          - phone
+          - vehicleType
+    required:
+      - Courier
+required:
+  - Data

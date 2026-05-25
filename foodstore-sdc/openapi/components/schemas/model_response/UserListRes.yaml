@@ -1,0 +1,65 @@
+type: object
+description: Devuelve una lista paginada de usuarios.
+properties:
+  Data:
+    type: object
+    properties:
+      items:
+        type: array
+        items:
+          type: object
+          properties:
+            userId:
+              $ref: ../attributes/id.yaml
+            name:
+              type: string
+              example: Juan Perez
+            lastname:
+              type: string
+              example: Aguilar
+            email:
+              type: string
+              format: email
+              example: user@foodstore.com
+            roles:
+              type: string
+              example: user
+            photo:
+              type: string
+              example: https://cdn.foodstore.com/users/photo.png
+            onboardingRequired:
+              type: boolean
+              example: false
+            active:
+              type: boolean
+              example: true
+            createdAt:
+              type: string
+              format: date-time
+              example: '2026-05-24T18:30:00Z'
+            updatedAt:
+              type: string
+              format: date-time
+              nullable: true
+              example: '2026-05-24T18:45:00Z'
+            deletedAt:
+              type: string
+              format: date-time
+              nullable: true
+              example: null
+      count:
+        type: integer
+        example: 1
+      nextCursor:
+        type: string
+        nullable: true
+        example: null
+      statusCode:
+        $ref: ../attributes/code.yaml
+      message:
+        $ref: ../attributes/message.yaml
+    required:
+      - items
+      - count
+      - statusCode
+      - message

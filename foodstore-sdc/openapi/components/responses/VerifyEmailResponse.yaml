@@ -1,0 +1,16 @@
+description: Retorna el estado del proceso de envio del codigo de verificacion.
+content:
+  application/json:
+    schema:
+      allOf:
+        - $ref: ../schemas/model_response/StandardResponse.yaml
+        - $ref: ../schemas/model_response/VerifyEmailRes.yaml
+    examples:
+      Correo-Enviado:
+        summary: Codigo de verificacion enviado
+        value:
+          Data:
+            User:
+              verifyEmail: false
+            statusCode: 200
+            message: Codigo enviado correctamente

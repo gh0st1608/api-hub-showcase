@@ -1,0 +1,90 @@
+type: object
+description: Devuelve una lista paginada de productos.
+properties:
+  Data:
+    type: object
+    properties:
+      items:
+        type: array
+        items:
+          type: object
+          properties:
+            productId:
+              $ref: ../attributes/id.yaml
+            name:
+              type: string
+              example: Hamburguesa Clasica
+            description:
+              type: string
+              example: Hamburguesa artesanal con queso cheddar
+            price:
+              type: number
+              format: double
+              example: 24.9
+            stock:
+              type: number
+              format: double
+              example: 35
+            categoryId:
+              $ref: ../attributes/id.yaml
+            storeId:
+              $ref: ../attributes/id.yaml
+            sku:
+              type: string
+              example: HAM-001
+            image:
+              type: string
+              example: https://cdn.foodstore.com/products/hamburguesa.png
+            ingredients:
+              type: array
+              items:
+                type: object
+                properties:
+                  name:
+                    type: string
+                    example: Carne
+                  quantity:
+                    type: number
+                    format: double
+                    example: 180
+                  unit:
+                    type: string
+                    enum: [g, kg, ml, l, unit]
+                    example: g
+                  image:
+                    type: string
+                    nullable: true
+                    example: https://cdn.foodstore.com/ingredients/carne.png
+            active:
+              type: boolean
+              example: true
+            createdAt:
+              type: string
+              format: date-time
+              example: '2026-05-24T18:30:00Z'
+            updatedAt:
+              type: string
+              format: date-time
+              nullable: true
+              example: null
+            deletedAt:
+              type: string
+              format: date-time
+              nullable: true
+              example: null
+      count:
+        type: integer
+        example: 1
+      nextCursor:
+        type: string
+        nullable: true
+        example: null
+      statusCode:
+        $ref: ../attributes/code.yaml
+      message:
+        $ref: ../attributes/message.yaml
+    required:
+      - items
+      - count
+      - statusCode
+      - message

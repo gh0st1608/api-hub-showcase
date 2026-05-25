@@ -1,0 +1,15 @@
+required: true
+content:
+  application/json:
+    schema:
+      $ref: ../schemas/model_request/CreateCourier.yaml
+    examples:
+      Crear-Courier:
+        summary: Registro de courier
+        value:
+          Data:
+            Courier:
+              name: Luis Soto
+              phone: '987654321'
+              vehicleType: MOTO
+              status: AVAILABLE

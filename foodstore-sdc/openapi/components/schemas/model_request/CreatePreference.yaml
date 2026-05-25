@@ -1,0 +1,23 @@
+type: object
+description: Esquema para registrar preferencias de categorias de un usuario.
+properties:
+  Data:
+    type: object
+    properties:
+      Preference:
+        type: object
+        properties:
+          userId:
+            $ref: ../attributes/id.yaml
+          categoryIds:
+            type: array
+            items:
+              $ref: ../attributes/id.yaml
+            minItems: 1
+        required:
+          - userId
+          - categoryIds
+    required:
+      - Preference
+required:
+  - Data

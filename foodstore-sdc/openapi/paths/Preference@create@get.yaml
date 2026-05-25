@@ -1,0 +1,103 @@
+parameters:
+  - $ref: ../components/parameters/Channel.yaml
+  - $ref: ../components/parameters/ApiKey.yaml
+
+post:
+  summary: Create Preferences
+  operationId: createPreferences
+  description: >
+    Procesos: Registro de preferencias de categorias por usuario.
+
+
+    Funcionalidad: Crear una o varias preferencias y marcar el onboarding como completado.
+
+
+    Objetivo: Personalizar la experiencia del usuario.
+
+
+    Comentarios:
+
+  tags:
+    - Preferences
+
+  requestBody:
+    $ref: ../components/requestBodies/CreatePreferenceReq.yaml
+
+  responses:
+    '200':
+      $ref: ../components/responses/CreatePreferenceResponse.yaml
+    '400':
+      $ref: ../components/statusCodes/BadRequestResponse.yaml
+    '401':
+      $ref: ../components/statusCodes/UnauthorizedResponse.yaml
+    '403':
+      $ref: ../components/statusCodes/ForbiddenResponse.yaml
+    '404':
+      $ref: ../components/statusCodes/NotFoundResponse.yaml
+    '407':
+      $ref: ../components/statusCodes/ProxyAuthenticationResponse.yaml
+    '409':
+      $ref: ../components/statusCodes/ConflictResponse.yaml
+    '411':
+      $ref: ../components/statusCodes/LengthRequiredResponse.yaml
+    '414':
+      $ref: ../components/statusCodes/UriTooLongResponse.yaml
+    '429':
+      $ref: ../components/statusCodes/TooManyRequestsResponse.yaml
+    '500':
+      $ref: ../components/statusCodes/InternalServerErrorResponse.yaml
+    default:
+      $ref: ../components/statusCodes/UnexpectedErrorResponse.yaml
+  security:
+    - api_key: []
+
+get:
+  summary: Get Preferences
+  operationId: getPreferences
+  description: >
+    Procesos: Consulta paginada de preferencias registradas.
+
+
+    Funcionalidad: Obtener preferencias por usuario o cursor.
+
+
+    Objetivo: Visualizar el estado del onboarding del usuario.
+
+
+    Comentarios:
+
+  tags:
+    - Preferences
+
+  parameters:
+    - $ref: ../components/parameters/Limit.yaml
+    - $ref: ../components/parameters/Cursor.yaml
+    - $ref: ../components/parameters/UserId.yaml
+
+  responses:
+    '200':
+      $ref: ../components/responses/GetPreferencesResponse.yaml
+    '400':
+      $ref: ../components/statusCodes/BadRequestResponse.yaml
+    '401':
+      $ref: ../components/statusCodes/UnauthorizedResponse.yaml
+    '403':
+      $ref: ../components/statusCodes/ForbiddenResponse.yaml
+    '404':
+      $ref: ../components/statusCodes/NotFoundResponse.yaml
+    '407':
+      $ref: ../components/statusCodes/ProxyAuthenticationResponse.yaml
+    '409':
+      $ref: ../components/statusCodes/ConflictResponse.yaml
+    '411':
+      $ref: ../components/statusCodes/LengthRequiredResponse.yaml
+    '414':
+      $ref: ../components/statusCodes/UriTooLongResponse.yaml
+    '429':
+      $ref: ../components/statusCodes/TooManyRequestsResponse.yaml
+    '500':
+      $ref: ../components/statusCodes/InternalServerErrorResponse.yaml
+    default:
+      $ref: ../components/statusCodes/UnexpectedErrorResponse.yaml
+  security:
+    - api_key: []

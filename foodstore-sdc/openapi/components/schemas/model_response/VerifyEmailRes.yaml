@@ -1,0 +1,22 @@
+type: object
+description: Devuelve el estado de verificacion de correo.
+properties:
+  Data:
+    type: object
+    properties:
+      User:
+        type: object
+        properties:
+          verifyEmail:
+            type: boolean
+            example: false
+        required:
+          - verifyEmail
+      statusCode:
+        $ref: ../attributes/code.yaml
+      message:
+        $ref: ../attributes/message.yaml
+    required:
+      - User
+      - statusCode
+      - message

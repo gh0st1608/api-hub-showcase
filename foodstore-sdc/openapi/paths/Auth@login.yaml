@@ -4,18 +4,18 @@ parameters:
 
 post:
   summary: Login
-  operationId: Login
+  operationId: loginAuth
   description: >
-    📦 Procesos: Login de usuario con credenciales
-  
-  
-    🔧 Funcionalidad: Login de usuario
-  
-      
-    🚀 Objetivo: Permitir acceder al sistema al usuario
-  
-  
-    📌 Comentarios: 
+    Procesos: Inicio de sesion con credenciales.
+
+
+    Funcionalidad: Autenticar al usuario y devolver tokens.
+
+
+    Objetivo: Permitir el acceso al microservicio.
+
+
+    Comentarios:
 
   tags:
     - Auths

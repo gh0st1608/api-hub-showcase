@@ -1,0 +1,29 @@
+type: object
+description: Devuelve la orden creada en Paypal.
+properties:
+  Data:
+    type: object
+    properties:
+      payment:
+        type: object
+        properties:
+          providerOrderId:
+            type: string
+            example: 8S123456AB123456C
+          redirectUrl:
+            type: string
+            example: https://www.sandbox.paypal.com/checkoutnow?token=8S123456AB123456C
+          paymentId:
+            $ref: ../attributes/id.yaml
+        required:
+          - providerOrderId
+          - redirectUrl
+          - paymentId
+      statusCode:
+        $ref: ../attributes/code.yaml
+      message:
+        $ref: ../attributes/message.yaml
+    required:
+      - payment
+      - statusCode
+      - message

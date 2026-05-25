@@ -1,0 +1,21 @@
+type: object
+description: Devuelve el identificador del producto creado.
+properties:
+  Data:
+    type: object
+    properties:
+      product:
+        type: object
+        properties:
+          id:
+            $ref: ../attributes/id.yaml
+        required:
+          - id
+      statusCode:
+        $ref: ../attributes/code.yaml
+      message:
+        $ref: ../attributes/message.yaml
+    required:
+      - product
+      - statusCode
+      - message

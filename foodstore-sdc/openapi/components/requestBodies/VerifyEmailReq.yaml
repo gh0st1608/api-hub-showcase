@@ -1,0 +1,12 @@
+required: true
+content:
+  application/json:
+    schema:
+      $ref: ../schemas/model_request/VerifyEmail.yaml
+    examples:
+      Enviar-Codigo:
+        summary: Solicitar envio del codigo
+        value:
+          Data:
+            User:
+              email: user@foodstore.com

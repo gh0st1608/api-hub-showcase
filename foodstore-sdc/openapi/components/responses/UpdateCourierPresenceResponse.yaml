@@ -1,0 +1,21 @@
+description: Retorna la presencia actualizada del courier.
+content:
+  application/json:
+    schema:
+      allOf:
+        - $ref: ../schemas/model_response/StandardResponse.yaml
+        - $ref: ../schemas/model_response/CourierPresenceRes.yaml
+    examples:
+      Presencia-Actualizada:
+        summary: Estado y posicion del courier
+        value:
+          Data:
+            courier:
+              courierId: a0271854-eed8-486d-9ab4-74ef822aa1f4
+              status: AVAILABLE
+              location:
+                lat: -12.0464
+                lng: -77.0428
+              lastLocationAt: '2026-05-24T18:45:00Z'
+            statusCode: 200
+            message: Courier actualizado con exito

@@ -1,0 +1,33 @@
+type: object
+description: Devuelve el resultado de la confirmacion del pago.
+properties:
+  Data:
+    type: object
+    properties:
+      payment:
+        type: object
+        properties:
+          orderId:
+            type: string
+            example: 8S123456AB123456C
+          paymentId:
+            $ref: ../attributes/id.yaml
+          providerPaymentId:
+            type: string
+            example: 3GG279541U471931P
+          providerPaymentStatus:
+            type: string
+            example: COMPLETED
+        required:
+          - orderId
+          - paymentId
+          - providerPaymentId
+          - providerPaymentStatus
+      statusCode:
+        $ref: ../attributes/code.yaml
+      message:
+        $ref: ../attributes/message.yaml
+    required:
+      - payment
+      - statusCode
+      - message

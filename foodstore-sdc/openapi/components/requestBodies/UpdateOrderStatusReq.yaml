@@ -1,0 +1,12 @@
+required: true
+content:
+  application/json:
+    schema:
+      $ref: ../schemas/model_request/UpdateOrderStatus.yaml
+    examples:
+      Actualizar-Estado:
+        summary: Cambio de estado de entrega
+        value:
+          Data:
+            Order:
+              statusDelivery: ON_THE_WAY

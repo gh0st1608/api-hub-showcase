@@ -1,0 +1,39 @@
+type: object
+description: Esquema para crear una orden de pago en Paypal.
+properties:
+  Data:
+    type: object
+    properties:
+      Payment:
+        type: object
+        properties:
+          orderId:
+            $ref: ../attributes/id.yaml
+          amount:
+            type: number
+            format: double
+            example: 49.8
+          currency:
+            type: string
+            example: USD
+          provider:
+            type: string
+            enum: [Paypal, Stripe]
+            example: Paypal
+          successUrl:
+            type: string
+            example: https://foodstore.com/payment/success
+          cancelUrl:
+            type: string
+            example: https://foodstore.com/payment/cancel
+        required:
+          - orderId
+          - amount
+          - currency
+          - provider
+          - successUrl
+          - cancelUrl
+    required:
+      - Payment
+required:
+  - Data

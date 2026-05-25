@@ -1,0 +1,24 @@
+description: Retorna el listado paginado de preferencias registradas.
+content:
+  application/json:
+    schema:
+      allOf:
+        - $ref: ../schemas/model_response/StandardResponse.yaml
+        - $ref: ../schemas/model_response/PreferenceListRes.yaml
+    examples:
+      Preferencias-Encontradas:
+        summary: Lista paginada de preferencias
+        value:
+          Data:
+            items:
+              - preferenceId: 7d4be61b-72a3-414d-ac3a-3b1ddb9b96e0
+                userId: 62977d46-7a50-41c9-8d84-38272ac2a8df
+                categoryId: 3d808990-5158-4af0-8a24-9326f59419a2
+                active: true
+                createdAt: '2026-05-24T18:30:00Z'
+                updatedAt: '2026-05-24T18:45:00Z'
+                deletedAt: null
+            count: 1
+            nextCursor: null
+            statusCode: 200
+            message: Preferencias obtenido con exito

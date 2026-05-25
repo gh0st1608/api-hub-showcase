@@ -1,0 +1,24 @@
+description: Retorna el listado paginado de ordenes.
+content:
+  application/json:
+    schema:
+      allOf:
+        - $ref: ../schemas/model_response/StandardResponse.yaml
+        - $ref: ../schemas/model_response/OrderListRes.yaml
+    examples:
+      Ordenes-Encontradas:
+        summary: Lista de ordenes
+        value:
+          Data:
+            items:
+              - orderId: 62977d46-7a50-41c9-8d84-38272ac2a8df
+                userId: 0af43a51-a4f0-4f7d-a798-2372456d6a19
+                courierId: null
+                totalAmount: 49.8
+                status: PENDING
+                statusDelivery: ASSIGNED
+                createdAt: '2026-05-24T18:30:00Z'
+            count: 1
+            nextCursor: null
+            statusCode: 200
+            message: Courier obtenido con exito

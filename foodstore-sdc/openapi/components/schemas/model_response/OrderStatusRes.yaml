@@ -1,0 +1,23 @@
+type: object
+description: Devuelve el estado de entrega de una orden.
+properties:
+  Data:
+    type: object
+    properties:
+      order:
+        type: object
+        properties:
+          statusDelivery:
+            type: string
+            enum: [CREATED, ASSIGNED, PREPARING, PICKED_UP, ON_THE_WAY, DELIVERED, CANCELED]
+            example: ON_THE_WAY
+        required:
+          - statusDelivery
+      statusCode:
+        $ref: ../attributes/code.yaml
+      message:
+        $ref: ../attributes/message.yaml
+    required:
+      - order
+      - statusCode
+      - message

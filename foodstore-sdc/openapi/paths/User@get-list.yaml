@@ -1,0 +1,53 @@
+parameters:
+  - $ref: ../components/parameters/Channel.yaml
+  - $ref: ../components/parameters/ApiKey.yaml
+
+get:
+  summary: Get Users
+  operationId: getUsers
+  description: >
+    Procesos: Consulta paginada de usuarios.
+
+
+    Funcionalidad: Recuperar usuarios por limite y cursor.
+
+
+    Objetivo: Exponer un listado navegable del recurso User.
+
+
+    Comentarios:
+
+  tags:
+    - Users
+
+  parameters:
+    - $ref: ../components/parameters/Limit.yaml
+    - $ref: ../components/parameters/Cursor.yaml
+
+  responses:
+    '200':
+      $ref: ../components/responses/GetUsersResponse.yaml
+    '400':
+      $ref: ../components/statusCodes/BadRequestResponse.yaml
+    '401':
+      $ref: ../components/statusCodes/UnauthorizedResponse.yaml
+    '403':
+      $ref: ../components/statusCodes/ForbiddenResponse.yaml
+    '404':
+      $ref: ../components/statusCodes/NotFoundResponse.yaml
+    '407':
+      $ref: ../components/statusCodes/ProxyAuthenticationResponse.yaml
+    '409':
+      $ref: ../components/statusCodes/ConflictResponse.yaml
+    '411':
+      $ref: ../components/statusCodes/LengthRequiredResponse.yaml
+    '414':
+      $ref: ../components/statusCodes/UriTooLongResponse.yaml
+    '429':
+      $ref: ../components/statusCodes/TooManyRequestsResponse.yaml
+    '500':
+      $ref: ../components/statusCodes/InternalServerErrorResponse.yaml
+    default:
+      $ref: ../components/statusCodes/UnexpectedErrorResponse.yaml
+  security:
+    - api_key: []

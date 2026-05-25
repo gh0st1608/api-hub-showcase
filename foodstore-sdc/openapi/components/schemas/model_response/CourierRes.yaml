@@ -1,0 +1,73 @@
+type: object
+description: Devuelve la informacion de un courier.
+properties:
+  Data:
+    type: object
+    properties:
+      courier:
+        type: object
+        properties:
+          courierId:
+            $ref: ../attributes/id.yaml
+          name:
+            type: string
+            example: Luis Soto
+          phone:
+            type: string
+            example: '987654321'
+          vehicleType:
+            type: string
+            enum: [BIKE, MOTO, CAR]
+            example: MOTO
+          status:
+            type: string
+            enum: [AVAILABLE, BUSY, OFFLINE]
+            example: AVAILABLE
+          currentOrderId:
+            type: string
+            nullable: true
+            example: null
+          currentLat:
+            type: number
+            format: double
+            nullable: true
+            example: -12.0464
+          currentLng:
+            type: number
+            format: double
+            nullable: true
+            example: -77.0428
+          lastLocationAt:
+            type: string
+            format: date-time
+            nullable: true
+            example: '2026-05-24T18:45:00Z'
+          createdAt:
+            type: string
+            format: date-time
+            example: '2026-05-24T18:30:00Z'
+          updatedAt:
+            type: string
+            format: date-time
+            nullable: true
+            example: '2026-05-24T18:45:00Z'
+          deletedAt:
+            type: string
+            format: date-time
+            nullable: true
+            example: null
+        required:
+          - courierId
+          - name
+          - phone
+          - vehicleType
+          - status
+          - createdAt
+      statusCode:
+        $ref: ../attributes/code.yaml
+      message:
+        $ref: ../attributes/message.yaml
+    required:
+      - courier
+      - statusCode
+      - message

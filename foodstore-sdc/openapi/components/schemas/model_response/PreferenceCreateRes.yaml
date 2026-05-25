@@ -1,0 +1,18 @@
+type: object
+description: Devuelve los identificadores creados para las preferencias del usuario.
+properties:
+  Data:
+    type: object
+    properties:
+      preference:
+        type: array
+        items:
+          $ref: ../attributes/id.yaml
+      statusCode:
+        $ref: ../attributes/code.yaml
+      message:
+        $ref: ../attributes/message.yaml
+    required:
+      - preference
+      - statusCode
+      - message

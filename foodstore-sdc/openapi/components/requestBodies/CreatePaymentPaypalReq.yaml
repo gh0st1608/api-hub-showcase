@@ -1,0 +1,17 @@
+required: true
+content:
+  application/json:
+    schema:
+      $ref: ../schemas/model_request/CreatePaymentPaypal.yaml
+    examples:
+      Crear-Pago-Paypal:
+        summary: Crear orden de pago Paypal
+        value:
+          Data:
+            Payment:
+              orderId: 62977d46-7a50-41c9-8d84-38272ac2a8df
+              amount: 49.8
+              currency: USD
+              provider: Paypal
+              successUrl: https://foodstore.com/payment/success
+              cancelUrl: https://foodstore.com/payment/cancel

@@ -1,0 +1,51 @@
+type: object
+description: Devuelve una lista paginada de ordenes.
+properties:
+  Data:
+    type: object
+    properties:
+      items:
+        type: array
+        items:
+          type: object
+          properties:
+            orderId:
+              $ref: ../attributes/id.yaml
+            userId:
+              $ref: ../attributes/id.yaml
+            courierId:
+              type: string
+              nullable: true
+              example: null
+            totalAmount:
+              type: number
+              format: double
+              example: 49.8
+            status:
+              type: string
+              enum: [PENDING, PAID, FAILED, CANCELLED]
+              example: PENDING
+            statusDelivery:
+              type: string
+              enum: [CREATED, ASSIGNED, PREPARING, PICKED_UP, ON_THE_WAY, DELIVERED, CANCELED]
+              example: ASSIGNED
+            createdAt:
+              type: string
+              format: date-time
+              example: '2026-05-24T18:30:00Z'
+      count:
+        type: integer
+        example: 1
+      nextCursor:
+        type: string
+        nullable: true
+        example: null
+      statusCode:
+        $ref: ../attributes/code.yaml
+      message:
+        $ref: ../attributes/message.yaml
+    required:
+      - items
+      - count
+      - statusCode
+      - message

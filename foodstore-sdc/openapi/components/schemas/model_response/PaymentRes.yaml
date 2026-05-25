@@ -1,0 +1,71 @@
+type: object
+description: Devuelve la informacion de un pago.
+properties:
+  Data:
+    type: object
+    properties:
+      items:
+        type: array
+        items:
+          type: object
+          properties:
+            paymentId:
+              $ref: ../attributes/id.yaml
+            orderId:
+              $ref: ../attributes/id.yaml
+            providerOrderId:
+              type: string
+              example: 8S123456AB123456C
+            amount:
+              type: number
+              format: double
+              example: 49.8
+            currency:
+              type: string
+              example: USD
+            status:
+              type: string
+              enum: [PENDIENTE, APROBADO, RECHAZADO, FALLIDO, CANCELADO]
+              example: APROBADO
+            provider:
+              type: string
+              enum: [Paypal, Stripe]
+              example: Paypal
+            providerPaymentId:
+              type: string
+              example: 3GG279541U471931P
+            payerEmail:
+              type: string
+              format: email
+              nullable: true
+              example: buyer@foodstore.com
+            createdAt:
+              type: string
+              format: date-time
+              example: '2026-05-24T18:30:00Z'
+            updatedAt:
+              type: string
+              format: date-time
+              nullable: true
+              example: '2026-05-24T18:35:00Z'
+            deletedAt:
+              type: string
+              format: date-time
+              nullable: true
+              example: null
+      count:
+        type: integer
+        example: 1
+      nextCursor:
+        type: string
+        nullable: true
+        example: null
+      statusCode:
+        $ref: ../attributes/code.yaml
+      message:
+        $ref: ../attributes/message.yaml
+    required:
+      - items
+      - count
+      - statusCode
+      - message

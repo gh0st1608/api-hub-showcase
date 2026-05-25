@@ -1,0 +1,25 @@
+type: object
+description: Esquema para validar un codigo de verificacion.
+properties:
+  Data:
+    type: object
+    properties:
+      User:
+        type: object
+        properties:
+          email:
+            type: string
+            format: email
+            example: user@foodstore.com
+          code:
+            type: string
+            minLength: 4
+            maxLength: 4
+            example: '1234'
+        required:
+          - email
+          - code
+    required:
+      - User
+required:
+  - Data

@@ -1,0 +1,20 @@
+description: Retorna el detalle del carrito por usuario.
+content:
+  application/json:
+    schema:
+      allOf:
+        - $ref: ../schemas/model_response/StandardResponse.yaml
+        - $ref: ../schemas/model_response/CartRes.yaml
+    examples:
+      Carrito-Encontrado:
+        summary: Carrito por usuario
+        value:
+          Data:
+            cart:
+              items:
+                - productId: 3d808990-5158-4af0-8a24-9326f59419a2
+                  name: Hamburguesa Clasica
+                  price: 24.9
+                  quantity: 2
+            statusCode: 200
+            message: Carrito obtenido con exito

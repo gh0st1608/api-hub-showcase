@@ -1,0 +1,14 @@
+description: Retorna la asignacion de courier a la orden.
+content:
+  application/json:
+    schema:
+      allOf:
+        - $ref: ../schemas/model_response/StandardResponse.yaml
+        - $ref: ../schemas/model_response/OrderAssignCourierRes.yaml
+    examples:
+      Courier-Asignado:
+        summary: Courier asignado a la orden
+        value:
+          Data:
+            orderId: 62977d46-7a50-41c9-8d84-38272ac2a8df
+            courierId: a0271854-eed8-486d-9ab4-74ef822aa1f4

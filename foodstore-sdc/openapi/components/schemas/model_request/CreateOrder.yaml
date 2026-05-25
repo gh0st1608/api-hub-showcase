@@ -1,27 +1,53 @@
 type: object
-description: Entidad permite crear un pedido
+description: Esquema para crear una orden de delivery.
 properties:
   Data:
     type: object
     properties:
       Order:
         type: object
-        required:
-          - userId
-          - state
-          - paymentId
-          - totalAmount
-          - items
         properties:
           userId:
-            $ref: ../attributes/mongoId.yaml
-          state:
-            $ref: ../attributes/orders/stateOrder.yaml
-          paymentId:
-            $ref: ../attributes/mongoId.yaml
-          totalAmount:
-            $ref: ../attributes/products/price.yaml
+            $ref: ../attributes/id.yaml
+          storeId:
+            $ref: ../attributes/id.yaml
+          deliveryLat:
+            type: number
+            format: double
+            example: -12.0505
+          deliveryLng:
+            type: number
+            format: double
+            example: -77.0332
           items:
             type: array
+            minItems: 1
             items:
-              $ref: ../attributes/item.yaml
+              type: object
+              properties:
+                productId:
+                  $ref: ../attributes/id.yaml
+                name:
+                  type: string
+                  example: Hamburguesa Clasica
+                price:
+                  type: number
+                  format: double
+                  example: 24.9
+                quantity:
+                  type: number
+                  format: double
+                  example: 2
+              required:
+                - productId
+                - name
+                - price
+                - quantity
+        required:
+          - userId
+          - storeId
+          - items
+    required:
+      - Order
+required:
+  - Data

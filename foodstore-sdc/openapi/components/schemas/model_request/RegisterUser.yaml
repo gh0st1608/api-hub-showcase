@@ -1,0 +1,30 @@
+type: object
+description: Esquema para registrar un usuario.
+properties:
+  Data:
+    type: object
+    properties:
+      User:
+        type: object
+        properties:
+          email:
+            type: string
+            format: email
+            example: user@foodstore.com
+          password:
+            type: string
+            minLength: 8
+            maxLength: 128
+            example: Password123!
+          name:
+            type: string
+            maxLength: 150
+            example: Juan Perez
+        required:
+          - email
+          - password
+          - name
+    required:
+      - User
+required:
+  - Data

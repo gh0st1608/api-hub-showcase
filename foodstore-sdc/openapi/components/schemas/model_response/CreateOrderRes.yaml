@@ -1,16 +1,16 @@
 type: object
-description: Devuelve un mensaje de un orden creado
+description: Devuelve el identificador de la orden creada.
 properties:
   Data:
-    type: object    
+    type: object
     properties:
-      id:
-        $ref: ../attributes/mongoId.yaml
+      order:
+        $ref: ../attributes/id.yaml
       statusCode:
         $ref: ../attributes/code.yaml
       message:
         $ref: ../attributes/message.yaml
     required:
-      - id
+      - order
       - statusCode
-      - message 
+      - message

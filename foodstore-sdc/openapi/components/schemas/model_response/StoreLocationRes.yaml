@@ -1,0 +1,22 @@
+type: object
+description: Devuelve la ubicacion geografica de la tienda.
+properties:
+  Data:
+    type: object
+    properties:
+      Store:
+        type: object
+        properties:
+          lat:
+            type: number
+            format: double
+            example: -11.98108
+          lng:
+            type: number
+            format: double
+            example: -77.08323
+        required:
+          - lat
+          - lng
+    required:
+      - Store

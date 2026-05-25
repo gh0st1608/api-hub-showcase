@@ -1,16 +1,14 @@
-description: Entidad para crear una categoría
 required: true
 content:
   application/json:
     schema:
       $ref: ../schemas/model_request/CreateCategory.yaml
     examples:
-      Caso-Prueba-01:
-        summary: Caso Prueba 01
+      Crear-Categoria:
+        summary: Registro de categoria
         value:
           Data:
             Category:
-              business: "RESTAURANT"
-              name: "ARROCES"
-              active: true 
-
+              name: Hamburguesas
+              description: Categoria de hamburguesas y sandwiches
+              image: https://cdn.foodstore.com/categories/hamburguesas.png

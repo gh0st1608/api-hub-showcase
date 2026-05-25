@@ -1,4 +1,4 @@
-description: Retorna mensaje de eliminación del orden o de resultado de login
+description: Retorna los tokens de acceso del usuario autenticado.
 content:
   application/json:
     schema:
@@ -7,14 +7,11 @@ content:
         - $ref: ../schemas/model_response/LoginAuthRes.yaml
     examples:
       Login-Exitoso:
-        summary: Respuesta de Login Exitoso
+        summary: Respuesta de login exitoso
         value:
           Data:
+            Auth:
+              accessToken: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.access
+              refreshToken: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.refresh
             statusCode: 200
-            message: "Inicio de sesión exitoso"
-      Login-Fallido:
-        summary: Respuesta de Login Fallido
-        value:
-          Data:
-            statusCode: 401
-            message: "Credenciales incorrectas. Verifique su correo electrónico y/o contraseña."
+            message: Inicio de sesion exitoso

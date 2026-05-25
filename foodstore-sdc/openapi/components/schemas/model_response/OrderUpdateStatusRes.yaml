@@ -1,0 +1,10 @@
+type: object
+description: Devuelve el identificador de la orden actualizada.
+properties:
+  Data:
+    type: object
+    properties:
+      orderId:
+        $ref: ../attributes/id.yaml
+    required:
+      - orderId

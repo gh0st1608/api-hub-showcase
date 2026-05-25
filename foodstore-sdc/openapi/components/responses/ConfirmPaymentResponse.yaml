@@ -1,0 +1,19 @@
+description: Retorna el resultado de la confirmacion del pago.
+content:
+  application/json:
+    schema:
+      allOf:
+        - $ref: ../schemas/model_response/StandardResponse.yaml
+        - $ref: ../schemas/model_response/PaymentConfirmRes.yaml
+    examples:
+      Pago-Confirmado:
+        summary: Confirmacion de pago Paypal
+        value:
+          Data:
+            payment:
+              orderId: 8S123456AB123456C
+              paymentId: 117752b9-cfed-4fb4-ae2e-f67b2f65d5d3
+              providerPaymentId: 3GG279541U471931P
+              providerPaymentStatus: COMPLETED
+            statusCode: 200
+            message: Pago confirmado con exito

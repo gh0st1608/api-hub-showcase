@@ -1,0 +1,7 @@
+name: cursor
+in: query
+description: Cursor de paginacion para consultar el siguiente bloque de resultados.
+required: false
+schema:
+  type: string
+  example: eyJsYXN0S2V5IjoiUFJPRFVDVCMxMjMifQ==

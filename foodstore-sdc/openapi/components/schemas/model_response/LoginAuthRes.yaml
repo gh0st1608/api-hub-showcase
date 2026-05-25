@@ -1,13 +1,26 @@
 type: object
-description: Devuelve un mensaje de un autenticacion creado
+description: Devuelve los tokens de acceso del usuario autenticado.
 properties:
   Data:
-    type: object    
+    type: object
     properties:
+      Auth:
+        type: object
+        properties:
+          accessToken:
+            type: string
+            example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.access
+          refreshToken:
+            type: string
+            example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.refresh
+        required:
+          - accessToken
+          - refreshToken
       statusCode:
         $ref: ../attributes/code.yaml
       message:
         $ref: ../attributes/message.yaml
     required:
+      - Auth
       - statusCode
-      - message 
+      - message

@@ -1,6 +1,26 @@
 type: object
+description: Esquema para crear una categoria.
 properties:
-  nombre:
-    type: string
+  Data:
+    type: object
+    properties:
+      Category:
+        type: object
+        properties:
+          name:
+            type: string
+            example: Hamburguesas
+          description:
+            type: string
+            example: Categoria de hamburguesas y sandwiches
+          image:
+            type: string
+            format: uri
+            example: https://cdn.foodstore.com/categories/hamburguesas.png
+        required:
+          - name
+          - description
+    required:
+      - Category
 required:
-  - nombre
+  - Data

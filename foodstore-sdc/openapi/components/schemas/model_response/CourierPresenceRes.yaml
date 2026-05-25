@@ -1,0 +1,46 @@
+type: object
+description: Devuelve la presencia actualizada del courier.
+properties:
+  Data:
+    type: object
+    properties:
+      courier:
+        type: object
+        properties:
+          courierId:
+            $ref: ../attributes/id.yaml
+          status:
+            type: string
+            enum: [AVAILABLE, BUSY, OFFLINE]
+            example: AVAILABLE
+          location:
+            type: object
+            properties:
+              lat:
+                type: number
+                format: double
+                example: -12.0464
+              lng:
+                type: number
+                format: double
+                example: -77.0428
+            required:
+              - lat
+              - lng
+          lastLocationAt:
+            type: string
+            format: date-time
+            nullable: true
+            example: '2026-05-24T18:45:00Z'
+        required:
+          - courierId
+          - status
+          - location
+      statusCode:
+        $ref: ../attributes/code.yaml
+      message:
+        $ref: ../attributes/message.yaml
+    required:
+      - courier
+      - statusCode
+      - message

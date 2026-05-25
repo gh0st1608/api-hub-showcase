@@ -1,0 +1,37 @@
+type: object
+description: Devuelve el detalle del carrito por usuario.
+properties:
+  Data:
+    type: object
+    properties:
+      cart:
+        type: object
+        properties:
+          items:
+            type: array
+            items:
+              type: object
+              properties:
+                productId:
+                  $ref: ../attributes/id.yaml
+                name:
+                  type: string
+                  example: Hamburguesa Clasica
+                price:
+                  type: number
+                  format: double
+                  example: 24.9
+                quantity:
+                  type: number
+                  format: double
+                  example: 2
+        required:
+          - items
+      statusCode:
+        $ref: ../attributes/code.yaml
+      message:
+        $ref: ../attributes/message.yaml
+    required:
+      - cart
+      - statusCode
+      - message

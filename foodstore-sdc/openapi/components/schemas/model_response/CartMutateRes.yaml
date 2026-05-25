@@ -1,0 +1,21 @@
+type: object
+description: Devuelve el identificador del carrito afectado.
+properties:
+  Data:
+    type: object
+    properties:
+      cart:
+        type: object
+        properties:
+          cartId:
+            $ref: ../attributes/id.yaml
+        required:
+          - cartId
+      statusCode:
+        $ref: ../attributes/code.yaml
+      message:
+        $ref: ../attributes/message.yaml
+    required:
+      - cart
+      - statusCode
+      - message

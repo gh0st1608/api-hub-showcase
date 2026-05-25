@@ -1,0 +1,15 @@
+required: true
+content:
+  application/json:
+    schema:
+      $ref: ../schemas/model_request/UpdateCourierPresence.yaml
+    examples:
+      Actualizar-Presencia:
+        summary: Actualizar estado y posicion
+        value:
+          Data:
+            Courier:
+              location:
+                lat: -12.0464
+                lng: -77.0428
+              status: AVAILABLE
