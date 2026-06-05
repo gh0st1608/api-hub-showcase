@@ -1,0 +1,4891 @@
+openapi: 3.0.3
+info:
+  version: 1.0.0
+  title: API de Negocio Foodstore
+  description: >
+    API de negocio Foodstore, donde se definen los alcances funcionales de los
+    microservicios del ecosistema.
+      Recursos:
+
+        - Auth
+        - Users
+        - Preferences
+        - Products
+        - Categories
+        - Stores
+        - Orders
+        - Couriers
+        - Payments
+        - Checkouts
+  contact:
+    name: Erick Galindo Aguilar
+    email: erickmga123@gmail.com
+    url: 'https://storage.googleapis.com/foodstore-design-dev/foodstore-dev.html'
+    x-role: API Designer
+  x-catalog:
+    x-id-proxy: api-ne-foodstore
+    x-id-product: internal-product-dev-foodstore
+    x-id-catalog: api-ne-foodstore
+servers:
+  - url: 'https://api-dev.cuidaco.pe/api-ne-foodstore/v1'
+    description: Servidor de ambiente Desarrollo
+tags:
+  - name: Auths
+    description: |
+      Agrupa los servicios de gestion sobre el recurso de: Auth
+  - name: Users
+    description: |
+      Agrupa los servicios de gestion sobre el recurso de: User
+  - name: Preferences
+    description: |
+      Agrupa los servicios de gestion sobre el recurso de: Preference
+  - name: Products
+    description: |
+      Agrupa los servicios de gestion sobre el recurso de: Product
+  - name: Categories
+    description: |
+      Agrupa los servicios de gestion sobre el recurso de: Category
+  - name: Stores
+    description: |
+      Agrupa los servicios de gestion sobre el recurso de: Store
+  - name: Orders
+    description: |
+      Agrupa los servicios de gestion sobre el recurso de: Order
+  - name: Couriers
+    description: |
+      Agrupa los servicios de gestion sobre el recurso de: Courier
+  - name: Payments
+    description: |
+      Agrupa los servicios de gestion sobre el recurso de: Payment
+  - name: Checkouts
+    description: |
+      Agrupa los servicios de gestion sobre el recurso de: Cart
+paths:
+  /auth/login:
+    parameters:
+      - $ref: '#/components/parameters/Channel'
+      - $ref: '#/components/parameters/ApiKey'
+    post:
+      summary: Login
+      operationId: loginAuth
+      description: |
+        Procesos: Inicio de sesion con credenciales.
+
+        Funcionalidad: Autenticar al usuario y devolver tokens.
+
+        Objetivo: Permitir el acceso al microservicio.
+
+        Comentarios:
+      tags:
+        - Auths
+      requestBody:
+        $ref: '#/components/requestBodies/LoginAuthReq'
+      responses:
+        '200':
+          $ref: '#/components/responses/LoginAuthResponse'
+        '400':
+          $ref: '#/components/responses/BadRequestResponse'
+        '401':
+          $ref: '#/components/responses/UnauthorizedResponse'
+        '403':
+          $ref: '#/components/responses/ForbiddenResponse'
+        '404':
+          $ref: '#/components/responses/NotFoundResponse'
+        '407':
+          $ref: '#/components/responses/ProxyAuthenticationResponse'
+        '409':
+          $ref: '#/components/responses/ConflictResponse'
+        '411':
+          $ref: '#/components/responses/LengthRequiredResponse'
+        '414':
+          $ref: '#/components/responses/UriTooLongResponse'
+        '429':
+          $ref: '#/components/responses/TooManyRequestsResponse'
+        '500':
+          $ref: '#/components/responses/InternalServerErrorResponse'
+        default:
+          $ref: '#/components/responses/UnexpectedErrorResponse'
+      security:
+        - api_key: []
+  /auth/register:
+    parameters:
+      - $ref: '#/components/parameters/Channel'
+      - $ref: '#/components/parameters/ApiKey'
+    post:
+      summary: Register User
+      operationId: registerUser
+      description: |
+        Procesos: Registro de un usuario nuevo.
+
+        Funcionalidad: Crear la cuenta y devolver tokens iniciales.
+
+        Objetivo: Iniciar el flujo de onboarding del usuario.
+
+        Comentarios:
+      tags:
+        - Auths
+      requestBody:
+        $ref: '#/components/requestBodies/RegisterUserReq'
+      responses:
+        '200':
+          $ref: '#/components/responses/RegisterUserResponse'
+        '400':
+          $ref: '#/components/responses/BadRequestResponse'
+        '401':
+          $ref: '#/components/responses/UnauthorizedResponse'
+        '403':
+          $ref: '#/components/responses/ForbiddenResponse'
+        '404':
+          $ref: '#/components/responses/NotFoundResponse'
+        '407':
+          $ref: '#/components/responses/ProxyAuthenticationResponse'
+        '409':
+          $ref: '#/components/responses/ConflictResponse'
+        '411':
+          $ref: '#/components/responses/LengthRequiredResponse'
+        '414':
+          $ref: '#/components/responses/UriTooLongResponse'
+        '429':
+          $ref: '#/components/responses/TooManyRequestsResponse'
+        '500':
+          $ref: '#/components/responses/InternalServerErrorResponse'
+        default:
+          $ref: '#/components/responses/UnexpectedErrorResponse'
+      security:
+        - api_key: []
+  /auth/verify-email:
+    parameters:
+      - $ref: '#/components/parameters/Channel'
+      - $ref: '#/components/parameters/ApiKey'
+    post:
+      summary: Verify Email
+      operationId: verifyEmail
+      description: |
+        Procesos: Envio del codigo de verificacion por correo.
+
+        Funcionalidad: Generar y notificar el codigo temporal al usuario.
+
+        Objetivo: Validar la propiedad del correo electronico.
+
+        Comentarios:
+      tags:
+        - Auths
+      requestBody:
+        $ref: '#/components/requestBodies/VerifyEmailReq'
+      responses:
+        '200':
+          $ref: '#/components/responses/VerifyEmailResponse'
+        '400':
+          $ref: '#/components/responses/BadRequestResponse'
+        '401':
+          $ref: '#/components/responses/UnauthorizedResponse'
+        '403':
+          $ref: '#/components/responses/ForbiddenResponse'
+        '404':
+          $ref: '#/components/responses/NotFoundResponse'
+        '407':
+          $ref: '#/components/responses/ProxyAuthenticationResponse'
+        '409':
+          $ref: '#/components/responses/ConflictResponse'
+        '411':
+          $ref: '#/components/responses/LengthRequiredResponse'
+        '414':
+          $ref: '#/components/responses/UriTooLongResponse'
+        '429':
+          $ref: '#/components/responses/TooManyRequestsResponse'
+        '500':
+          $ref: '#/components/responses/InternalServerErrorResponse'
+        default:
+          $ref: '#/components/responses/UnexpectedErrorResponse'
+      security:
+        - api_key: []
+  /auth/verify-code:
+    parameters:
+      - $ref: '#/components/parameters/Channel'
+      - $ref: '#/components/parameters/ApiKey'
+    post:
+      summary: Verify Code
+      operationId: verifyCode
+      description: |
+        Procesos: Validacion del codigo de verificacion recibido.
+
+        Funcionalidad: Confirmar la validez y vigencia del codigo temporal.
+
+        Objetivo: Habilitar el paso siguiente del onboarding.
+
+        Comentarios:
+      tags:
+        - Auths
+      requestBody:
+        $ref: '#/components/requestBodies/VerifyCodeReq'
+      responses:
+        '200':
+          $ref: '#/components/responses/VerifyCodeResponse'
+        '400':
+          $ref: '#/components/responses/BadRequestResponse'
+        '401':
+          $ref: '#/components/responses/UnauthorizedResponse'
+        '403':
+          $ref: '#/components/responses/ForbiddenResponse'
+        '404':
+          $ref: '#/components/responses/NotFoundResponse'
+        '407':
+          $ref: '#/components/responses/ProxyAuthenticationResponse'
+        '409':
+          $ref: '#/components/responses/ConflictResponse'
+        '411':
+          $ref: '#/components/responses/LengthRequiredResponse'
+        '414':
+          $ref: '#/components/responses/UriTooLongResponse'
+        '429':
+          $ref: '#/components/responses/TooManyRequestsResponse'
+        '500':
+          $ref: '#/components/responses/InternalServerErrorResponse'
+        default:
+          $ref: '#/components/responses/UnexpectedErrorResponse'
+      security:
+        - api_key: []
+  /auth/set-password:
+    parameters:
+      - $ref: '#/components/parameters/Channel'
+      - $ref: '#/components/parameters/ApiKey'
+    post:
+      summary: Set Password
+      operationId: setPassword
+      description: |
+        Procesos: Registro o actualizacion de la contrasena del usuario.
+
+        Funcionalidad: Persistir una nueva contrasena cifrada.
+
+        Objetivo: Completar el acceso con credenciales.
+
+        Comentarios:
+      tags:
+        - Auths
+      requestBody:
+        $ref: '#/components/requestBodies/SetPasswordReq'
+      responses:
+        '200':
+          $ref: '#/components/responses/SetPasswordResponse'
+        '400':
+          $ref: '#/components/responses/BadRequestResponse'
+        '401':
+          $ref: '#/components/responses/UnauthorizedResponse'
+        '403':
+          $ref: '#/components/responses/ForbiddenResponse'
+        '404':
+          $ref: '#/components/responses/NotFoundResponse'
+        '407':
+          $ref: '#/components/responses/ProxyAuthenticationResponse'
+        '409':
+          $ref: '#/components/responses/ConflictResponse'
+        '411':
+          $ref: '#/components/responses/LengthRequiredResponse'
+        '414':
+          $ref: '#/components/responses/UriTooLongResponse'
+        '429':
+          $ref: '#/components/responses/TooManyRequestsResponse'
+        '500':
+          $ref: '#/components/responses/InternalServerErrorResponse'
+        default:
+          $ref: '#/components/responses/UnexpectedErrorResponse'
+      security:
+        - api_key: []
+  /auth/preferences:
+    parameters:
+      - $ref: '#/components/parameters/Channel'
+      - $ref: '#/components/parameters/ApiKey'
+    post:
+      summary: Create Preferences
+      operationId: createPreferences
+      description: >
+        Procesos: Registro de preferencias de categorias por usuario.
+
+
+        Funcionalidad: Crear una o varias preferencias y marcar el onboarding
+        como completado.
+
+
+        Objetivo: Personalizar la experiencia del usuario.
+
+
+        Comentarios:
+      tags:
+        - Preferences
+      requestBody:
+        $ref: '#/components/requestBodies/CreatePreferenceReq'
+      responses:
+        '200':
+          $ref: '#/components/responses/CreatePreferenceResponse'
+        '400':
+          $ref: '#/components/responses/BadRequestResponse'
+        '401':
+          $ref: '#/components/responses/UnauthorizedResponse'
+        '403':
+          $ref: '#/components/responses/ForbiddenResponse'
+        '404':
+          $ref: '#/components/responses/NotFoundResponse'
+        '407':
+          $ref: '#/components/responses/ProxyAuthenticationResponse'
+        '409':
+          $ref: '#/components/responses/ConflictResponse'
+        '411':
+          $ref: '#/components/responses/LengthRequiredResponse'
+        '414':
+          $ref: '#/components/responses/UriTooLongResponse'
+        '429':
+          $ref: '#/components/responses/TooManyRequestsResponse'
+        '500':
+          $ref: '#/components/responses/InternalServerErrorResponse'
+        default:
+          $ref: '#/components/responses/UnexpectedErrorResponse'
+      security:
+        - api_key: []
+    get:
+      summary: Get Preferences
+      operationId: getPreferences
+      description: |
+        Procesos: Consulta paginada de preferencias registradas.
+
+        Funcionalidad: Obtener preferencias por usuario o cursor.
+
+        Objetivo: Visualizar el estado del onboarding del usuario.
+
+        Comentarios:
+      tags:
+        - Preferences
+      parameters:
+        - $ref: '#/components/parameters/Limit'
+        - $ref: '#/components/parameters/Cursor'
+        - $ref: '#/components/parameters/UserId'
+      responses:
+        '200':
+          $ref: '#/components/responses/GetPreferencesResponse'
+        '400':
+          $ref: '#/components/responses/BadRequestResponse'
+        '401':
+          $ref: '#/components/responses/UnauthorizedResponse'
+        '403':
+          $ref: '#/components/responses/ForbiddenResponse'
+        '404':
+          $ref: '#/components/responses/NotFoundResponse'
+        '407':
+          $ref: '#/components/responses/ProxyAuthenticationResponse'
+        '409':
+          $ref: '#/components/responses/ConflictResponse'
+        '411':
+          $ref: '#/components/responses/LengthRequiredResponse'
+        '414':
+          $ref: '#/components/responses/UriTooLongResponse'
+        '429':
+          $ref: '#/components/responses/TooManyRequestsResponse'
+        '500':
+          $ref: '#/components/responses/InternalServerErrorResponse'
+        default:
+          $ref: '#/components/responses/UnexpectedErrorResponse'
+      security:
+        - api_key: []
+  /auth/users:
+    parameters:
+      - $ref: '#/components/parameters/Channel'
+      - $ref: '#/components/parameters/ApiKey'
+    get:
+      summary: Get Users
+      operationId: getUsers
+      description: |
+        Procesos: Consulta paginada de usuarios.
+
+        Funcionalidad: Recuperar usuarios por limite y cursor.
+
+        Objetivo: Exponer un listado navegable del recurso User.
+
+        Comentarios:
+      tags:
+        - Users
+      parameters:
+        - $ref: '#/components/parameters/Limit'
+        - $ref: '#/components/parameters/Cursor'
+      responses:
+        '200':
+          $ref: '#/components/responses/GetUsersResponse'
+        '400':
+          $ref: '#/components/responses/BadRequestResponse'
+        '401':
+          $ref: '#/components/responses/UnauthorizedResponse'
+        '403':
+          $ref: '#/components/responses/ForbiddenResponse'
+        '404':
+          $ref: '#/components/responses/NotFoundResponse'
+        '407':
+          $ref: '#/components/responses/ProxyAuthenticationResponse'
+        '409':
+          $ref: '#/components/responses/ConflictResponse'
+        '411':
+          $ref: '#/components/responses/LengthRequiredResponse'
+        '414':
+          $ref: '#/components/responses/UriTooLongResponse'
+        '429':
+          $ref: '#/components/responses/TooManyRequestsResponse'
+        '500':
+          $ref: '#/components/responses/InternalServerErrorResponse'
+        default:
+          $ref: '#/components/responses/UnexpectedErrorResponse'
+      security:
+        - api_key: []
+  '/auth/users/{id}':
+    parameters:
+      - $ref: '#/components/parameters/Channel'
+      - $ref: '#/components/parameters/ApiKey'
+      - name: id
+        in: path
+        description: Identificador unico del recurso User.
+        required: true
+        schema:
+          type: string
+          format: uuid
+          minLength: 36
+          maxLength: 36
+          pattern: '[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}'
+          example: 62977d46-7a50-41c9-8d84-38272ac2a8df
+    get:
+      summary: Get User By Id
+      operationId: getUserById
+      description: |
+        Procesos: Consulta puntual de un usuario por identificador.
+
+        Funcionalidad: Obtener el detalle del recurso User.
+
+        Objetivo: Consultar la ficha de un usuario existente.
+
+        Comentarios:
+      tags:
+        - Users
+      responses:
+        '200':
+          $ref: '#/components/responses/GetUserResponse'
+        '400':
+          $ref: '#/components/responses/BadRequestResponse'
+        '401':
+          $ref: '#/components/responses/UnauthorizedResponse'
+        '403':
+          $ref: '#/components/responses/ForbiddenResponse'
+        '404':
+          $ref: '#/components/responses/NotFoundResponse'
+        '407':
+          $ref: '#/components/responses/ProxyAuthenticationResponse'
+        '409':
+          $ref: '#/components/responses/ConflictResponse'
+        '411':
+          $ref: '#/components/responses/LengthRequiredResponse'
+        '414':
+          $ref: '#/components/responses/UriTooLongResponse'
+        '429':
+          $ref: '#/components/responses/TooManyRequestsResponse'
+        '500':
+          $ref: '#/components/responses/InternalServerErrorResponse'
+        default:
+          $ref: '#/components/responses/UnexpectedErrorResponse'
+      security:
+        - api_key: []
+  /auth/me:
+    parameters:
+      - $ref: '#/components/parameters/Channel'
+      - $ref: '#/components/parameters/ApiKey'
+    get:
+      summary: Get Me
+      operationId: getMe
+      description: |
+        Procesos: Consulta del usuario autenticado.
+
+        Funcionalidad: Obtener el perfil asociado al token de acceso.
+
+        Objetivo: Exponer el contexto del usuario actual.
+
+        Comentarios:
+      tags:
+        - Auths
+      responses:
+        '200':
+          $ref: '#/components/responses/GetMeResponse'
+        '400':
+          $ref: '#/components/responses/BadRequestResponse'
+        '401':
+          $ref: '#/components/responses/UnauthorizedResponse'
+        '403':
+          $ref: '#/components/responses/ForbiddenResponse'
+        '404':
+          $ref: '#/components/responses/NotFoundResponse'
+        '407':
+          $ref: '#/components/responses/ProxyAuthenticationResponse'
+        '409':
+          $ref: '#/components/responses/ConflictResponse'
+        '411':
+          $ref: '#/components/responses/LengthRequiredResponse'
+        '414':
+          $ref: '#/components/responses/UriTooLongResponse'
+        '429':
+          $ref: '#/components/responses/TooManyRequestsResponse'
+        '500':
+          $ref: '#/components/responses/InternalServerErrorResponse'
+        default:
+          $ref: '#/components/responses/UnexpectedErrorResponse'
+      security:
+        - api_key: []
+          bearerAuth: []
+  /shop/products:
+    parameters:
+      - $ref: '#/components/parameters/Channel'
+      - $ref: '#/components/parameters/ApiKey'
+    post:
+      summary: Create Product
+      operationId: createProduct
+      description: >
+        Procesos: Creacion de un producto nuevo.
+
+
+        Funcionalidad: Registrar un producto con sus datos comerciales e
+        ingredientes.
+
+
+        Objetivo: Incorporar productos al catalogo del comercio.
+
+
+        Comentarios:
+      tags:
+        - Products
+      requestBody:
+        $ref: '#/components/requestBodies/CreateProductReq'
+      responses:
+        '200':
+          $ref: '#/components/responses/CreateProductResponse'
+        '400':
+          $ref: '#/components/responses/BadRequestResponse'
+        '401':
+          $ref: '#/components/responses/UnauthorizedResponse'
+        '403':
+          $ref: '#/components/responses/ForbiddenResponse'
+        '404':
+          $ref: '#/components/responses/NotFoundResponse'
+        '407':
+          $ref: '#/components/responses/ProxyAuthenticationResponse'
+        '409':
+          $ref: '#/components/responses/ConflictResponse'
+        '411':
+          $ref: '#/components/responses/LengthRequiredResponse'
+        '414':
+          $ref: '#/components/responses/UriTooLongResponse'
+        '429':
+          $ref: '#/components/responses/TooManyRequestsResponse'
+        '500':
+          $ref: '#/components/responses/InternalServerErrorResponse'
+        default:
+          $ref: '#/components/responses/UnexpectedErrorResponse'
+      security:
+        - api_key: []
+    get:
+      summary: Get Products
+      operationId: getProducts
+      description: |
+        Procesos: Consulta paginada de productos.
+
+        Funcionalidad: Recuperar productos por texto, categoria y cursor.
+
+        Objetivo: Exponer el catalogo del negocio de forma consultable.
+
+        Comentarios:
+      tags:
+        - Products
+      parameters:
+        - $ref: '#/components/parameters/Search'
+        - $ref: '#/components/parameters/Limit'
+        - $ref: '#/components/parameters/Cursor'
+        - $ref: '#/components/parameters/CategoryId'
+      responses:
+        '200':
+          $ref: '#/components/responses/GetProductsResponse'
+        '400':
+          $ref: '#/components/responses/BadRequestResponse'
+        '401':
+          $ref: '#/components/responses/UnauthorizedResponse'
+        '403':
+          $ref: '#/components/responses/ForbiddenResponse'
+        '404':
+          $ref: '#/components/responses/NotFoundResponse'
+        '407':
+          $ref: '#/components/responses/ProxyAuthenticationResponse'
+        '409':
+          $ref: '#/components/responses/ConflictResponse'
+        '411':
+          $ref: '#/components/responses/LengthRequiredResponse'
+        '414':
+          $ref: '#/components/responses/UriTooLongResponse'
+        '429':
+          $ref: '#/components/responses/TooManyRequestsResponse'
+        '500':
+          $ref: '#/components/responses/InternalServerErrorResponse'
+        default:
+          $ref: '#/components/responses/UnexpectedErrorResponse'
+      security:
+        - api_key: []
+  '/shop/products/{id}':
+    parameters:
+      - $ref: '#/components/parameters/Channel'
+      - $ref: '#/components/parameters/ApiKey'
+      - name: id
+        in: path
+        description: Identificador unico del recurso Product.
+        required: true
+        schema:
+          type: string
+          format: uuid
+          minLength: 36
+          maxLength: 36
+          pattern: '[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}'
+          example: 62977d46-7a50-41c9-8d84-38272ac2a8df
+    get:
+      summary: Get Product
+      operationId: getProductById
+      description: |
+        Procesos: Consulta puntual de un producto por identificador.
+
+        Funcionalidad: Obtener el detalle del producto solicitado.
+
+        Objetivo: Exponer la ficha del producto del catalogo.
+
+        Comentarios:
+      tags:
+        - Products
+      responses:
+        '200':
+          $ref: '#/components/responses/GetProductResponse'
+        '400':
+          $ref: '#/components/responses/BadRequestResponse'
+        '401':
+          $ref: '#/components/responses/UnauthorizedResponse'
+        '403':
+          $ref: '#/components/responses/ForbiddenResponse'
+        '404':
+          $ref: '#/components/responses/NotFoundResponse'
+        '407':
+          $ref: '#/components/responses/ProxyAuthenticationResponse'
+        '409':
+          $ref: '#/components/responses/ConflictResponse'
+        '411':
+          $ref: '#/components/responses/LengthRequiredResponse'
+        '414':
+          $ref: '#/components/responses/UriTooLongResponse'
+        '429':
+          $ref: '#/components/responses/TooManyRequestsResponse'
+        '500':
+          $ref: '#/components/responses/InternalServerErrorResponse'
+        default:
+          $ref: '#/components/responses/UnexpectedErrorResponse'
+      security:
+        - api_key: []
+  /shop/categories:
+    parameters:
+      - $ref: '#/components/parameters/Channel'
+      - $ref: '#/components/parameters/ApiKey'
+    post:
+      summary: Create Category
+      operationId: createCategory
+      description: |
+        Procesos: Creacion de una categoria comercial.
+
+        Funcionalidad: Registrar una categoria para clasificar productos.
+
+        Objetivo: Organizar el catalogo del negocio.
+
+        Comentarios:
+      tags:
+        - Categories
+      requestBody:
+        $ref: '#/components/requestBodies/CreateCategoryReq'
+      responses:
+        '200':
+          $ref: '#/components/responses/CreateCategoryResponse'
+        '400':
+          $ref: '#/components/responses/BadRequestResponse'
+        '401':
+          $ref: '#/components/responses/UnauthorizedResponse'
+        '403':
+          $ref: '#/components/responses/ForbiddenResponse'
+        '404':
+          $ref: '#/components/responses/NotFoundResponse'
+        '407':
+          $ref: '#/components/responses/ProxyAuthenticationResponse'
+        '409':
+          $ref: '#/components/responses/ConflictResponse'
+        '411':
+          $ref: '#/components/responses/LengthRequiredResponse'
+        '414':
+          $ref: '#/components/responses/UriTooLongResponse'
+        '429':
+          $ref: '#/components/responses/TooManyRequestsResponse'
+        '500':
+          $ref: '#/components/responses/InternalServerErrorResponse'
+        default:
+          $ref: '#/components/responses/UnexpectedErrorResponse'
+      security:
+        - api_key: []
+    get:
+      summary: Get Categories
+      operationId: getCategories
+      description: |
+        Procesos: Consulta paginada de categorias.
+
+        Funcionalidad: Recuperar las categorias disponibles del catalogo.
+
+        Objetivo: Exponer la clasificacion comercial del negocio.
+
+        Comentarios:
+      tags:
+        - Categories
+      parameters:
+        - $ref: '#/components/parameters/Search'
+        - $ref: '#/components/parameters/Limit'
+        - $ref: '#/components/parameters/Cursor'
+      responses:
+        '200':
+          $ref: '#/components/responses/GetCategoriesResponse'
+        '400':
+          $ref: '#/components/responses/BadRequestResponse'
+        '401':
+          $ref: '#/components/responses/UnauthorizedResponse'
+        '403':
+          $ref: '#/components/responses/ForbiddenResponse'
+        '404':
+          $ref: '#/components/responses/NotFoundResponse'
+        '407':
+          $ref: '#/components/responses/ProxyAuthenticationResponse'
+        '409':
+          $ref: '#/components/responses/ConflictResponse'
+        '411':
+          $ref: '#/components/responses/LengthRequiredResponse'
+        '414':
+          $ref: '#/components/responses/UriTooLongResponse'
+        '429':
+          $ref: '#/components/responses/TooManyRequestsResponse'
+        '500':
+          $ref: '#/components/responses/InternalServerErrorResponse'
+        default:
+          $ref: '#/components/responses/UnexpectedErrorResponse'
+      security:
+        - api_key: []
+  '/shop/stores/{id}/location':
+    parameters:
+      - $ref: '#/components/parameters/Channel'
+      - $ref: '#/components/parameters/ApiKey'
+      - name: id
+        in: path
+        description: Identificador unico del recurso Store.
+        required: true
+        schema:
+          type: string
+          format: uuid
+          minLength: 36
+          maxLength: 36
+          pattern: '[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}'
+          example: a0271854-eed8-486d-9ab4-74ef822aa1f4
+    get:
+      summary: Get Store Location
+      operationId: getStoreLocation
+      description: |
+        Procesos: Consulta de ubicacion de tienda por identificador.
+
+        Funcionalidad: Obtener coordenadas geograficas asociadas a una tienda.
+
+        Objetivo: Mostrar la localizacion fisica del punto de venta.
+
+        Comentarios:
+      tags:
+        - Stores
+      responses:
+        '200':
+          $ref: '#/components/responses/GetStoreLocationResponse'
+        '400':
+          $ref: '#/components/responses/BadRequestResponse'
+        '401':
+          $ref: '#/components/responses/UnauthorizedResponse'
+        '403':
+          $ref: '#/components/responses/ForbiddenResponse'
+        '404':
+          $ref: '#/components/responses/NotFoundResponse'
+        '407':
+          $ref: '#/components/responses/ProxyAuthenticationResponse'
+        '409':
+          $ref: '#/components/responses/ConflictResponse'
+        '411':
+          $ref: '#/components/responses/LengthRequiredResponse'
+        '414':
+          $ref: '#/components/responses/UriTooLongResponse'
+        '429':
+          $ref: '#/components/responses/TooManyRequestsResponse'
+        '500':
+          $ref: '#/components/responses/InternalServerErrorResponse'
+        default:
+          $ref: '#/components/responses/UnexpectedErrorResponse'
+      security:
+        - api_key: []
+  /order:
+    parameters:
+      - $ref: '#/components/parameters/Channel'
+      - $ref: '#/components/parameters/ApiKey'
+    post:
+      summary: Create Order
+      operationId: createOrder
+      description: >
+        Procesos: Creacion de una orden de delivery.
+
+
+        Funcionalidad: Registrar la orden y disparar la autoasignacion de
+        courier.
+
+
+        Objetivo: Iniciar el flujo operativo del pedido.
+
+
+        Comentarios:
+      tags:
+        - Orders
+      requestBody:
+        $ref: '#/components/requestBodies/CreateOrderReq'
+      responses:
+        '200':
+          $ref: '#/components/responses/CreateOrderResponse'
+        '400':
+          $ref: '#/components/responses/BadRequestResponse'
+        '401':
+          $ref: '#/components/responses/UnauthorizedResponse'
+        '403':
+          $ref: '#/components/responses/ForbiddenResponse'
+        '404':
+          $ref: '#/components/responses/NotFoundResponse'
+        '407':
+          $ref: '#/components/responses/ProxyAuthenticationResponse'
+        '409':
+          $ref: '#/components/responses/ConflictResponse'
+        '411':
+          $ref: '#/components/responses/LengthRequiredResponse'
+        '414':
+          $ref: '#/components/responses/UriTooLongResponse'
+        '429':
+          $ref: '#/components/responses/TooManyRequestsResponse'
+        '500':
+          $ref: '#/components/responses/InternalServerErrorResponse'
+        default:
+          $ref: '#/components/responses/UnexpectedErrorResponse'
+      security:
+        - api_key: []
+    get:
+      summary: Get Orders
+      operationId: getOrders
+      description: |
+        Procesos: Consulta paginada de ordenes.
+
+        Funcionalidad: Recuperar ordenes por limite, cursor y usuario.
+
+        Objetivo: Exponer seguimiento y exploracion del recurso Order.
+
+        Comentarios:
+      tags:
+        - Orders
+      parameters:
+        - $ref: '#/components/parameters/Limit'
+        - $ref: '#/components/parameters/Cursor'
+        - $ref: '#/components/parameters/UserId'
+      responses:
+        '200':
+          $ref: '#/components/responses/GetOrdersResponse'
+        '400':
+          $ref: '#/components/responses/BadRequestResponse'
+        '401':
+          $ref: '#/components/responses/UnauthorizedResponse'
+        '403':
+          $ref: '#/components/responses/ForbiddenResponse'
+        '404':
+          $ref: '#/components/responses/NotFoundResponse'
+        '407':
+          $ref: '#/components/responses/ProxyAuthenticationResponse'
+        '409':
+          $ref: '#/components/responses/ConflictResponse'
+        '411':
+          $ref: '#/components/responses/LengthRequiredResponse'
+        '414':
+          $ref: '#/components/responses/UriTooLongResponse'
+        '429':
+          $ref: '#/components/responses/TooManyRequestsResponse'
+        '500':
+          $ref: '#/components/responses/InternalServerErrorResponse'
+        default:
+          $ref: '#/components/responses/UnexpectedErrorResponse'
+      security:
+        - api_key: []
+  '/order/{id}':
+    parameters:
+      - $ref: '#/components/parameters/Channel'
+      - $ref: '#/components/parameters/ApiKey'
+      - name: id
+        in: path
+        description: Identificador unico del recurso Order.
+        required: true
+        schema:
+          type: string
+          format: uuid
+          minLength: 36
+          maxLength: 36
+          pattern: '[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}'
+          example: 62977d46-7a50-41c9-8d84-38272ac2a8df
+    get:
+      summary: Get Order
+      operationId: getOrderById
+      description: |
+        Procesos: Consulta puntual de una orden por identificador.
+
+        Funcionalidad: Obtener el detalle del pedido solicitado.
+
+        Objetivo: Visualizar el estado integral de una orden.
+
+        Comentarios:
+      tags:
+        - Orders
+      responses:
+        '200':
+          $ref: '#/components/responses/GetOrderResponse'
+        '400':
+          $ref: '#/components/responses/BadRequestResponse'
+        '401':
+          $ref: '#/components/responses/UnauthorizedResponse'
+        '403':
+          $ref: '#/components/responses/ForbiddenResponse'
+        '404':
+          $ref: '#/components/responses/NotFoundResponse'
+        '407':
+          $ref: '#/components/responses/ProxyAuthenticationResponse'
+        '409':
+          $ref: '#/components/responses/ConflictResponse'
+        '411':
+          $ref: '#/components/responses/LengthRequiredResponse'
+        '414':
+          $ref: '#/components/responses/UriTooLongResponse'
+        '429':
+          $ref: '#/components/responses/TooManyRequestsResponse'
+        '500':
+          $ref: '#/components/responses/InternalServerErrorResponse'
+        default:
+          $ref: '#/components/responses/UnexpectedErrorResponse'
+      security:
+        - api_key: []
+  '/order/{orderId}/status':
+    parameters:
+      - $ref: '#/components/parameters/Channel'
+      - $ref: '#/components/parameters/ApiKey'
+      - name: orderId
+        in: path
+        description: Identificador unico del recurso Order.
+        required: true
+        schema:
+          type: string
+          format: uuid
+          minLength: 36
+          maxLength: 36
+          pattern: '[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}'
+          example: 62977d46-7a50-41c9-8d84-38272ac2a8df
+    patch:
+      summary: Update Order Status
+      operationId: updateOrderStatus
+      description: |
+        Procesos: Actualizacion del estado de entrega de una orden.
+
+        Funcionalidad: Cambiar el avance logistico del pedido.
+
+        Objetivo: Reflejar el progreso de despacho.
+
+        Comentarios:
+      tags:
+        - Orders
+      requestBody:
+        $ref: '#/components/requestBodies/UpdateOrderStatusReq'
+      responses:
+        '200':
+          $ref: '#/components/responses/UpdateOrderStatusResponse'
+        '400':
+          $ref: '#/components/responses/BadRequestResponse'
+        '401':
+          $ref: '#/components/responses/UnauthorizedResponse'
+        '403':
+          $ref: '#/components/responses/ForbiddenResponse'
+        '404':
+          $ref: '#/components/responses/NotFoundResponse'
+        '407':
+          $ref: '#/components/responses/ProxyAuthenticationResponse'
+        '409':
+          $ref: '#/components/responses/ConflictResponse'
+        '411':
+          $ref: '#/components/responses/LengthRequiredResponse'
+        '414':
+          $ref: '#/components/responses/UriTooLongResponse'
+        '429':
+          $ref: '#/components/responses/TooManyRequestsResponse'
+        '500':
+          $ref: '#/components/responses/InternalServerErrorResponse'
+        default:
+          $ref: '#/components/responses/UnexpectedErrorResponse'
+      security:
+        - api_key: []
+  '/order/{orderId}/status-delivery':
+    parameters:
+      - $ref: '#/components/parameters/Channel'
+      - $ref: '#/components/parameters/ApiKey'
+      - name: orderId
+        in: path
+        description: Identificador unico del recurso Order.
+        required: true
+        schema:
+          type: string
+          format: uuid
+          minLength: 36
+          maxLength: 36
+          pattern: '[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}'
+          example: 62977d46-7a50-41c9-8d84-38272ac2a8df
+    get:
+      summary: Get Order Delivery Status
+      operationId: getOrderStatus
+      description: |
+        Procesos: Consulta del estado de entrega de una orden.
+
+        Funcionalidad: Obtener el statusDelivery actual del pedido.
+
+        Objetivo: Permitir seguimiento operativo.
+
+        Comentarios:
+      tags:
+        - Orders
+      responses:
+        '200':
+          $ref: '#/components/responses/GetOrderStatusResponse'
+        '400':
+          $ref: '#/components/responses/BadRequestResponse'
+        '401':
+          $ref: '#/components/responses/UnauthorizedResponse'
+        '403':
+          $ref: '#/components/responses/ForbiddenResponse'
+        '404':
+          $ref: '#/components/responses/NotFoundResponse'
+        '407':
+          $ref: '#/components/responses/ProxyAuthenticationResponse'
+        '409':
+          $ref: '#/components/responses/ConflictResponse'
+        '411':
+          $ref: '#/components/responses/LengthRequiredResponse'
+        '414':
+          $ref: '#/components/responses/UriTooLongResponse'
+        '429':
+          $ref: '#/components/responses/TooManyRequestsResponse'
+        '500':
+          $ref: '#/components/responses/InternalServerErrorResponse'
+        default:
+          $ref: '#/components/responses/UnexpectedErrorResponse'
+      security:
+        - api_key: []
+  '/order/{orderId}/assign/{courierId}':
+    parameters:
+      - $ref: '#/components/parameters/Channel'
+      - $ref: '#/components/parameters/ApiKey'
+      - name: orderId
+        in: path
+        description: Identificador unico del recurso Order.
+        required: true
+        schema:
+          type: string
+          format: uuid
+          minLength: 36
+          maxLength: 36
+          pattern: '[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}'
+          example: 62977d46-7a50-41c9-8d84-38272ac2a8df
+      - name: courierId
+        in: path
+        description: Identificador unico del recurso Courier.
+        required: true
+        schema:
+          type: string
+          format: uuid
+          minLength: 36
+          maxLength: 36
+          pattern: '[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}'
+          example: a0271854-eed8-486d-9ab4-74ef822aa1f4
+    get:
+      summary: Assign Courier To Order
+      operationId: assignCourierToOrder
+      description: |
+        Procesos: Asignacion manual de courier a una orden.
+
+        Funcionalidad: Vincular el pedido con un courier disponible.
+
+        Objetivo: Permitir control operativo del despacho.
+
+        Comentarios:
+      tags:
+        - Orders
+      responses:
+        '200':
+          $ref: '#/components/responses/AssignCourierResponse'
+        '400':
+          $ref: '#/components/responses/BadRequestResponse'
+        '401':
+          $ref: '#/components/responses/UnauthorizedResponse'
+        '403':
+          $ref: '#/components/responses/ForbiddenResponse'
+        '404':
+          $ref: '#/components/responses/NotFoundResponse'
+        '407':
+          $ref: '#/components/responses/ProxyAuthenticationResponse'
+        '409':
+          $ref: '#/components/responses/ConflictResponse'
+        '411':
+          $ref: '#/components/responses/LengthRequiredResponse'
+        '414':
+          $ref: '#/components/responses/UriTooLongResponse'
+        '429':
+          $ref: '#/components/responses/TooManyRequestsResponse'
+        '500':
+          $ref: '#/components/responses/InternalServerErrorResponse'
+        default:
+          $ref: '#/components/responses/UnexpectedErrorResponse'
+      security:
+        - api_key: []
+  /courier:
+    parameters:
+      - $ref: '#/components/parameters/Channel'
+      - $ref: '#/components/parameters/ApiKey'
+    post:
+      summary: Create Courier
+      operationId: createCourier
+      description: |
+        Procesos: Registro de courier.
+
+        Funcionalidad: Crear un repartidor disponible para el sistema.
+
+        Objetivo: Habilitar la operacion logistica.
+
+        Comentarios:
+      tags:
+        - Couriers
+      requestBody:
+        $ref: '#/components/requestBodies/CreateCourierReq'
+      responses:
+        '200':
+          $ref: '#/components/responses/CreateCourierResponse'
+        '400':
+          $ref: '#/components/responses/BadRequestResponse'
+        '401':
+          $ref: '#/components/responses/UnauthorizedResponse'
+        '403':
+          $ref: '#/components/responses/ForbiddenResponse'
+        '404':
+          $ref: '#/components/responses/NotFoundResponse'
+        '407':
+          $ref: '#/components/responses/ProxyAuthenticationResponse'
+        '409':
+          $ref: '#/components/responses/ConflictResponse'
+        '411':
+          $ref: '#/components/responses/LengthRequiredResponse'
+        '414':
+          $ref: '#/components/responses/UriTooLongResponse'
+        '429':
+          $ref: '#/components/responses/TooManyRequestsResponse'
+        '500':
+          $ref: '#/components/responses/InternalServerErrorResponse'
+        default:
+          $ref: '#/components/responses/UnexpectedErrorResponse'
+      security:
+        - api_key: []
+    get:
+      summary: Get Couriers
+      operationId: getCouriers
+      description: |
+        Procesos: Consulta paginada de couriers.
+
+        Funcionalidad: Recuperar couriers por limite, cursor y usuario.
+
+        Objetivo: Exponer disponibilidad y consulta del recurso Courier.
+
+        Comentarios:
+      tags:
+        - Couriers
+      parameters:
+        - $ref: '#/components/parameters/Limit'
+        - $ref: '#/components/parameters/Cursor'
+        - $ref: '#/components/parameters/UserId'
+      responses:
+        '200':
+          $ref: '#/components/responses/GetCouriersResponse'
+        '400':
+          $ref: '#/components/responses/BadRequestResponse'
+        '401':
+          $ref: '#/components/responses/UnauthorizedResponse'
+        '403':
+          $ref: '#/components/responses/ForbiddenResponse'
+        '404':
+          $ref: '#/components/responses/NotFoundResponse'
+        '407':
+          $ref: '#/components/responses/ProxyAuthenticationResponse'
+        '409':
+          $ref: '#/components/responses/ConflictResponse'
+        '411':
+          $ref: '#/components/responses/LengthRequiredResponse'
+        '414':
+          $ref: '#/components/responses/UriTooLongResponse'
+        '429':
+          $ref: '#/components/responses/TooManyRequestsResponse'
+        '500':
+          $ref: '#/components/responses/InternalServerErrorResponse'
+        default:
+          $ref: '#/components/responses/UnexpectedErrorResponse'
+      security:
+        - api_key: []
+  '/courier/{courierId}':
+    parameters:
+      - $ref: '#/components/parameters/Channel'
+      - $ref: '#/components/parameters/ApiKey'
+      - name: courierId
+        in: path
+        description: Identificador unico del recurso Courier.
+        required: true
+        schema:
+          type: string
+          format: uuid
+          minLength: 36
+          maxLength: 36
+          pattern: '[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}'
+          example: a0271854-eed8-486d-9ab4-74ef822aa1f4
+    get:
+      summary: Get Courier
+      operationId: getCourierById
+      description: |
+        Procesos: Consulta puntual de un courier por identificador.
+
+        Funcionalidad: Obtener el detalle del repartidor solicitado.
+
+        Objetivo: Visualizar el estado operativo de un courier.
+
+        Comentarios:
+      tags:
+        - Couriers
+      responses:
+        '200':
+          $ref: '#/components/responses/GetCourierResponse'
+        '400':
+          $ref: '#/components/responses/BadRequestResponse'
+        '401':
+          $ref: '#/components/responses/UnauthorizedResponse'
+        '403':
+          $ref: '#/components/responses/ForbiddenResponse'
+        '404':
+          $ref: '#/components/responses/NotFoundResponse'
+        '407':
+          $ref: '#/components/responses/ProxyAuthenticationResponse'
+        '409':
+          $ref: '#/components/responses/ConflictResponse'
+        '411':
+          $ref: '#/components/responses/LengthRequiredResponse'
+        '414':
+          $ref: '#/components/responses/UriTooLongResponse'
+        '429':
+          $ref: '#/components/responses/TooManyRequestsResponse'
+        '500':
+          $ref: '#/components/responses/InternalServerErrorResponse'
+        default:
+          $ref: '#/components/responses/UnexpectedErrorResponse'
+      security:
+        - api_key: []
+  '/courier/{courierId}/presence':
+    parameters:
+      - $ref: '#/components/parameters/Channel'
+      - $ref: '#/components/parameters/ApiKey'
+      - name: courierId
+        in: path
+        description: Identificador unico del recurso Courier.
+        required: true
+        schema:
+          type: string
+          format: uuid
+          minLength: 36
+          maxLength: 36
+          pattern: '[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}'
+          example: a0271854-eed8-486d-9ab4-74ef822aa1f4
+    patch:
+      summary: Update Courier Presence
+      operationId: updateCourierPresence
+      description: |
+        Procesos: Actualizacion de presencia y ubicacion del courier.
+
+        Funcionalidad: Registrar localizacion y estado operativo del repartidor.
+
+        Objetivo: Mantener trazabilidad en tiempo real.
+
+        Comentarios:
+      tags:
+        - Couriers
+      requestBody:
+        $ref: '#/components/requestBodies/UpdateCourierPresenceReq'
+      responses:
+        '200':
+          $ref: '#/components/responses/UpdateCourierPresenceResponse'
+        '400':
+          $ref: '#/components/responses/BadRequestResponse'
+        '401':
+          $ref: '#/components/responses/UnauthorizedResponse'
+        '403':
+          $ref: '#/components/responses/ForbiddenResponse'
+        '404':
+          $ref: '#/components/responses/NotFoundResponse'
+        '407':
+          $ref: '#/components/responses/ProxyAuthenticationResponse'
+        '409':
+          $ref: '#/components/responses/ConflictResponse'
+        '411':
+          $ref: '#/components/responses/LengthRequiredResponse'
+        '414':
+          $ref: '#/components/responses/UriTooLongResponse'
+        '429':
+          $ref: '#/components/responses/TooManyRequestsResponse'
+        '500':
+          $ref: '#/components/responses/InternalServerErrorResponse'
+        default:
+          $ref: '#/components/responses/UnexpectedErrorResponse'
+      security:
+        - api_key: []
+  /payment:
+    parameters:
+      - $ref: '#/components/parameters/Channel'
+      - $ref: '#/components/parameters/ApiKey'
+    post:
+      summary: Create Payment
+      operationId: createPayment
+      description: |
+        Procesos: Registro de un pago.
+
+        Funcionalidad: Persistir una intencion de pago asociada a una orden.
+
+        Objetivo: Iniciar la trazabilidad del cobro.
+
+        Comentarios:
+      tags:
+        - Payments
+      requestBody:
+        $ref: '#/components/requestBodies/CreatePaymentReq'
+      responses:
+        '200':
+          $ref: '#/components/responses/CreatePaymentResponse'
+        '400':
+          $ref: '#/components/responses/BadRequestResponse'
+        '401':
+          $ref: '#/components/responses/UnauthorizedResponse'
+        '403':
+          $ref: '#/components/responses/ForbiddenResponse'
+        '404':
+          $ref: '#/components/responses/NotFoundResponse'
+        '407':
+          $ref: '#/components/responses/ProxyAuthenticationResponse'
+        '409':
+          $ref: '#/components/responses/ConflictResponse'
+        '411':
+          $ref: '#/components/responses/LengthRequiredResponse'
+        '414':
+          $ref: '#/components/responses/UriTooLongResponse'
+        '429':
+          $ref: '#/components/responses/TooManyRequestsResponse'
+        '500':
+          $ref: '#/components/responses/InternalServerErrorResponse'
+        default:
+          $ref: '#/components/responses/UnexpectedErrorResponse'
+      security:
+        - api_key: []
+    get:
+      summary: Get Payments
+      operationId: getPayments
+      description: |
+        Procesos: Consulta paginada de pagos.
+
+        Funcionalidad: Recuperar pagos por limite, cursor y usuario.
+
+        Objetivo: Exponer el historial de transacciones.
+
+        Comentarios:
+      tags:
+        - Payments
+      parameters:
+        - $ref: '#/components/parameters/Limit'
+        - $ref: '#/components/parameters/Cursor'
+        - $ref: '#/components/parameters/UserId'
+      responses:
+        '200':
+          $ref: '#/components/responses/GetPaymentsResponse'
+        '400':
+          $ref: '#/components/responses/BadRequestResponse'
+        '401':
+          $ref: '#/components/responses/UnauthorizedResponse'
+        '403':
+          $ref: '#/components/responses/ForbiddenResponse'
+        '404':
+          $ref: '#/components/responses/NotFoundResponse'
+        '407':
+          $ref: '#/components/responses/ProxyAuthenticationResponse'
+        '409':
+          $ref: '#/components/responses/ConflictResponse'
+        '411':
+          $ref: '#/components/responses/LengthRequiredResponse'
+        '414':
+          $ref: '#/components/responses/UriTooLongResponse'
+        '429':
+          $ref: '#/components/responses/TooManyRequestsResponse'
+        '500':
+          $ref: '#/components/responses/InternalServerErrorResponse'
+        default:
+          $ref: '#/components/responses/UnexpectedErrorResponse'
+      security:
+        - api_key: []
+  /payment/paypal:
+    parameters:
+      - $ref: '#/components/parameters/Channel'
+      - $ref: '#/components/parameters/ApiKey'
+    post:
+      summary: Create Payment Paypal
+      operationId: createPaymentPaypal
+      description: |
+        Procesos: Creacion de una orden de pago en Paypal.
+
+        Funcionalidad: Generar el providerOrderId y la URL de redireccion.
+
+        Objetivo: Preparar el checkout externo del pago.
+
+        Comentarios:
+      tags:
+        - Payments
+      requestBody:
+        $ref: '#/components/requestBodies/CreatePaymentPaypalReq'
+      responses:
+        '200':
+          $ref: '#/components/responses/CreatePaymentPaypalResponse'
+        '400':
+          $ref: '#/components/responses/BadRequestResponse'
+        '401':
+          $ref: '#/components/responses/UnauthorizedResponse'
+        '403':
+          $ref: '#/components/responses/ForbiddenResponse'
+        '404':
+          $ref: '#/components/responses/NotFoundResponse'
+        '407':
+          $ref: '#/components/responses/ProxyAuthenticationResponse'
+        '409':
+          $ref: '#/components/responses/ConflictResponse'
+        '411':
+          $ref: '#/components/responses/LengthRequiredResponse'
+        '414':
+          $ref: '#/components/responses/UriTooLongResponse'
+        '429':
+          $ref: '#/components/responses/TooManyRequestsResponse'
+        '500':
+          $ref: '#/components/responses/InternalServerErrorResponse'
+        default:
+          $ref: '#/components/responses/UnexpectedErrorResponse'
+      security:
+        - api_key: []
+  /payment/confirm:
+    parameters:
+      - $ref: '#/components/parameters/Channel'
+      - $ref: '#/components/parameters/ApiKey'
+    post:
+      summary: Confirm Payment
+      operationId: confirmPayment
+      description: >
+        Procesos: Confirmacion del pago procesado en Paypal.
+
+
+        Funcionalidad: Capturar la orden externa y actualizar el estado local
+        del pago.
+
+
+        Objetivo: Finalizar el flujo de cobro.
+
+
+        Comentarios:
+      tags:
+        - Payments
+      requestBody:
+        $ref: '#/components/requestBodies/ConfirmPaymentReq'
+      responses:
+        '200':
+          $ref: '#/components/responses/ConfirmPaymentResponse'
+        '400':
+          $ref: '#/components/responses/BadRequestResponse'
+        '401':
+          $ref: '#/components/responses/UnauthorizedResponse'
+        '403':
+          $ref: '#/components/responses/ForbiddenResponse'
+        '404':
+          $ref: '#/components/responses/NotFoundResponse'
+        '407':
+          $ref: '#/components/responses/ProxyAuthenticationResponse'
+        '409':
+          $ref: '#/components/responses/ConflictResponse'
+        '411':
+          $ref: '#/components/responses/LengthRequiredResponse'
+        '414':
+          $ref: '#/components/responses/UriTooLongResponse'
+        '429':
+          $ref: '#/components/responses/TooManyRequestsResponse'
+        '500':
+          $ref: '#/components/responses/InternalServerErrorResponse'
+        default:
+          $ref: '#/components/responses/UnexpectedErrorResponse'
+      security:
+        - api_key: []
+  '/checkout/carts/{userId}':
+    parameters:
+      - $ref: '#/components/parameters/Channel'
+      - $ref: '#/components/parameters/ApiKey'
+      - name: userId
+        in: path
+        description: Identificador unico del usuario asociado al carrito.
+        required: true
+        schema:
+          type: string
+          format: uuid
+          minLength: 36
+          maxLength: 36
+          pattern: '[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}'
+          example: 0af43a51-a4f0-4f7d-a798-2372456d6a19
+    get:
+      summary: Get Cart By User
+      operationId: getCartByUser
+      description: |
+        Procesos: Consulta del carrito por usuario.
+
+        Funcionalidad: Recuperar el detalle actual de items del carrito.
+
+        Objetivo: Exponer el estado del checkout antes de pagar.
+
+        Comentarios:
+      tags:
+        - Checkouts
+      responses:
+        '200':
+          $ref: '#/components/responses/GetCartResponse'
+        '400':
+          $ref: '#/components/responses/BadRequestResponse'
+        '401':
+          $ref: '#/components/responses/UnauthorizedResponse'
+        '403':
+          $ref: '#/components/responses/ForbiddenResponse'
+        '404':
+          $ref: '#/components/responses/NotFoundResponse'
+        '407':
+          $ref: '#/components/responses/ProxyAuthenticationResponse'
+        '409':
+          $ref: '#/components/responses/ConflictResponse'
+        '411':
+          $ref: '#/components/responses/LengthRequiredResponse'
+        '414':
+          $ref: '#/components/responses/UriTooLongResponse'
+        '429':
+          $ref: '#/components/responses/TooManyRequestsResponse'
+        '500':
+          $ref: '#/components/responses/InternalServerErrorResponse'
+        default:
+          $ref: '#/components/responses/UnexpectedErrorResponse'
+      security:
+        - api_key: []
+    delete:
+      summary: Clear Cart By User
+      operationId: clearCartByUser
+      description: |
+        Procesos: Vaciado completo del carrito.
+
+        Funcionalidad: Eliminar todos los items asociados al usuario.
+
+        Objetivo: Reiniciar el checkout del cliente.
+
+        Comentarios:
+      tags:
+        - Checkouts
+      responses:
+        '200':
+          $ref: '#/components/responses/ClearCartResponse'
+        '400':
+          $ref: '#/components/responses/BadRequestResponse'
+        '401':
+          $ref: '#/components/responses/UnauthorizedResponse'
+        '403':
+          $ref: '#/components/responses/ForbiddenResponse'
+        '404':
+          $ref: '#/components/responses/NotFoundResponse'
+        '407':
+          $ref: '#/components/responses/ProxyAuthenticationResponse'
+        '409':
+          $ref: '#/components/responses/ConflictResponse'
+        '411':
+          $ref: '#/components/responses/LengthRequiredResponse'
+        '414':
+          $ref: '#/components/responses/UriTooLongResponse'
+        '429':
+          $ref: '#/components/responses/TooManyRequestsResponse'
+        '500':
+          $ref: '#/components/responses/InternalServerErrorResponse'
+        default:
+          $ref: '#/components/responses/UnexpectedErrorResponse'
+      security:
+        - api_key: []
+  '/checkout/carts/{userId}/items':
+    parameters:
+      - $ref: '#/components/parameters/Channel'
+      - $ref: '#/components/parameters/ApiKey'
+      - name: userId
+        in: path
+        description: Identificador unico del usuario asociado al carrito.
+        required: true
+        schema:
+          type: string
+          format: uuid
+          minLength: 36
+          maxLength: 36
+          pattern: '[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}'
+          example: 0af43a51-a4f0-4f7d-a798-2372456d6a19
+    post:
+      summary: Add Item To Cart
+      operationId: addItemToCart
+      description: |
+        Procesos: Agregado de item al carrito.
+
+        Funcionalidad: Incorporar o incrementar un producto dentro del checkout.
+
+        Objetivo: Construir el pedido del usuario.
+
+        Comentarios:
+      tags:
+        - Checkouts
+      requestBody:
+        $ref: '#/components/requestBodies/CreateCartItemReq'
+      responses:
+        '200':
+          $ref: '#/components/responses/CreateCartItemResponse'
+        '400':
+          $ref: '#/components/responses/BadRequestResponse'
+        '401':
+          $ref: '#/components/responses/UnauthorizedResponse'
+        '403':
+          $ref: '#/components/responses/ForbiddenResponse'
+        '404':
+          $ref: '#/components/responses/NotFoundResponse'
+        '407':
+          $ref: '#/components/responses/ProxyAuthenticationResponse'
+        '409':
+          $ref: '#/components/responses/ConflictResponse'
+        '411':
+          $ref: '#/components/responses/LengthRequiredResponse'
+        '414':
+          $ref: '#/components/responses/UriTooLongResponse'
+        '429':
+          $ref: '#/components/responses/TooManyRequestsResponse'
+        '500':
+          $ref: '#/components/responses/InternalServerErrorResponse'
+        default:
+          $ref: '#/components/responses/UnexpectedErrorResponse'
+      security:
+        - api_key: []
+  '/checkout/carts/{userId}/items/{productId}':
+    parameters:
+      - $ref: '#/components/parameters/Channel'
+      - $ref: '#/components/parameters/ApiKey'
+      - name: userId
+        in: path
+        description: Identificador unico del usuario asociado al carrito.
+        required: true
+        schema:
+          type: string
+          format: uuid
+          minLength: 36
+          maxLength: 36
+          pattern: '[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}'
+          example: 0af43a51-a4f0-4f7d-a798-2372456d6a19
+      - name: productId
+        in: path
+        description: Identificador unico del producto dentro del carrito.
+        required: true
+        schema:
+          type: string
+          format: uuid
+          minLength: 36
+          maxLength: 36
+          pattern: '[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}'
+          example: 3d808990-5158-4af0-8a24-9326f59419a2
+    delete:
+      summary: Remove Item From Cart
+      operationId: removeItemFromCart
+      description: |
+        Procesos: Eliminacion de item del carrito.
+
+        Funcionalidad: Retirar un producto del checkout del usuario.
+
+        Objetivo: Ajustar el contenido del pedido antes del pago.
+
+        Comentarios:
+      tags:
+        - Checkouts
+      responses:
+        '200':
+          $ref: '#/components/responses/RemoveCartItemResponse'
+        '400':
+          $ref: '#/components/responses/BadRequestResponse'
+        '401':
+          $ref: '#/components/responses/UnauthorizedResponse'
+        '403':
+          $ref: '#/components/responses/ForbiddenResponse'
+        '404':
+          $ref: '#/components/responses/NotFoundResponse'
+        '407':
+          $ref: '#/components/responses/ProxyAuthenticationResponse'
+        '409':
+          $ref: '#/components/responses/ConflictResponse'
+        '411':
+          $ref: '#/components/responses/LengthRequiredResponse'
+        '414':
+          $ref: '#/components/responses/UriTooLongResponse'
+        '429':
+          $ref: '#/components/responses/TooManyRequestsResponse'
+        '500':
+          $ref: '#/components/responses/InternalServerErrorResponse'
+        default:
+          $ref: '#/components/responses/UnexpectedErrorResponse'
+      security:
+        - api_key: []
+components:
+  securitySchemes:
+    api_key:
+      description: Codigo unico del Cliente.
+      type: apiKey
+      name: x-api-key
+      in: header
+    bearerAuth:
+      description: Token JWT de acceso.
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  parameters:
+    Channel:
+      name: channel
+      in: header
+      description: Canal de la aplicación.
+      required: false
+      schema:
+        type: string
+        enum:
+          - APP
+          - WEB
+          - OIT
+        minLength: 3
+        maxLength: 20
+        example: WEB
+    ApiKey:
+      name: x-api-key
+      in: header
+      description: Código único del Cliente.
+      required: true
+      schema:
+        type: string
+        minLength: 10
+        maxLength: 40
+        example: 125THE7YFR510TD2756
+    Limit:
+      name: limit
+      in: query
+      description: Numero maximo de registros a mostrar por pagina.
+      required: false
+      schema:
+        type: integer
+        format: int32
+        minimum: 1
+        default: 10
+        example: 10
+    Cursor:
+      name: cursor
+      in: query
+      description: Cursor de paginacion para consultar el siguiente bloque de resultados.
+      required: false
+      schema:
+        type: string
+        example: eyJsYXN0S2V5IjoiUFJPRFVDVCMxMjMifQ==
+    UserId:
+      name: userId
+      in: query
+      description: Identificador del usuario para filtrar recursos asociados.
+      required: false
+      schema:
+        type: string
+        format: uuid
+        minLength: 36
+        maxLength: 36
+        pattern: '[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}'
+        example: 62977d46-7a50-41c9-8d84-38272ac2a8df
+    Search:
+      name: search
+      in: query
+      description: Texto de busqueda para filtrar productos o categorias.
+      required: false
+      schema:
+        type: string
+        example: hamburguesa
+    CategoryId:
+      name: categoryId
+      in: query
+      description: Identificador de categoria para filtrar productos.
+      required: false
+      schema:
+        type: string
+        format: uuid
+        minLength: 36
+        maxLength: 36
+        pattern: '[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}'
+        example: 3d808990-5158-4af0-8a24-9326f59419a2
+  schemas:
+    LoginAuth:
+      type: object
+      description: Esquema para autenticar un usuario con credenciales.
+      properties:
+        Data:
+          type: object
+          properties:
+            Auth:
+              type: object
+              properties:
+                authType:
+                  type: string
+                  description: Tipo de autenticacion soportado por el microservicio.
+                  enum:
+                    - password
+                  example: password
+                email:
+                  type: string
+                  format: email
+                  example: user@foodstore.com
+                password:
+                  type: string
+                  minLength: 8
+                  maxLength: 128
+                  example: Password123!
+                captchaToken:
+                  type: string
+                  description: Token de captcha opcional.
+                  example: 03AGdBq24-example-token
+              required:
+                - authType
+                - email
+                - password
+          required:
+            - Auth
+      required:
+        - Data
+    StandardResponse:
+      properties:
+        Data:
+          type: object
+      required:
+        - Data
+    code:
+      type: number
+      format: double
+      description: |
+        Mapeo interno de los códigos de sistemas
+      maximum: 999996
+      minimum: 1
+      example: 1099
+    message:
+      type: string
+      description: |
+        Mensaje descriptivo de la solicitud
+      maxLength: 100
+      example: mensaje descriptivo de la solicitud
+    LoginAuthRes:
+      type: object
+      description: Devuelve los tokens de acceso del usuario autenticado.
+      properties:
+        Data:
+          type: object
+          properties:
+            Auth:
+              type: object
+              properties:
+                accessToken:
+                  type: string
+                  example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.access
+                refreshToken:
+                  type: string
+                  example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.refresh
+              required:
+                - accessToken
+                - refreshToken
+            statusCode:
+              $ref: '#/components/schemas/code'
+            message:
+              $ref: '#/components/schemas/message'
+          required:
+            - Auth
+            - statusCode
+            - message
+    StandardError:
+      type: object
+      properties:
+        code:
+          type: number
+          format: double
+          description: Código interno de error si se desea especificar
+          example: '-'
+        title:
+          type: string
+          description: >-
+            Representa el código de estado HTTP obtenido del sistema proveedor,
+            concatenado con su descripción.
+          example: Descripción del error
+        status:
+          type: integer
+          description: Código http de la respuesta
+          example: 200
+        dateTime:
+          type: string
+          description: >-
+            Representa la fecha y hora del error presentado, se usa el formato
+            YYYY-MM-DDTHH:mm:SSZ
+          example: '2024-08-12T16:34:22'
+        message:
+          type: array
+          description: Array de errores
+          items:
+            type: string
+            example: >-
+              Petición ejecutada satisfactoriamente, start javaw -jar
+              project-1.0-SNAPSHOT.jar
+      required:
+        - code
+        - title
+        - message
+        - status
+        - dateTime
+    StandardResponseError:
+      properties:
+        Error:
+          $ref: '#/components/schemas/StandardError'
+        Data:
+          type: object
+      required:
+        - Error
+        - Data
+    RegisterUser:
+      type: object
+      description: Esquema para registrar un usuario.
+      properties:
+        Data:
+          type: object
+          properties:
+            User:
+              type: object
+              properties:
+                email:
+                  type: string
+                  format: email
+                  example: user@foodstore.com
+                password:
+                  type: string
+                  minLength: 8
+                  maxLength: 128
+                  example: Password123!
+                name:
+                  type: string
+                  maxLength: 150
+                  example: Juan Perez
+              required:
+                - email
+                - password
+                - name
+          required:
+            - User
+      required:
+        - Data
+    VerifyEmail:
+      type: object
+      description: Esquema para enviar un codigo de verificacion por correo.
+      properties:
+        Data:
+          type: object
+          properties:
+            User:
+              type: object
+              properties:
+                email:
+                  type: string
+                  format: email
+                  example: user@foodstore.com
+              required:
+                - email
+          required:
+            - User
+      required:
+        - Data
+    VerifyEmailRes:
+      type: object
+      description: Devuelve el estado de verificacion de correo.
+      properties:
+        Data:
+          type: object
+          properties:
+            User:
+              type: object
+              properties:
+                verifyEmail:
+                  type: boolean
+                  example: false
+              required:
+                - verifyEmail
+            statusCode:
+              $ref: '#/components/schemas/code'
+            message:
+              $ref: '#/components/schemas/message'
+          required:
+            - User
+            - statusCode
+            - message
+    VerifyCode:
+      type: object
+      description: Esquema para validar un codigo de verificacion.
+      properties:
+        Data:
+          type: object
+          properties:
+            User:
+              type: object
+              properties:
+                email:
+                  type: string
+                  format: email
+                  example: user@foodstore.com
+                code:
+                  type: string
+                  minLength: 4
+                  maxLength: 4
+                  example: '1234'
+              required:
+                - email
+                - code
+          required:
+            - User
+      required:
+        - Data
+    SetPassword:
+      type: object
+      description: Esquema para actualizar la contrasena de un usuario validado.
+      properties:
+        Data:
+          type: object
+          properties:
+            User:
+              type: object
+              properties:
+                email:
+                  type: string
+                  format: email
+                  example: user@foodstore.com
+                password:
+                  type: string
+                  minLength: 8
+                  maxLength: 128
+                  example: NewPassword123!
+              required:
+                - email
+                - password
+          required:
+            - User
+      required:
+        - Data
+    id:
+      type: string
+      description: |
+        Código unico del recurso producto
+      format: uuid
+      minLength: 36
+      maxLength: 36
+      pattern: '[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}'
+      example: 62977d46-7a50-41c9-8d84-38272ac2a8df
+    PreferenceListRes:
+      type: object
+      description: Devuelve una lista paginada de preferencias.
+      properties:
+        Data:
+          type: object
+          properties:
+            items:
+              type: array
+              items:
+                type: object
+                properties:
+                  preferenceId:
+                    $ref: '#/components/schemas/id'
+                  userId:
+                    $ref: '#/components/schemas/id'
+                  categoryId:
+                    $ref: '#/components/schemas/id'
+                  active:
+                    type: boolean
+                    example: true
+                  createdAt:
+                    type: string
+                    format: date-time
+                    example: '2026-05-24T18:30:00Z'
+                  updatedAt:
+                    type: string
+                    format: date-time
+                    nullable: true
+                    example: '2026-05-24T18:45:00Z'
+                  deletedAt:
+                    type: string
+                    format: date-time
+                    nullable: true
+                    example: null
+            count:
+              type: integer
+              example: 2
+            nextCursor:
+              type: string
+              nullable: true
+              example: null
+            statusCode:
+              $ref: '#/components/schemas/code'
+            message:
+              $ref: '#/components/schemas/message'
+          required:
+            - items
+            - count
+            - statusCode
+            - message
+    CreatePreference:
+      type: object
+      description: Esquema para registrar preferencias de categorias de un usuario.
+      properties:
+        Data:
+          type: object
+          properties:
+            Preference:
+              type: object
+              properties:
+                userId:
+                  $ref: '#/components/schemas/id'
+                categoryIds:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/id'
+                  minItems: 1
+              required:
+                - userId
+                - categoryIds
+          required:
+            - Preference
+      required:
+        - Data
+    PreferenceCreateRes:
+      type: object
+      description: Devuelve los identificadores creados para las preferencias del usuario.
+      properties:
+        Data:
+          type: object
+          properties:
+            preference:
+              type: array
+              items:
+                $ref: '#/components/schemas/id'
+            statusCode:
+              $ref: '#/components/schemas/code'
+            message:
+              $ref: '#/components/schemas/message'
+          required:
+            - preference
+            - statusCode
+            - message
+    UserListRes:
+      type: object
+      description: Devuelve una lista paginada de usuarios.
+      properties:
+        Data:
+          type: object
+          properties:
+            items:
+              type: array
+              items:
+                type: object
+                properties:
+                  userId:
+                    $ref: '#/components/schemas/id'
+                  name:
+                    type: string
+                    example: Juan Perez
+                  lastname:
+                    type: string
+                    example: Aguilar
+                  email:
+                    type: string
+                    format: email
+                    example: user@foodstore.com
+                  roles:
+                    type: string
+                    example: user
+                  photo:
+                    type: string
+                    example: 'https://cdn.foodstore.com/users/photo.png'
+                  onboardingRequired:
+                    type: boolean
+                    example: false
+                  active:
+                    type: boolean
+                    example: true
+                  createdAt:
+                    type: string
+                    format: date-time
+                    example: '2026-05-24T18:30:00Z'
+                  updatedAt:
+                    type: string
+                    format: date-time
+                    nullable: true
+                    example: '2026-05-24T18:45:00Z'
+                  deletedAt:
+                    type: string
+                    format: date-time
+                    nullable: true
+                    example: null
+            count:
+              type: integer
+              example: 1
+            nextCursor:
+              type: string
+              nullable: true
+              example: null
+            statusCode:
+              $ref: '#/components/schemas/code'
+            message:
+              $ref: '#/components/schemas/message'
+          required:
+            - items
+            - count
+            - statusCode
+            - message
+    UserRes:
+      type: object
+      description: Devuelve la informacion del usuario.
+      properties:
+        Data:
+          type: object
+          properties:
+            user:
+              type: object
+              properties:
+                userId:
+                  $ref: '#/components/schemas/id'
+                name:
+                  type: string
+                  example: Juan Perez
+                lastname:
+                  type: string
+                  example: Aguilar
+                email:
+                  type: string
+                  format: email
+                  example: user@foodstore.com
+                roles:
+                  type: string
+                  example: user
+                photo:
+                  type: string
+                  example: 'https://cdn.foodstore.com/users/photo.png'
+                onboardingRequired:
+                  type: boolean
+                  example: false
+                active:
+                  type: boolean
+                  example: true
+                createdAt:
+                  type: string
+                  format: date-time
+                  example: '2026-05-24T18:30:00Z'
+                updatedAt:
+                  type: string
+                  format: date-time
+                  nullable: true
+                  example: '2026-05-24T18:45:00Z'
+                deletedAt:
+                  type: string
+                  format: date-time
+                  nullable: true
+                  example: null
+              required:
+                - userId
+                - name
+                - lastname
+                - email
+                - roles
+                - photo
+                - onboardingRequired
+                - active
+                - createdAt
+            statusCode:
+              $ref: '#/components/schemas/code'
+            message:
+              $ref: '#/components/schemas/message'
+          required:
+            - user
+            - statusCode
+            - message
+    ProductListRes:
+      type: object
+      description: Devuelve una lista paginada de productos.
+      properties:
+        Data:
+          type: object
+          properties:
+            items:
+              type: array
+              items:
+                type: object
+                properties:
+                  productId:
+                    $ref: '#/components/schemas/id'
+                  name:
+                    type: string
+                    example: Hamburguesa Clasica
+                  description:
+                    type: string
+                    example: Hamburguesa artesanal con queso cheddar
+                  price:
+                    type: number
+                    format: double
+                    example: 24.9
+                  stock:
+                    type: number
+                    format: double
+                    example: 35
+                  categoryId:
+                    $ref: '#/components/schemas/id'
+                  storeId:
+                    $ref: '#/components/schemas/id'
+                  sku:
+                    type: string
+                    example: HAM-001
+                  image:
+                    type: string
+                    example: 'https://cdn.foodstore.com/products/hamburguesa.png'
+                  ingredients:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        name:
+                          type: string
+                          example: Carne
+                        quantity:
+                          type: number
+                          format: double
+                          example: 180
+                        unit:
+                          type: string
+                          enum:
+                            - g
+                            - kg
+                            - ml
+                            - l
+                            - unit
+                          example: g
+                        image:
+                          type: string
+                          nullable: true
+                          example: 'https://cdn.foodstore.com/ingredients/carne.png'
+                  active:
+                    type: boolean
+                    example: true
+                  createdAt:
+                    type: string
+                    format: date-time
+                    example: '2026-05-24T18:30:00Z'
+                  updatedAt:
+                    type: string
+                    format: date-time
+                    nullable: true
+                    example: null
+                  deletedAt:
+                    type: string
+                    format: date-time
+                    nullable: true
+                    example: null
+            count:
+              type: integer
+              example: 1
+            nextCursor:
+              type: string
+              nullable: true
+              example: null
+            statusCode:
+              $ref: '#/components/schemas/code'
+            message:
+              $ref: '#/components/schemas/message'
+          required:
+            - items
+            - count
+            - statusCode
+            - message
+    CreateProduct:
+      type: object
+      description: Esquema para crear un producto.
+      properties:
+        Data:
+          type: object
+          properties:
+            Product:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: Hamburguesa Clasica
+                description:
+                  type: string
+                  example: Hamburguesa artesanal con queso cheddar
+                categoryId:
+                  $ref: '#/components/schemas/id'
+                storeId:
+                  $ref: '#/components/schemas/id'
+                price:
+                  type: number
+                  format: double
+                  example: 24.9
+                currency:
+                  type: string
+                  example: PEN
+                stock:
+                  type: number
+                  format: double
+                  example: 35
+                ingredients:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      name:
+                        type: string
+                        example: Carne
+                      quantity:
+                        type: number
+                        format: double
+                        example: 180
+                      unit:
+                        type: string
+                        enum:
+                          - g
+                          - kg
+                          - ml
+                          - l
+                          - unit
+                        example: g
+                      image:
+                        type: string
+                        format: uri
+                        example: 'https://cdn.foodstore.com/ingredients/carne.png'
+                    required:
+                      - name
+                      - quantity
+                      - unit
+              required:
+                - name
+                - description
+                - categoryId
+                - storeId
+                - price
+          required:
+            - Product
+      required:
+        - Data
+    ProductCreateRes:
+      type: object
+      description: Devuelve el identificador del producto creado.
+      properties:
+        Data:
+          type: object
+          properties:
+            product:
+              type: object
+              properties:
+                id:
+                  $ref: '#/components/schemas/id'
+              required:
+                - id
+            statusCode:
+              $ref: '#/components/schemas/code'
+            message:
+              $ref: '#/components/schemas/message'
+          required:
+            - product
+            - statusCode
+            - message
+    ProductRes:
+      type: object
+      description: Devuelve la informacion del producto.
+      properties:
+        Data:
+          type: object
+          properties:
+            product:
+              type: object
+              properties:
+                productId:
+                  $ref: '#/components/schemas/id'
+                name:
+                  type: string
+                  example: Hamburguesa Clasica
+                description:
+                  type: string
+                  example: Hamburguesa artesanal con queso cheddar
+                price:
+                  type: number
+                  format: double
+                  example: 24.9
+                stock:
+                  type: number
+                  format: double
+                  example: 35
+                categoryId:
+                  $ref: '#/components/schemas/id'
+                storeId:
+                  $ref: '#/components/schemas/id'
+                sku:
+                  type: string
+                  example: HAM-001
+                image:
+                  type: string
+                  example: 'https://cdn.foodstore.com/products/hamburguesa.png'
+                ingredients:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      name:
+                        type: string
+                        example: Carne
+                      quantity:
+                        type: number
+                        format: double
+                        example: 180
+                      unit:
+                        type: string
+                        enum:
+                          - g
+                          - kg
+                          - ml
+                          - l
+                          - unit
+                        example: g
+                      image:
+                        type: string
+                        nullable: true
+                        example: 'https://cdn.foodstore.com/ingredients/carne.png'
+                active:
+                  type: boolean
+                  example: true
+                createdAt:
+                  type: string
+                  format: date-time
+                  example: '2026-05-24T18:30:00Z'
+                updatedAt:
+                  type: string
+                  format: date-time
+                  nullable: true
+                  example: null
+                deletedAt:
+                  type: string
+                  format: date-time
+                  nullable: true
+                  example: null
+              required:
+                - productId
+                - name
+                - description
+                - price
+                - stock
+                - categoryId
+                - storeId
+                - sku
+                - image
+                - ingredients
+                - active
+                - createdAt
+            statusCode:
+              $ref: '#/components/schemas/code'
+            message:
+              $ref: '#/components/schemas/message'
+          required:
+            - product
+            - statusCode
+            - message
+    CategoryListRes:
+      type: object
+      description: Devuelve una lista paginada de categorias.
+      properties:
+        Data:
+          type: object
+          properties:
+            items:
+              type: array
+              items:
+                type: object
+                properties:
+                  categoryId:
+                    $ref: '#/components/schemas/id'
+                  name:
+                    type: string
+                    example: Hamburguesas
+                  description:
+                    type: string
+                    example: Categoria de hamburguesas y sandwiches
+                  image:
+                    type: string
+                    example: 'https://cdn.foodstore.com/categories/hamburguesas.png'
+                  active:
+                    type: boolean
+                    example: true
+                  createdAt:
+                    type: string
+                    format: date-time
+                    example: '2026-05-24T18:30:00Z'
+                  updatedAt:
+                    type: string
+                    format: date-time
+                    nullable: true
+                    example: null
+                  deletedAt:
+                    type: string
+                    format: date-time
+                    nullable: true
+                    example: null
+            count:
+              type: integer
+              example: 1
+            nextCursor:
+              type: string
+              nullable: true
+              example: null
+            statusCode:
+              $ref: '#/components/schemas/code'
+            message:
+              $ref: '#/components/schemas/message'
+          required:
+            - items
+            - count
+            - statusCode
+            - message
+    CreateCategory:
+      type: object
+      description: Esquema para crear una categoria.
+      properties:
+        Data:
+          type: object
+          properties:
+            Category:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: Hamburguesas
+                description:
+                  type: string
+                  example: Categoria de hamburguesas y sandwiches
+                image:
+                  type: string
+                  format: uri
+                  example: 'https://cdn.foodstore.com/categories/hamburguesas.png'
+              required:
+                - name
+                - description
+          required:
+            - Category
+      required:
+        - Data
+    CategoryCreateRes:
+      type: object
+      description: Devuelve el identificador de la categoria creada.
+      properties:
+        Data:
+          type: object
+          properties:
+            category:
+              type: object
+              properties:
+                id:
+                  $ref: '#/components/schemas/id'
+              required:
+                - id
+            statusCode:
+              $ref: '#/components/schemas/code'
+            message:
+              $ref: '#/components/schemas/message'
+          required:
+            - category
+            - statusCode
+            - message
+    StoreLocationRes:
+      type: object
+      description: Devuelve la ubicacion geografica de la tienda.
+      properties:
+        Data:
+          type: object
+          properties:
+            Store:
+              type: object
+              properties:
+                lat:
+                  type: number
+                  format: double
+                  example: -11.98108
+                lng:
+                  type: number
+                  format: double
+                  example: -77.08323
+              required:
+                - lat
+                - lng
+          required:
+            - Store
+    OrderListRes:
+      type: object
+      description: Devuelve una lista paginada de ordenes.
+      properties:
+        Data:
+          type: object
+          properties:
+            items:
+              type: array
+              items:
+                type: object
+                properties:
+                  orderId:
+                    $ref: '#/components/schemas/id'
+                  userId:
+                    $ref: '#/components/schemas/id'
+                  courierId:
+                    type: string
+                    nullable: true
+                    example: null
+                  totalAmount:
+                    type: number
+                    format: double
+                    example: 49.8
+                  status:
+                    type: string
+                    enum:
+                      - PENDING
+                      - PAID
+                      - FAILED
+                      - CANCELLED
+                    example: PENDING
+                  statusDelivery:
+                    type: string
+                    enum:
+                      - CREATED
+                      - ASSIGNED
+                      - PREPARING
+                      - PICKED_UP
+                      - ON_THE_WAY
+                      - DELIVERED
+                      - CANCELED
+                    example: ASSIGNED
+                  createdAt:
+                    type: string
+                    format: date-time
+                    example: '2026-05-24T18:30:00Z'
+            count:
+              type: integer
+              example: 1
+            nextCursor:
+              type: string
+              nullable: true
+              example: null
+            statusCode:
+              $ref: '#/components/schemas/code'
+            message:
+              $ref: '#/components/schemas/message'
+          required:
+            - items
+            - count
+            - statusCode
+            - message
+    CreateOrder:
+      type: object
+      description: Esquema para crear una orden de delivery.
+      properties:
+        Data:
+          type: object
+          properties:
+            Order:
+              type: object
+              properties:
+                userId:
+                  $ref: '#/components/schemas/id'
+                storeId:
+                  $ref: '#/components/schemas/id'
+                deliveryLat:
+                  type: number
+                  format: double
+                  example: -12.0505
+                deliveryLng:
+                  type: number
+                  format: double
+                  example: -77.0332
+                items:
+                  type: array
+                  minItems: 1
+                  items:
+                    type: object
+                    properties:
+                      productId:
+                        $ref: '#/components/schemas/id'
+                      name:
+                        type: string
+                        example: Hamburguesa Clasica
+                      price:
+                        type: number
+                        format: double
+                        example: 24.9
+                      quantity:
+                        type: number
+                        format: double
+                        example: 2
+                    required:
+                      - productId
+                      - name
+                      - price
+                      - quantity
+              required:
+                - userId
+                - storeId
+                - items
+          required:
+            - Order
+      required:
+        - Data
+    CreateOrderRes:
+      type: object
+      description: Devuelve el identificador de la orden creada.
+      properties:
+        Data:
+          type: object
+          properties:
+            order:
+              $ref: '#/components/schemas/id'
+            statusCode:
+              $ref: '#/components/schemas/code'
+            message:
+              $ref: '#/components/schemas/message'
+          required:
+            - order
+            - statusCode
+            - message
+    OrderRes:
+      type: object
+      description: Devuelve la informacion de una orden.
+      properties:
+        Data:
+          type: object
+          properties:
+            order:
+              type: object
+              properties:
+                orderId:
+                  $ref: '#/components/schemas/id'
+                userId:
+                  $ref: '#/components/schemas/id'
+                courierId:
+                  type: string
+                  nullable: true
+                  example: null
+                pickupLat:
+                  type: number
+                  format: double
+                  example: -12.0432
+                pickupLng:
+                  type: number
+                  format: double
+                  example: -77.0282
+                dropoffLat:
+                  type: number
+                  format: double
+                  example: -12.0505
+                dropoffLng:
+                  type: number
+                  format: double
+                  example: -77.0332
+                items:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      productId:
+                        $ref: '#/components/schemas/id'
+                      name:
+                        type: string
+                        example: Hamburguesa Clasica
+                      price:
+                        type: number
+                        format: double
+                        example: 24.9
+                      quantity:
+                        type: number
+                        format: double
+                        example: 2
+                totalAmount:
+                  type: number
+                  format: double
+                  example: 49.8
+                status:
+                  type: string
+                  enum:
+                    - PENDING
+                    - PAID
+                    - FAILED
+                    - CANCELLED
+                  example: PENDING
+                statusDelivery:
+                  type: string
+                  enum:
+                    - CREATED
+                    - ASSIGNED
+                    - PREPARING
+                    - PICKED_UP
+                    - ON_THE_WAY
+                    - DELIVERED
+                    - CANCELED
+                  example: ASSIGNED
+                createdAt:
+                  type: string
+                  format: date-time
+                  example: '2026-05-24T18:30:00Z'
+                updatedAt:
+                  type: string
+                  format: date-time
+                  nullable: true
+                  example: '2026-05-24T18:45:00Z'
+                deletedAt:
+                  type: string
+                  format: date-time
+                  nullable: true
+                  example: null
+              required:
+                - orderId
+                - userId
+                - pickupLat
+                - pickupLng
+                - dropoffLat
+                - dropoffLng
+                - items
+                - totalAmount
+                - status
+                - statusDelivery
+                - createdAt
+            statusCode:
+              $ref: '#/components/schemas/code'
+            message:
+              $ref: '#/components/schemas/message'
+          required:
+            - order
+            - statusCode
+            - message
+    UpdateOrderStatus:
+      type: object
+      description: Esquema para actualizar el estado de entrega de una orden.
+      properties:
+        Data:
+          type: object
+          properties:
+            Order:
+              type: object
+              properties:
+                statusDelivery:
+                  type: string
+                  enum:
+                    - ASSIGNED
+                    - PREPARING
+                    - PICKED_UP
+                    - ON_THE_WAY
+                    - DELIVERED
+                    - CANCELED
+                  example: ON_THE_WAY
+              required:
+                - statusDelivery
+          required:
+            - Order
+      required:
+        - Data
+    OrderUpdateStatusRes:
+      type: object
+      description: Devuelve el identificador de la orden actualizada.
+      properties:
+        Data:
+          type: object
+          properties:
+            orderId:
+              $ref: '#/components/schemas/id'
+          required:
+            - orderId
+    OrderStatusRes:
+      type: object
+      description: Devuelve el estado de entrega de una orden.
+      properties:
+        Data:
+          type: object
+          properties:
+            order:
+              type: object
+              properties:
+                statusDelivery:
+                  type: string
+                  enum:
+                    - CREATED
+                    - ASSIGNED
+                    - PREPARING
+                    - PICKED_UP
+                    - ON_THE_WAY
+                    - DELIVERED
+                    - CANCELED
+                  example: ON_THE_WAY
+              required:
+                - statusDelivery
+            statusCode:
+              $ref: '#/components/schemas/code'
+            message:
+              $ref: '#/components/schemas/message'
+          required:
+            - order
+            - statusCode
+            - message
+    OrderAssignCourierRes:
+      type: object
+      description: Devuelve la relacion entre orden y courier asignado.
+      properties:
+        Data:
+          type: object
+          properties:
+            orderId:
+              $ref: '#/components/schemas/id'
+            courierId:
+              $ref: '#/components/schemas/id'
+          required:
+            - orderId
+            - courierId
+    CourierListRes:
+      type: object
+      description: Devuelve una lista paginada de couriers.
+      properties:
+        Data:
+          type: object
+          properties:
+            items:
+              type: array
+              items:
+                type: object
+                properties:
+                  courierId:
+                    $ref: '#/components/schemas/id'
+                  name:
+                    type: string
+                    example: Luis Soto
+                  phone:
+                    type: string
+                    example: '987654321'
+                  vehicleType:
+                    type: string
+                    enum:
+                      - BIKE
+                      - MOTO
+                      - CAR
+                    example: MOTO
+                  status:
+                    type: string
+                    enum:
+                      - AVAILABLE
+                      - BUSY
+                      - OFFLINE
+                    example: AVAILABLE
+                  currentOrderId:
+                    type: string
+                    nullable: true
+                    example: null
+                  currentLat:
+                    type: number
+                    format: double
+                    nullable: true
+                    example: -12.0464
+                  currentLng:
+                    type: number
+                    format: double
+                    nullable: true
+                    example: -77.0428
+                  createdAt:
+                    type: string
+                    format: date-time
+                    example: '2026-05-24T18:30:00Z'
+            count:
+              type: integer
+              example: 1
+            nextCursor:
+              type: string
+              nullable: true
+              example: null
+            statusCode:
+              $ref: '#/components/schemas/code'
+            message:
+              $ref: '#/components/schemas/message'
+          required:
+            - items
+            - count
+            - statusCode
+            - message
+    CreateCourier:
+      type: object
+      description: Esquema para registrar un courier.
+      properties:
+        Data:
+          type: object
+          properties:
+            Courier:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: Luis Soto
+                phone:
+                  type: string
+                  example: '987654321'
+                vehicleType:
+                  type: string
+                  enum:
+                    - BIKE
+                    - MOTO
+                    - CAR
+                  example: MOTO
+                status:
+                  type: string
+                  enum:
+                    - AVAILABLE
+                    - BUSY
+                    - OFFLINE
+                  example: AVAILABLE
+              required:
+                - name
+                - phone
+                - vehicleType
+          required:
+            - Courier
+      required:
+        - Data
+    CreateCourierRes:
+      type: object
+      description: Devuelve el identificador del courier creado.
+      properties:
+        Data:
+          type: object
+          properties:
+            courier:
+              $ref: '#/components/schemas/id'
+            statusCode:
+              $ref: '#/components/schemas/code'
+            message:
+              $ref: '#/components/schemas/message'
+          required:
+            - courier
+            - statusCode
+            - message
+    CourierRes:
+      type: object
+      description: Devuelve la informacion de un courier.
+      properties:
+        Data:
+          type: object
+          properties:
+            courier:
+              type: object
+              properties:
+                courierId:
+                  $ref: '#/components/schemas/id'
+                name:
+                  type: string
+                  example: Luis Soto
+                phone:
+                  type: string
+                  example: '987654321'
+                vehicleType:
+                  type: string
+                  enum:
+                    - BIKE
+                    - MOTO
+                    - CAR
+                  example: MOTO
+                status:
+                  type: string
+                  enum:
+                    - AVAILABLE
+                    - BUSY
+                    - OFFLINE
+                  example: AVAILABLE
+                currentOrderId:
+                  type: string
+                  nullable: true
+                  example: null
+                currentLat:
+                  type: number
+                  format: double
+                  nullable: true
+                  example: -12.0464
+                currentLng:
+                  type: number
+                  format: double
+                  nullable: true
+                  example: -77.0428
+                lastLocationAt:
+                  type: string
+                  format: date-time
+                  nullable: true
+                  example: '2026-05-24T18:45:00Z'
+                createdAt:
+                  type: string
+                  format: date-time
+                  example: '2026-05-24T18:30:00Z'
+                updatedAt:
+                  type: string
+                  format: date-time
+                  nullable: true
+                  example: '2026-05-24T18:45:00Z'
+                deletedAt:
+                  type: string
+                  format: date-time
+                  nullable: true
+                  example: null
+              required:
+                - courierId
+                - name
+                - phone
+                - vehicleType
+                - status
+                - createdAt
+            statusCode:
+              $ref: '#/components/schemas/code'
+            message:
+              $ref: '#/components/schemas/message'
+          required:
+            - courier
+            - statusCode
+            - message
+    UpdateCourierPresence:
+      type: object
+      description: Esquema para actualizar presencia y ubicacion del courier.
+      properties:
+        Data:
+          type: object
+          properties:
+            Courier:
+              type: object
+              properties:
+                location:
+                  type: object
+                  properties:
+                    lat:
+                      type: number
+                      format: double
+                      example: -12.0464
+                    lng:
+                      type: number
+                      format: double
+                      example: -77.0428
+                  required:
+                    - lat
+                    - lng
+                status:
+                  type: string
+                  enum:
+                    - AVAILABLE
+                    - BUSY
+                    - OFFLINE
+                  example: AVAILABLE
+              required:
+                - location
+          required:
+            - Courier
+      required:
+        - Data
+    CourierPresenceRes:
+      type: object
+      description: Devuelve la presencia actualizada del courier.
+      properties:
+        Data:
+          type: object
+          properties:
+            courier:
+              type: object
+              properties:
+                courierId:
+                  $ref: '#/components/schemas/id'
+                status:
+                  type: string
+                  enum:
+                    - AVAILABLE
+                    - BUSY
+                    - OFFLINE
+                  example: AVAILABLE
+                location:
+                  type: object
+                  properties:
+                    lat:
+                      type: number
+                      format: double
+                      example: -12.0464
+                    lng:
+                      type: number
+                      format: double
+                      example: -77.0428
+                  required:
+                    - lat
+                    - lng
+                lastLocationAt:
+                  type: string
+                  format: date-time
+                  nullable: true
+                  example: '2026-05-24T18:45:00Z'
+              required:
+                - courierId
+                - status
+                - location
+            statusCode:
+              $ref: '#/components/schemas/code'
+            message:
+              $ref: '#/components/schemas/message'
+          required:
+            - courier
+            - statusCode
+            - message
+    PaymentRes:
+      type: object
+      description: Devuelve la informacion de un pago.
+      properties:
+        Data:
+          type: object
+          properties:
+            items:
+              type: array
+              items:
+                type: object
+                properties:
+                  paymentId:
+                    $ref: '#/components/schemas/id'
+                  orderId:
+                    $ref: '#/components/schemas/id'
+                  providerOrderId:
+                    type: string
+                    example: 8S123456AB123456C
+                  amount:
+                    type: number
+                    format: double
+                    example: 49.8
+                  currency:
+                    type: string
+                    example: USD
+                  status:
+                    type: string
+                    enum:
+                      - PENDIENTE
+                      - APROBADO
+                      - RECHAZADO
+                      - FALLIDO
+                      - CANCELADO
+                    example: APROBADO
+                  provider:
+                    type: string
+                    enum:
+                      - Paypal
+                      - Stripe
+                    example: Paypal
+                  providerPaymentId:
+                    type: string
+                    example: 3GG279541U471931P
+                  payerEmail:
+                    type: string
+                    format: email
+                    nullable: true
+                    example: buyer@foodstore.com
+                  createdAt:
+                    type: string
+                    format: date-time
+                    example: '2026-05-24T18:30:00Z'
+                  updatedAt:
+                    type: string
+                    format: date-time
+                    nullable: true
+                    example: '2026-05-24T18:35:00Z'
+                  deletedAt:
+                    type: string
+                    format: date-time
+                    nullable: true
+                    example: null
+            count:
+              type: integer
+              example: 1
+            nextCursor:
+              type: string
+              nullable: true
+              example: null
+            statusCode:
+              $ref: '#/components/schemas/code'
+            message:
+              $ref: '#/components/schemas/message'
+          required:
+            - items
+            - count
+            - statusCode
+            - message
+    CreatePayment:
+      type: object
+      description: Esquema para registrar un pago.
+      properties:
+        Data:
+          type: object
+          properties:
+            Payment:
+              type: object
+              properties:
+                orderId:
+                  $ref: '#/components/schemas/id'
+                amount:
+                  type: number
+                  format: double
+                  example: 49.8
+                currency:
+                  type: string
+                  example: USD
+                provider:
+                  type: string
+                  enum:
+                    - Paypal
+                    - Stripe
+                  example: Paypal
+                providerOrderId:
+                  type: string
+                  example: 8S123456AB123456C
+              required:
+                - orderId
+                - amount
+                - currency
+                - provider
+          required:
+            - Payment
+      required:
+        - Data
+    CreatePaymentRes:
+      type: object
+      description: Devuelve el identificador del pago creado.
+      properties:
+        Data:
+          type: object
+          properties:
+            payment:
+              $ref: '#/components/schemas/id'
+            statusCode:
+              $ref: '#/components/schemas/code'
+            message:
+              $ref: '#/components/schemas/message'
+          required:
+            - payment
+            - statusCode
+            - message
+    CreatePaymentPaypal:
+      type: object
+      description: Esquema para crear una orden de pago en Paypal.
+      properties:
+        Data:
+          type: object
+          properties:
+            Payment:
+              type: object
+              properties:
+                orderId:
+                  $ref: '#/components/schemas/id'
+                amount:
+                  type: number
+                  format: double
+                  example: 49.8
+                currency:
+                  type: string
+                  example: USD
+                provider:
+                  type: string
+                  enum:
+                    - Paypal
+                    - Stripe
+                  example: Paypal
+                successUrl:
+                  type: string
+                  example: 'https://foodstore.com/payment/success'
+                cancelUrl:
+                  type: string
+                  example: 'https://foodstore.com/payment/cancel'
+              required:
+                - orderId
+                - amount
+                - currency
+                - provider
+                - successUrl
+                - cancelUrl
+          required:
+            - Payment
+      required:
+        - Data
+    PaymentPaypalRes:
+      type: object
+      description: Devuelve la orden creada en Paypal.
+      properties:
+        Data:
+          type: object
+          properties:
+            payment:
+              type: object
+              properties:
+                providerOrderId:
+                  type: string
+                  example: 8S123456AB123456C
+                redirectUrl:
+                  type: string
+                  example: >-
+                    https://www.sandbox.paypal.com/checkoutnow?token=8S123456AB123456C
+                paymentId:
+                  $ref: '#/components/schemas/id'
+              required:
+                - providerOrderId
+                - redirectUrl
+                - paymentId
+            statusCode:
+              $ref: '#/components/schemas/code'
+            message:
+              $ref: '#/components/schemas/message'
+          required:
+            - payment
+            - statusCode
+            - message
+    ConfirmPayment:
+      type: object
+      description: Esquema para confirmar un pago de Paypal.
+      properties:
+        Data:
+          type: object
+          properties:
+            Payment:
+              type: object
+              properties:
+                token:
+                  type: string
+                  example: 8S123456AB123456C
+                PayerID:
+                  type: string
+                  example: ABCD1234EFGH
+                provider:
+                  type: string
+                  enum:
+                    - Paypal
+                    - Stripe
+                  example: Paypal
+              required:
+                - token
+                - PayerID
+                - provider
+          required:
+            - Payment
+      required:
+        - Data
+    PaymentConfirmRes:
+      type: object
+      description: Devuelve el resultado de la confirmacion del pago.
+      properties:
+        Data:
+          type: object
+          properties:
+            payment:
+              type: object
+              properties:
+                orderId:
+                  type: string
+                  example: 8S123456AB123456C
+                paymentId:
+                  $ref: '#/components/schemas/id'
+                providerPaymentId:
+                  type: string
+                  example: 3GG279541U471931P
+                providerPaymentStatus:
+                  type: string
+                  example: COMPLETED
+              required:
+                - orderId
+                - paymentId
+                - providerPaymentId
+                - providerPaymentStatus
+            statusCode:
+              $ref: '#/components/schemas/code'
+            message:
+              $ref: '#/components/schemas/message'
+          required:
+            - payment
+            - statusCode
+            - message
+    CartRes:
+      type: object
+      description: Devuelve el detalle del carrito por usuario.
+      properties:
+        Data:
+          type: object
+          properties:
+            cart:
+              type: object
+              properties:
+                items:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      productId:
+                        $ref: '#/components/schemas/id'
+                      name:
+                        type: string
+                        example: Hamburguesa Clasica
+                      price:
+                        type: number
+                        format: double
+                        example: 24.9
+                      quantity:
+                        type: number
+                        format: double
+                        example: 2
+              required:
+                - items
+            statusCode:
+              $ref: '#/components/schemas/code'
+            message:
+              $ref: '#/components/schemas/message'
+          required:
+            - cart
+            - statusCode
+            - message
+    CartMutateRes:
+      type: object
+      description: Devuelve el identificador del carrito afectado.
+      properties:
+        Data:
+          type: object
+          properties:
+            cart:
+              type: object
+              properties:
+                cartId:
+                  $ref: '#/components/schemas/id'
+              required:
+                - cartId
+            statusCode:
+              $ref: '#/components/schemas/code'
+            message:
+              $ref: '#/components/schemas/message'
+          required:
+            - cart
+            - statusCode
+            - message
+    CreateCartItem:
+      type: object
+      description: Esquema para agregar un item al carrito.
+      properties:
+        Data:
+          type: object
+          properties:
+            Cart:
+              type: object
+              properties:
+                productId:
+                  $ref: '#/components/schemas/id'
+                name:
+                  type: string
+                  example: Hamburguesa Clasica
+                price:
+                  type: number
+                  format: double
+                  example: 24.9
+                quantity:
+                  type: number
+                  format: double
+                  minimum: 1
+                  example: 2
+              required:
+                - productId
+                - name
+                - price
+                - quantity
+          required:
+            - Cart
+      required:
+        - Data
+  requestBodies:
+    LoginAuthReq:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/LoginAuth'
+          examples:
+            Login-Contrasena:
+              summary: Login con email y contrasena
+              value:
+                Data:
+                  Auth:
+                    authType: password
+                    email: user@foodstore.com
+                    password: Password123!
+                    captchaToken: 03AGdBq24-example-token
+    RegisterUserReq:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RegisterUser'
+          examples:
+            Registro-Usuario:
+              summary: Registro de un usuario nuevo
+              value:
+                Data:
+                  User:
+                    email: user@foodstore.com
+                    password: Password123!
+                    name: Juan Perez
+    VerifyEmailReq:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/VerifyEmail'
+          examples:
+            Enviar-Codigo:
+              summary: Solicitar envio del codigo
+              value:
+                Data:
+                  User:
+                    email: user@foodstore.com
+    VerifyCodeReq:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/VerifyCode'
+          examples:
+            Validar-Codigo:
+              summary: Verificar codigo de 4 digitos
+              value:
+                Data:
+                  User:
+                    email: user@foodstore.com
+                    code: '1234'
+    SetPasswordReq:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/SetPassword'
+          examples:
+            Definir-Contrasena:
+              summary: Registrar nueva contrasena
+              value:
+                Data:
+                  User:
+                    email: user@foodstore.com
+                    password: NewPassword123!
+    CreatePreferenceReq:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/CreatePreference'
+          examples:
+            Guardar-Preferencias:
+              summary: Registrar categorias favoritas del usuario
+              value:
+                Data:
+                  Preference:
+                    userId: 62977d46-7a50-41c9-8d84-38272ac2a8df
+                    categoryIds:
+                      - 3d808990-5158-4af0-8a24-9326f59419a2
+                      - 1f58d65b-6b1d-4d8d-84f0-c0f7afad1323
+    CreateProductReq:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/CreateProduct'
+          examples:
+            Crear-Producto:
+              summary: Registro de producto
+              value:
+                Data:
+                  Product:
+                    name: Hamburguesa Clasica
+                    description: Hamburguesa artesanal con queso cheddar
+                    categoryId: 3d808990-5158-4af0-8a24-9326f59419a2
+                    storeId: 62977d46-7a50-41c9-8d84-38272ac2a8df
+                    price: 24.9
+                    currency: PEN
+                    stock: 35
+                    ingredients:
+                      - name: Carne
+                        quantity: 180
+                        unit: g
+                        image: 'https://cdn.foodstore.com/ingredients/carne.png'
+                      - name: Pan
+                        quantity: 1
+                        unit: unit
+    CreateCategoryReq:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/CreateCategory'
+          examples:
+            Crear-Categoria:
+              summary: Registro de categoria
+              value:
+                Data:
+                  Category:
+                    name: Hamburguesas
+                    description: Categoria de hamburguesas y sandwiches
+                    image: 'https://cdn.foodstore.com/categories/hamburguesas.png'
+    CreateOrderReq:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/CreateOrder'
+          examples:
+            Crear-Orden:
+              summary: Registro de orden
+              value:
+                Data:
+                  Order:
+                    userId: 62977d46-7a50-41c9-8d84-38272ac2a8df
+                    storeId: a0271854-eed8-486d-9ab4-74ef822aa1f4
+                    deliveryLat: -12.0505
+                    deliveryLng: -77.0332
+                    items:
+                      - productId: 3d808990-5158-4af0-8a24-9326f59419a2
+                        name: Hamburguesa Clasica
+                        price: 24.9
+                        quantity: 2
+    UpdateOrderStatusReq:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/UpdateOrderStatus'
+          examples:
+            Actualizar-Estado:
+              summary: Cambio de estado de entrega
+              value:
+                Data:
+                  Order:
+                    statusDelivery: ON_THE_WAY
+    CreateCourierReq:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/CreateCourier'
+          examples:
+            Crear-Courier:
+              summary: Registro de courier
+              value:
+                Data:
+                  Courier:
+                    name: Luis Soto
+                    phone: '987654321'
+                    vehicleType: MOTO
+                    status: AVAILABLE
+    UpdateCourierPresenceReq:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/UpdateCourierPresence'
+          examples:
+            Actualizar-Presencia:
+              summary: Actualizar estado y posicion
+              value:
+                Data:
+                  Courier:
+                    location:
+                      lat: -12.0464
+                      lng: -77.0428
+                    status: AVAILABLE
+    CreatePaymentReq:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/CreatePayment'
+          examples:
+            Crear-Pago:
+              summary: Registrar pago interno
+              value:
+                Data:
+                  Payment:
+                    orderId: 62977d46-7a50-41c9-8d84-38272ac2a8df
+                    amount: 49.8
+                    currency: USD
+                    provider: Paypal
+                    providerOrderId: 8S123456AB123456C
+    CreatePaymentPaypalReq:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/CreatePaymentPaypal'
+          examples:
+            Crear-Pago-Paypal:
+              summary: Crear orden de pago Paypal
+              value:
+                Data:
+                  Payment:
+                    orderId: 62977d46-7a50-41c9-8d84-38272ac2a8df
+                    amount: 49.8
+                    currency: USD
+                    provider: Paypal
+                    successUrl: 'https://foodstore.com/payment/success'
+                    cancelUrl: 'https://foodstore.com/payment/cancel'
+    ConfirmPaymentReq:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ConfirmPayment'
+          examples:
+            Confirmar-Pago:
+              summary: Confirmar pago Paypal
+              value:
+                Data:
+                  Payment:
+                    token: 8S123456AB123456C
+                    PayerID: ABCD1234EFGH
+                    provider: Paypal
+    CreateCartItemReq:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/CreateCartItem'
+          examples:
+            Agregar-Item-Carrito:
+              summary: Agregar item al carrito
+              value:
+                Data:
+                  Cart:
+                    productId: 3d808990-5158-4af0-8a24-9326f59419a2
+                    name: Hamburguesa Clasica
+                    price: 24.9
+                    quantity: 2
+  responses:
+    LoginAuthResponse:
+      description: Retorna los tokens de acceso del usuario autenticado.
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: '#/components/schemas/StandardResponse'
+              - $ref: '#/components/schemas/LoginAuthRes'
+          examples:
+            Login-Exitoso:
+              summary: Respuesta de login exitoso
+              value:
+                Data:
+                  Auth:
+                    accessToken: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.access
+                    refreshToken: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.refresh
+                  statusCode: 200
+                  message: Inicio de sesion exitoso
+    BadRequestResponse:
+      description: Bad Request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/StandardResponseError'
+          example:
+            Error:
+              code: 400
+              status: BAD_REQUEST
+              dateTime: '2024-08-13 2024-08-12T16:33:12Z'
+              title: Petición incorrecta
+              message: La url solicitada tiene error de sintaxis
+            Data: null
+    UnauthorizedResponse:
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/StandardResponseError'
+          example:
+            Error:
+              code: 401
+              status: UNAUTHORIZED
+              dateTime: '2024-08-13 2024-08-12T16:33:12Z'
+              title: La petición requiere autenticación
+              message: Es necesario autenticar para obtener la respuesta solicitada
+            Data: null
+    ForbiddenResponse:
+      description: Forbidden
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/StandardResponseError'
+          example:
+            Error:
+              code: 403
+              status: FORBIDDEN
+              dateTime: '2024-08-13 2024-08-12T16:33:12Z'
+              title: >-
+                El cliente no posee los permisos necesarios para cierto
+                contenido.
+              message: El cliente no está autorizado a realizar la petición.
+            data: null
+    NotFoundResponse:
+      description: Not Found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/StandardResponseError'
+          example:
+            Error:
+              code: 404
+              status: NOT_FOUND
+              dateTime: '2024-08-13 2024-08-12T16:33:12Z'
+              title: Recurso no encontrado.
+              message: El servidor no pudo encontrar el contenido solicitado
+            Data: null
+    ProxyAuthenticationResponse:
+      description: Proxy Authentication Required
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/StandardResponseError'
+          example:
+            Error:
+              code: 407
+              status: PROXY_AUTHENTICATION_REQUIRED
+              dateTime: '2024-08-13 2024-08-12T16:33:12Z'
+              title: autenticación requerida a partir de un proxy.
+              message: la autenticación debe estar hecha a partir de un proxy
+            Data: null
+    ConflictResponse:
+      description: Conflict
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/StandardResponseError'
+          example:
+            Error:
+              code: 409
+              status: CONFLICT
+              dateTime: '2024-08-13 2024-08-12T16:33:12Z'
+              title: conflicto en la solicitud.
+              message: La petición tiene conflicto con el estado actual del servidor.
+            Data: null
+    LengthRequiredResponse:
+      description: Length Required
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/StandardResponseError'
+          example:
+            Error:
+              code: 411
+              status: LENGTH_REQUIRED
+              dateTime: '2024-08-13 2024-08-12T16:33:12Z'
+              title: encabezado “content-length” no está definido.
+              message: >-
+                El servidor rechaza la petición porque el campo de encabezado
+                Content-Length no esta definido.
+            Data: null
+    UriTooLongResponse:
+      description: Uri Too Long
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/StandardResponseError'
+          example:
+            Error:
+              code: 414
+              status: URI_TOO_LONG
+              dateTime: '2024-08-13 2024-08-12T16:33:12Z'
+              title: La URI solicitada por el cliente sobre pasa el limite
+              message: >-
+                la uri solicitada por el cliente es más larga de lo que el
+                servidor está dispuesto a interpretar
+            Data: null
+    TooManyRequestsResponse:
+      description: Too many requests
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/StandardResponseError'
+          example:
+            Error:
+              code: 429
+              status: TOO_MANY_REQUESTS
+              dateTime: '2024-08-13 2024-08-12T16:33:12Z'
+              title: Demasiadas solicitudes
+              message: demasiadas solicitudes en un periodo de tiempo dado
+            Data: null
+    InternalServerErrorResponse:
+      description: Internal Server Error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/StandardResponseError'
+          example:
+            Error:
+              code: 500
+              status: INTERNAL_SERVER_ERROR
+              dateTime: '2024-08-13 2024-08-12T16:33:12Z'
+              title: Error general en el servidor de consulta.
+              message: Se ha producido un error inesperado en el servidor.
+            Data: null
+    UnexpectedErrorResponse:
+      description: Unexpected error response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/StandardResponseError'
+          example:
+            Error:
+              code: 500
+              status: INTERNAL_SERVER_ERROR
+              dateTime: '2024-08-13 2024-08-12T16:33:12Z'
+              title: Error general en el servidor
+              message: Error inesperado en el Servidor
+            Data: null
+    RegisterUserResponse:
+      description: Retorna los tokens generados luego del registro del usuario.
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: '#/components/schemas/StandardResponse'
+              - $ref: '#/components/schemas/LoginAuthRes'
+          examples:
+            Registro-Exitoso:
+              summary: Usuario registrado correctamente
+              value:
+                Data:
+                  Auth:
+                    accessToken: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.access
+                    refreshToken: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.refresh
+                  statusCode: 201
+                  message: Usuario registrado correctamente
+    VerifyEmailResponse:
+      description: Retorna el estado del proceso de envio del codigo de verificacion.
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: '#/components/schemas/StandardResponse'
+              - $ref: '#/components/schemas/VerifyEmailRes'
+          examples:
+            Correo-Enviado:
+              summary: Codigo de verificacion enviado
+              value:
+                Data:
+                  User:
+                    verifyEmail: false
+                  statusCode: 200
+                  message: Codigo enviado correctamente
+    VerifyCodeResponse:
+      description: Retorna el estado de validacion del codigo de verificacion.
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: '#/components/schemas/StandardResponse'
+              - $ref: '#/components/schemas/VerifyEmailRes'
+          examples:
+            Codigo-Verificado:
+              summary: Codigo validado correctamente
+              value:
+                Data:
+                  User:
+                    verifyEmail: true
+                  statusCode: 200
+                  message: Email verificado correctamente
+    SetPasswordResponse:
+      description: Retorna el estado de actualizacion de la contrasena.
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: '#/components/schemas/StandardResponse'
+              - $ref: '#/components/schemas/VerifyEmailRes'
+          examples:
+            Password-Actualizado:
+              summary: Contrasena actualizada correctamente
+              value:
+                Data:
+                  User:
+                    verifyEmail: true
+                  statusCode: 201
+                  message: Contrasena actualizado correctamente
+    GetPreferencesResponse:
+      description: Retorna el listado paginado de preferencias registradas.
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: '#/components/schemas/StandardResponse'
+              - $ref: '#/components/schemas/PreferenceListRes'
+          examples:
+            Preferencias-Encontradas:
+              summary: Lista paginada de preferencias
+              value:
+                Data:
+                  items:
+                    - preferenceId: 7d4be61b-72a3-414d-ac3a-3b1ddb9b96e0
+                      userId: 62977d46-7a50-41c9-8d84-38272ac2a8df
+                      categoryId: 3d808990-5158-4af0-8a24-9326f59419a2
+                      active: true
+                      createdAt: '2026-05-24T18:30:00Z'
+                      updatedAt: '2026-05-24T18:45:00Z'
+                      deletedAt: null
+                  count: 1
+                  nextCursor: null
+                  statusCode: 200
+                  message: Preferencias obtenido con exito
+    CreatePreferenceResponse:
+      description: Retorna los identificadores de las preferencias creadas.
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: '#/components/schemas/StandardResponse'
+              - $ref: '#/components/schemas/PreferenceCreateRes'
+          examples:
+            Preferencias-Creadas:
+              summary: Preferencias creadas correctamente
+              value:
+                Data:
+                  preference:
+                    - 7d4be61b-72a3-414d-ac3a-3b1ddb9b96e0
+                    - 117752b9-cfed-4fb4-ae2e-f67b2f65d5d3
+                  statusCode: 200
+                  message: Preferencia creado con exito
+    GetUsersResponse:
+      description: Retorna el listado paginado de usuarios.
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: '#/components/schemas/StandardResponse'
+              - $ref: '#/components/schemas/UserListRes'
+          examples:
+            Usuarios-Encontrados:
+              summary: Lista paginada de usuarios
+              value:
+                Data:
+                  items:
+                    - userId: 62977d46-7a50-41c9-8d84-38272ac2a8df
+                      name: Juan Perez
+                      lastname: Aguilar
+                      email: user@foodstore.com
+                      roles: user
+                      photo: 'https://cdn.foodstore.com/users/photo.png'
+                      onboardingRequired: false
+                      active: true
+                      createdAt: '2026-05-24T18:30:00Z'
+                      updatedAt: '2026-05-24T18:45:00Z'
+                      deletedAt: null
+                  count: 1
+                  nextCursor: null
+                  statusCode: 200
+                  message: Lista de usuarios obtenido con exito
+    GetUserResponse:
+      description: Retorna la informacion detallada de un usuario.
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: '#/components/schemas/StandardResponse'
+              - $ref: '#/components/schemas/UserRes'
+          examples:
+            Usuario-Encontrado:
+              summary: Consulta de usuario por identificador
+              value:
+                Data:
+                  user:
+                    userId: 62977d46-7a50-41c9-8d84-38272ac2a8df
+                    name: Juan Perez
+                    lastname: Aguilar
+                    email: user@foodstore.com
+                    roles: user
+                    photo: 'https://cdn.foodstore.com/users/photo.png'
+                    onboardingRequired: false
+                    active: true
+                    createdAt: '2026-05-24T18:30:00Z'
+                    updatedAt: '2026-05-24T18:45:00Z'
+                    deletedAt: null
+                  statusCode: 200
+                  message: Usuario obtenido con exito
+    GetMeResponse:
+      description: Retorna la informacion del usuario autenticado.
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: '#/components/schemas/StandardResponse'
+              - $ref: '#/components/schemas/UserRes'
+          examples:
+            Usuario-Autenticado:
+              summary: Consulta del perfil autenticado
+              value:
+                Data:
+                  user:
+                    userId: 62977d46-7a50-41c9-8d84-38272ac2a8df
+                    name: Juan Perez
+                    lastname: Aguilar
+                    email: user@foodstore.com
+                    roles: user
+                    photo: 'https://cdn.foodstore.com/users/photo.png'
+                    onboardingRequired: false
+                    active: true
+                    createdAt: '2026-05-24T18:30:00Z'
+                    updatedAt: '2026-05-24T18:45:00Z'
+                    deletedAt: null
+                  statusCode: 200
+                  message: Usuario obtenido con exito
+    GetProductsResponse:
+      description: Retorna el listado paginado de productos.
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: '#/components/schemas/StandardResponse'
+              - $ref: '#/components/schemas/ProductListRes'
+          examples:
+            Productos-Encontrados:
+              summary: Lista paginada de productos
+              value:
+                Data:
+                  items:
+                    - productId: 62977d46-7a50-41c9-8d84-38272ac2a8df
+                      name: Hamburguesa Clasica
+                      description: Hamburguesa artesanal con queso cheddar
+                      price: 24.9
+                      stock: 35
+                      categoryId: 3d808990-5158-4af0-8a24-9326f59419a2
+                      storeId: a0271854-eed8-486d-9ab4-74ef822aa1f4
+                      sku: HAM-001
+                      image: 'https://cdn.foodstore.com/products/hamburguesa.png'
+                      ingredients:
+                        - name: Carne
+                          quantity: 180
+                          unit: g
+                          image: 'https://cdn.foodstore.com/ingredients/carne.png'
+                      active: true
+                      createdAt: '2026-05-24T18:30:00Z'
+                      updatedAt: null
+                      deletedAt: null
+                  count: 1
+                  nextCursor: null
+                  statusCode: 200
+                  message: Productos encontrados con exito
+    CreateProductResponse:
+      description: Retorna el identificador del producto creado.
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: '#/components/schemas/StandardResponse'
+              - $ref: '#/components/schemas/ProductCreateRes'
+          examples:
+            Producto-Creado:
+              summary: Creacion de producto
+              value:
+                Data:
+                  product:
+                    id: 62977d46-7a50-41c9-8d84-38272ac2a8df
+                  statusCode: 200
+                  message: Producto creado con exito
+    GetProductResponse:
+      description: Retorna la informacion detallada del producto.
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: '#/components/schemas/StandardResponse'
+              - $ref: '#/components/schemas/ProductRes'
+          examples:
+            Producto-Encontrado:
+              summary: Consulta de producto por identificador
+              value:
+                Data:
+                  product:
+                    productId: 62977d46-7a50-41c9-8d84-38272ac2a8df
+                    name: Hamburguesa Clasica
+                    description: Hamburguesa artesanal con queso cheddar
+                    price: 24.9
+                    stock: 35
+                    categoryId: 3d808990-5158-4af0-8a24-9326f59419a2
+                    storeId: a0271854-eed8-486d-9ab4-74ef822aa1f4
+                    sku: HAM-001
+                    image: 'https://cdn.foodstore.com/products/hamburguesa.png'
+                    ingredients:
+                      - name: Carne
+                        quantity: 180
+                        unit: g
+                        image: 'https://cdn.foodstore.com/ingredients/carne.png'
+                    active: true
+                    createdAt: '2026-05-24T18:30:00Z'
+                    updatedAt: null
+                    deletedAt: null
+                  statusCode: 200
+                  message: Producto encontrado con exito
+    GetCategoriesResponse:
+      description: Retorna el listado paginado de categorias.
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: '#/components/schemas/StandardResponse'
+              - $ref: '#/components/schemas/CategoryListRes'
+          examples:
+            Categorias-Encontradas:
+              summary: Lista paginada de categorias
+              value:
+                Data:
+                  items:
+                    - categoryId: 3d808990-5158-4af0-8a24-9326f59419a2
+                      name: Hamburguesas
+                      description: Categoria de hamburguesas y sandwiches
+                      image: 'https://cdn.foodstore.com/categories/hamburguesas.png'
+                      active: true
+                      createdAt: '2026-05-24T18:30:00Z'
+                      updatedAt: null
+                      deletedAt: null
+                  count: 1
+                  nextCursor: null
+                  statusCode: 200
+                  message: Categorias encontrados con exito
+    CreateCategoryResponse:
+      description: Retorna el identificador de la categoria creada.
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: '#/components/schemas/StandardResponse'
+              - $ref: '#/components/schemas/CategoryCreateRes'
+          examples:
+            Categoria-Creada:
+              summary: Creacion de categoria
+              value:
+                Data:
+                  category:
+                    id: 3d808990-5158-4af0-8a24-9326f59419a2
+                  statusCode: 200
+                  message: Categoria creado con exito
+    GetStoreLocationResponse:
+      description: Retorna la ubicacion geografica de la tienda.
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: '#/components/schemas/StandardResponse'
+              - $ref: '#/components/schemas/StoreLocationRes'
+          examples:
+            Ubicacion-Tienda:
+              summary: Coordenadas de la tienda
+              value:
+                Data:
+                  Store:
+                    lat: -11.98108
+                    lng: -77.08323
+    GetOrdersResponse:
+      description: Retorna el listado paginado de ordenes.
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: '#/components/schemas/StandardResponse'
+              - $ref: '#/components/schemas/OrderListRes'
+          examples:
+            Ordenes-Encontradas:
+              summary: Lista de ordenes
+              value:
+                Data:
+                  items:
+                    - orderId: 62977d46-7a50-41c9-8d84-38272ac2a8df
+                      userId: 0af43a51-a4f0-4f7d-a798-2372456d6a19
+                      courierId: null
+                      totalAmount: 49.8
+                      status: PENDING
+                      statusDelivery: ASSIGNED
+                      createdAt: '2026-05-24T18:30:00Z'
+                  count: 1
+                  nextCursor: null
+                  statusCode: 200
+                  message: Courier obtenido con exito
+    CreateOrderResponse:
+      description: Retorna el identificador de la orden creada.
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: '#/components/schemas/StandardResponse'
+              - $ref: '#/components/schemas/CreateOrderRes'
+          examples:
+            Orden-Creada:
+              summary: Creacion de orden
+              value:
+                Data:
+                  order: 62977d46-7a50-41c9-8d84-38272ac2a8df
+                  statusCode: 200
+                  message: Orden obtenido con exito
+    GetOrderResponse:
+      description: Retorna la informacion detallada de la orden.
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: '#/components/schemas/StandardResponse'
+              - $ref: '#/components/schemas/OrderRes'
+          examples:
+            Orden-Encontrada:
+              summary: Consulta de orden por identificador
+              value:
+                Data:
+                  order:
+                    orderId: 62977d46-7a50-41c9-8d84-38272ac2a8df
+                    userId: 0af43a51-a4f0-4f7d-a798-2372456d6a19
+                    courierId: null
+                    pickupLat: -12.0432
+                    pickupLng: -77.0282
+                    dropoffLat: -12.0505
+                    dropoffLng: -77.0332
+                    items:
+                      - productId: 3d808990-5158-4af0-8a24-9326f59419a2
+                        name: Hamburguesa Clasica
+                        price: 24.9
+                        quantity: 2
+                    totalAmount: 49.8
+                    status: PENDING
+                    statusDelivery: ASSIGNED
+                    createdAt: '2026-05-24T18:30:00Z'
+                    updatedAt: '2026-05-24T18:45:00Z'
+                    deletedAt: null
+                  statusCode: 200
+                  message: Orden obtenido con exito
+    UpdateOrderStatusResponse:
+      description: Retorna el identificador de la orden actualizada.
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: '#/components/schemas/StandardResponse'
+              - $ref: '#/components/schemas/OrderUpdateStatusRes'
+          examples:
+            Estado-Actualizado:
+              summary: Orden actualizada
+              value:
+                Data:
+                  orderId: 62977d46-7a50-41c9-8d84-38272ac2a8df
+    GetOrderStatusResponse:
+      description: Retorna el estado de entrega de la orden.
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: '#/components/schemas/StandardResponse'
+              - $ref: '#/components/schemas/OrderStatusRes'
+          examples:
+            Estado-Entrega:
+              summary: Estado actual de entrega
+              value:
+                Data:
+                  order:
+                    statusDelivery: ON_THE_WAY
+                  statusCode: 200
+                  message: Status de orden obtenido con exito
+    AssignCourierResponse:
+      description: Retorna la asignacion de courier a la orden.
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: '#/components/schemas/StandardResponse'
+              - $ref: '#/components/schemas/OrderAssignCourierRes'
+          examples:
+            Courier-Asignado:
+              summary: Courier asignado a la orden
+              value:
+                Data:
+                  orderId: 62977d46-7a50-41c9-8d84-38272ac2a8df
+                  courierId: a0271854-eed8-486d-9ab4-74ef822aa1f4
+    GetCouriersResponse:
+      description: Retorna el listado paginado de couriers.
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: '#/components/schemas/StandardResponse'
+              - $ref: '#/components/schemas/CourierListRes'
+          examples:
+            Couriers-Encontrados:
+              summary: Lista de couriers
+              value:
+                Data:
+                  items:
+                    - courierId: a0271854-eed8-486d-9ab4-74ef822aa1f4
+                      name: Luis Soto
+                      phone: '987654321'
+                      vehicleType: MOTO
+                      status: AVAILABLE
+                      currentOrderId: null
+                      currentLat: -12.0464
+                      currentLng: -77.0428
+                      createdAt: '2026-05-24T18:30:00Z'
+                  count: 1
+                  nextCursor: null
+                  statusCode: 200
+                  message: Courier obtenido con exito
+    CreateCourierResponse:
+      description: Retorna el identificador del courier creado.
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: '#/components/schemas/StandardResponse'
+              - $ref: '#/components/schemas/CreateCourierRes'
+          examples:
+            Courier-Creado:
+              summary: Creacion de courier
+              value:
+                Data:
+                  courier: a0271854-eed8-486d-9ab4-74ef822aa1f4
+                  statusCode: 200
+                  message: Courier obtenido con exito
+    GetCourierResponse:
+      description: Retorna la informacion detallada del courier.
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: '#/components/schemas/StandardResponse'
+              - $ref: '#/components/schemas/CourierRes'
+          examples:
+            Courier-Encontrado:
+              summary: Consulta de courier por identificador
+              value:
+                Data:
+                  courier:
+                    courierId: a0271854-eed8-486d-9ab4-74ef822aa1f4
+                    name: Luis Soto
+                    phone: '987654321'
+                    vehicleType: MOTO
+                    status: AVAILABLE
+                    currentOrderId: null
+                    currentLat: -12.0464
+                    currentLng: -77.0428
+                    lastLocationAt: '2026-05-24T18:45:00Z'
+                    createdAt: '2026-05-24T18:30:00Z'
+                    updatedAt: '2026-05-24T18:45:00Z'
+                    deletedAt: null
+                  statusCode: 200
+                  message: Courier obtenido con exito
+    UpdateCourierPresenceResponse:
+      description: Retorna la presencia actualizada del courier.
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: '#/components/schemas/StandardResponse'
+              - $ref: '#/components/schemas/CourierPresenceRes'
+          examples:
+            Presencia-Actualizada:
+              summary: Estado y posicion del courier
+              value:
+                Data:
+                  courier:
+                    courierId: a0271854-eed8-486d-9ab4-74ef822aa1f4
+                    status: AVAILABLE
+                    location:
+                      lat: -12.0464
+                      lng: -77.0428
+                    lastLocationAt: '2026-05-24T18:45:00Z'
+                  statusCode: 200
+                  message: Courier actualizado con exito
+    GetPaymentsResponse:
+      description: Retorna el listado paginado de pagos.
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: '#/components/schemas/StandardResponse'
+              - $ref: '#/components/schemas/PaymentRes'
+          examples:
+            Pagos-Encontrados:
+              summary: Lista de pagos
+              value:
+                Data:
+                  items:
+                    - paymentId: 117752b9-cfed-4fb4-ae2e-f67b2f65d5d3
+                      orderId: 62977d46-7a50-41c9-8d84-38272ac2a8df
+                      providerOrderId: 8S123456AB123456C
+                      amount: 49.8
+                      currency: USD
+                      status: APROBADO
+                      provider: Paypal
+                      providerPaymentId: 3GG279541U471931P
+                      payerEmail: buyer@foodstore.com
+                      createdAt: '2026-05-24T18:30:00Z'
+                      updatedAt: '2026-05-24T18:35:00Z'
+                      deletedAt: null
+                  count: 1
+                  nextCursor: null
+                  statusCode: 200
+                  message: Lista de pagos obtenido con exito
+    CreatePaymentResponse:
+      description: Retorna el identificador del pago creado.
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: '#/components/schemas/StandardResponse'
+              - $ref: '#/components/schemas/CreatePaymentRes'
+          examples:
+            Pago-Creado:
+              summary: Creacion de pago
+              value:
+                Data:
+                  payment: 117752b9-cfed-4fb4-ae2e-f67b2f65d5d3
+                  statusCode: 200
+                  message: Pago confirmado con exito
+    CreatePaymentPaypalResponse:
+      description: Retorna la orden creada en Paypal.
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: '#/components/schemas/StandardResponse'
+              - $ref: '#/components/schemas/PaymentPaypalRes'
+          examples:
+            Pago-Paypal-Creado:
+              summary: Orden Paypal creada
+              value:
+                Data:
+                  payment:
+                    providerOrderId: 8S123456AB123456C
+                    redirectUrl: >-
+                      https://www.sandbox.paypal.com/checkoutnow?token=8S123456AB123456C
+                    paymentId: 117752b9-cfed-4fb4-ae2e-f67b2f65d5d3
+                  statusCode: 200
+                  message: Pago de paypal creado con exito
+    ConfirmPaymentResponse:
+      description: Retorna el resultado de la confirmacion del pago.
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: '#/components/schemas/StandardResponse'
+              - $ref: '#/components/schemas/PaymentConfirmRes'
+          examples:
+            Pago-Confirmado:
+              summary: Confirmacion de pago Paypal
+              value:
+                Data:
+                  payment:
+                    orderId: 8S123456AB123456C
+                    paymentId: 117752b9-cfed-4fb4-ae2e-f67b2f65d5d3
+                    providerPaymentId: 3GG279541U471931P
+                    providerPaymentStatus: COMPLETED
+                  statusCode: 200
+                  message: Pago confirmado con exito
+    GetCartResponse:
+      description: Retorna el detalle del carrito por usuario.
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: '#/components/schemas/StandardResponse'
+              - $ref: '#/components/schemas/CartRes'
+          examples:
+            Carrito-Encontrado:
+              summary: Carrito por usuario
+              value:
+                Data:
+                  cart:
+                    items:
+                      - productId: 3d808990-5158-4af0-8a24-9326f59419a2
+                        name: Hamburguesa Clasica
+                        price: 24.9
+                        quantity: 2
+                  statusCode: 200
+                  message: Carrito obtenido con exito
+    ClearCartResponse:
+      description: Retorna el identificador del carrito vaciado.
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: '#/components/schemas/StandardResponse'
+              - $ref: '#/components/schemas/CartMutateRes'
+          examples:
+            Carrito-Vaciado:
+              summary: Carrito vaciado
+              value:
+                Data:
+                  cart:
+                    cartId: 7d4be61b-72a3-414d-ac3a-3b1ddb9b96e0
+                  statusCode: 200
+                  message: Carrito vaciado con exito
+    CreateCartItemResponse:
+      description: Retorna el identificador del carrito afectado al agregar un item.
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: '#/components/schemas/StandardResponse'
+              - $ref: '#/components/schemas/CartMutateRes'
+          examples:
+            Item-Agregado:
+              summary: Item agregado al carrito
+              value:
+                Data:
+                  cart:
+                    cartId: 7d4be61b-72a3-414d-ac3a-3b1ddb9b96e0
+                  statusCode: 200
+                  message: Item Carrito agregado con exito
+    RemoveCartItemResponse:
+      description: Retorna el identificador del carrito afectado al eliminar un item.
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: '#/components/schemas/StandardResponse'
+              - $ref: '#/components/schemas/CartMutateRes'
+          examples:
+            Item-Eliminado:
+              summary: Item eliminado del carrito
+              value:
+                Data:
+                  cart:
+                    cartId: 7d4be61b-72a3-414d-ac3a-3b1ddb9b96e0
+                  statusCode: 200
+                  message: Item eliminado con exito
