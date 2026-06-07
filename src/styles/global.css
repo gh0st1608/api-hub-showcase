@@ -1,0 +1,61 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #0f172a;
+  --color-primary-hover: #020617;
+  --color-primary-light: #e2e8f0;
+
+  --color-secondary: #e2e8f0;
+  --color-secondary-hover: #cbd5e1;
+
+  --color-danger: #dc2626;
+  --color-danger-hover: #b91c1c;
+  --color-danger-light: #fee2e2;
+
+  --color-success: #15803d;
+  --color-success-light: #dcfce7;
+
+  --color-warning: #d97706;
+  --color-warning-light: #fef3c7;
+
+  --color-surface: #ffffff;
+  --color-surface-subtle: #f8fafc;
+  --color-surface-muted: #f3f6fb;
+  --color-border: #d9e3f0;
+  --color-border-strong: #bfd0e6;
+  --color-text: #0f172a;
+  --color-text-muted: #64748b;
+  --color-accent: #0891b2;
+  --color-accent-soft: #cffafe;
+  --color-accent-ink: #155e75;
+  --color-app-bg: #eef4f8;
+
+  --radius-sm: 0.25rem;
+  --radius-md: 0.375rem;
+  --radius-lg: 0.5rem;
+  --radius-xl: 0.75rem;
+
+  --shadow-card: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family:
+    "Segoe UI Variable", "Inter", "Aptos", "Trebuchet MS", sans-serif;
+  background:
+    radial-gradient(circle at top, rgba(8, 145, 178, 0.08), transparent 22%),
+    linear-gradient(180deg, #f7fbfc 0%, #eef4f8 100%);
+  color: var(--color-text);
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}

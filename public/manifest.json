@@ -1,0 +1,27 @@
+{
+  "updatedAt": "2026-06-05T23:00:00.000Z",
+  "projects": [
+    {
+      "id": "foodstore",
+      "name": "Foodstore SDC",
+      "group": "sdc",
+      "summary": "Hub principal de disenos backend para los microservicios auth, shop, order, payment y checkout.",
+      "href": "/designs/sdc/foodstore-sdc.html",
+      "lastUpdated": "2026-06-05T23:00:00.000Z",
+      "tags": ["delivery", "microservices", "openapi", "redoc"]
+    }
+  ],
+  "designs": [
+    {
+      "id": "foodstore-sdc",
+      "name": "Foodstore SDC API Hub",
+      "group": "sdc",
+      "project": "foodstore",
+      "summary": "Hub unificado con microservicios auth, shop, order, payment y checkout documentados con OpenAPI.",
+      "yaml": "/designs/sdc/foodstore-sdc.yaml",
+      "html": "/designs/sdc/foodstore-sdc.html",
+      "lastUpdated": "2026-06-05T23:00:00.000Z",
+      "tags": ["openapi", "redoc", "backend", "foodstore"]
+    }
+  ]
+}
