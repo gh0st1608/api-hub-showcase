@@ -13,8 +13,8 @@ export type ProjectFormValues = {
   title: string;
   description: string;
   link: string;
-  html: File | string;
-  yaml: File | string;
+  html: File;
+  yaml: File;
   tags: string;
 };
 
@@ -50,8 +50,8 @@ export function ProjectForm({
       title: defaultValues?.title ?? "",
       description: defaultValues?.description ?? "",
       link: defaultValues?.link ?? "",
-      html: defaultValues?.html ?? "",
-      yaml: defaultValues?.yaml ?? "",
+      html: defaultValues?.html ?? new File([], ""),
+      yaml: defaultValues?.yaml ?? new File([], ""),
       tags: defaultValues?.tags ?? "",
     }),
     [defaultValues]

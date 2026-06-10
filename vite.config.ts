@@ -18,17 +18,8 @@ export default defineConfig({
   },
   server: {
     proxy: {
-      "/samples": {
-        target: "http://localhost:3001",
-        changeOrigin: true,
-        bypass(req) {
-          if (req.headers["accept"]?.includes("text/html")) {
-            return "/index.html";
-          }
-        },
-      },
       "/projects": {
-        target: "http://localhost:3001",
+        target: "http://localhost:3000",
         changeOrigin: true,
         bypass(req) {
           if (req.headers["accept"]?.includes("text/html")) {

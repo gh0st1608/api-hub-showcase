@@ -19,25 +19,18 @@ function StatCard({ label, value }: { label: string; value: string | number }) {
   );
 }
 
-function resolveAssetHref(value: string | File | undefined): string | null {
-  if (value instanceof File) {
-    return `/designs/sdc/${value.name}`;
-  }
+function getFileName(path?: string): string {
+  if (!path) return "-";
 
-  if (typeof value !== "string" || !value.trim()) return null;
-
-  if (/^(\/|https?:)/.test(value)) return value;
-
-  return `/designs/sdc/${value.replace(/^\.\//, "")}`;
+  return path.split("/").pop() ?? path;
 }
 
+const API_BASE_URL = import.meta.env.VITE_API_URL ?? "http://localhost:3000";
+
 function ProjectCard({ project }: { project: Project }) {
-  const designHref = resolveAssetHref(project.html);
-  const designLabel = designHref
-    ? designHref.replace(/^\/designs\/sdc\//, "")
-    : typeof project.html === "string"
-      ? project.html
-      : project.html.name;
+  const designHref = project.html ? `${API_BASE_URL}${project.html}` : null;
+
+  const designLabel = getFileName(project.html);
 
   return (
     <Card className="overflow-hidden border-[color:var(--color-border-strong)] bg-[linear-gradient(180deg,rgba(255,255,255,0.98),rgba(247,250,252,0.92))]">

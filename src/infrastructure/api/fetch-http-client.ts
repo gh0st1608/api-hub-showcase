@@ -12,47 +12,79 @@ export class FetchHttpClient implements HttpClientPort {
 
   private async request<T>(path: string, options?: RequestInit): Promise<T> {
     const url = `${this.baseUrl}${path}`;
-    logger.debug({ url, method: options?.method ?? "GET" }, "HTTP request");
+
+    logger.debug(
+      {
+        url,
+        method: options?.method ?? "GET",
+      },
+      "HTTP request"
+    );
 
     try {
-      const response = await fetch(url, {
-        headers: { "Content-Type": "application/json", ...options?.headers },
-        ...options,
-      });
+      const response = await fetch(url, options);
 
       if (!response.ok) {
         const body = await response.text();
+
         throw new NetworkError(`HTTP ${response.status}: ${body}`);
       }
 
-      if (response.status === 204) return undefined as T;
+      if (response.status === 204) {
+        return undefined as T;
+      }
 
       return response.json() as Promise<T>;
     } catch (error) {
-      if (error instanceof NetworkError) throw error;
+      if (error instanceof NetworkError) {
+        throw error;
+      }
+
       throw new NetworkError(`Request failed: ${String(error)}`);
     }
   }
 
   get<T>(path: string): Promise<T> {
-    return this.request<T>(path, { method: "GET" });
+    return this.request<T>(path, {
+      method: "GET",
+    });
   }
 
   post<T>(path: string, body: unknown): Promise<T> {
+    const isFormData = body instanceof FormData;
+
     return this.request<T>(path, {
       method: "POST",
-      body: JSON.stringify(body),
+
+      headers: isFormData
+        ? undefined
+        : {
+            "Content-Type": "application/json",
+          },
+
+      body: isFormData ? body : JSON.stringify(body),
     });
   }
 
   patch<T>(path: string, body: unknown): Promise<T> {
+    const isFormData = body instanceof FormData;
+
     return this.request<T>(path, {
       method: "PATCH",
-      body: JSON.stringify(body),
+
+      headers: isFormData
+        ? undefined
+        : {
+            "Content-Type": "application/json",
+          },
+
+      body: isFormData ? body : JSON.stringify(body),
     });
   }
 
   delete<T>(path: string): Promise<T> {
-    return this.request<T>(path, { method: "DELETE" });
+    return this.request<T>(path, {
+      method: "DELETE",
+    });
   }
 }

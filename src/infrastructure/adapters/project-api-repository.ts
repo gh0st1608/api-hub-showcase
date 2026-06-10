@@ -20,32 +20,45 @@ interface ProjectApiResponse {
 }
 
 interface ListProjectsResponse {
-  projects: ProjectApiResponse[];
-  statusCode: number;
-  message: string;
+  items?: ProjectApiResponse[];
+  count?: number;
+  nextPage?: number | null;
+  projects?: ProjectApiResponse[];
+  statusCode?: number;
+  message?: string;
 }
 
 interface SingleProjectResponse {
-  project: ProjectApiResponse;
-  statusCode: number;
-  message: string;
+  project?: ProjectApiResponse;
+  item?: ProjectApiResponse;
+  statusCode?: number;
+  message?: string;
 }
 
 interface CreateProjectResponse {
-  project: { projectId: string };
-  statusCode: number;
-  message: string;
+  project?: ProjectApiResponse;
+  item?: ProjectApiResponse;
+  projectId?: string;
+  statusCode?: number;
+  message?: string;
 }
 
-function normalizeFileValue(value: File | string | undefined): string {
-  if (value instanceof File) {
-    return `/designs/sdc/${value.name}`;
-  }
+function extractProject(response: unknown): ProjectApiResponse | null {
+  if (!response || typeof response !== "object") return null;
 
-  if (typeof value !== "string") return "";
+  const candidate = response as {
+    project?: ProjectApiResponse;
+    item?: ProjectApiResponse;
+    id?: string;
+    title?: string;
+    group?: string;
+  };
 
-  if (/^(\/|https?:)/.test(value)) return value;
-  return `/designs/sdc/${value.replace(/^\.\//, "")}`;
+  if (candidate.project) return candidate.project;
+  if (candidate.item) return candidate.item;
+  if (candidate.id && candidate.title) return candidate as ProjectApiResponse;
+
+  return null;
 }
 
 export class ProjectApiRepository implements ProjectRepositoryPort {
@@ -54,7 +67,14 @@ export class ProjectApiRepository implements ProjectRepositoryPort {
   async findAll(): Promise<Project[]> {
     const response =
       await this.httpClient.get<ListProjectsResponse>("/projects");
-    return response.projects.map((item) => Project.hydrate(item));
+
+    const items = response.items ?? response.projects ?? [];
+    return items.map((item) =>
+      Project.hydrate({
+        ...item,
+        tags: typeof item.tags === "string" ? JSON.parse(item.tags) : item.tags,
+      })
+    );
   }
 
   async findById(id: string): Promise<Project | null> {
@@ -62,40 +82,82 @@ export class ProjectApiRepository implements ProjectRepositoryPort {
       const response = await this.httpClient.get<SingleProjectResponse>(
         `/projects/${id}`
       );
-      return Project.hydrate(response.project);
+      const project = extractProject(response);
+
+      return project ? Project.hydrate(project) : null;
     } catch {
       return null;
     }
   }
 
   async create(input: CreateProjectInput): Promise<Project> {
+    const formData = new FormData();
+
+    formData.append("group", input.group);
+    formData.append("title", input.title);
+    formData.append("description", input.description);
+    formData.append("link", input.link);
+
+    formData.append("html", input.html);
+    formData.append("yaml", input.yaml);
+
+    formData.append("tags", JSON.stringify(input.tags));
+
     const createResponse = await this.httpClient.post<CreateProjectResponse>(
       "/projects",
-      {
-        ...input,
-        html: normalizeFileValue(input.html),
-        yaml: normalizeFileValue(input.yaml),
-      }
+      formData
     );
-    const projectId = createResponse.project.projectId;
-    const response = await this.httpClient.get<SingleProjectResponse>(
-      `/projects/${projectId}`
-    );
-    return Project.hydrate(response.project);
+
+    const project =
+      extractProject(createResponse) ??
+      (createResponse.projectId
+        ? await this.httpClient
+            .get<SingleProjectResponse>(`/projects/${createResponse.projectId}`)
+            .then((response) => extractProject(response))
+        : null);
+
+    if (!project) {
+      throw new Error("No project returned from backend");
+    }
+
+    return Project.hydrate(project);
   }
 
   async update(id: string, input: UpdateProjectInput): Promise<Project> {
+    const formData = new FormData();
+
+    if (input.group) formData.append("group", input.group);
+
+    if (input.title) formData.append("title", input.title);
+
+    if (input.description) formData.append("description", input.description);
+
+    if (input.link) formData.append("link", input.link);
+
+    if (input.html) {
+      formData.append("html", input.html);
+    }
+
+    if (input.yaml) {
+      formData.append("yaml", input.yaml);
+    }
+
+    if (input.tags) {
+      formData.append("tags", JSON.stringify(input.tags));
+    }
+
     const response = await this.httpClient.patch<SingleProjectResponse>(
       `/projects/${id}`,
-      {
-        ...input,
-        html:
-          input.html === undefined ? undefined : normalizeFileValue(input.html),
-        yaml:
-          input.yaml === undefined ? undefined : normalizeFileValue(input.yaml),
-      }
+      formData
     );
-    return Project.hydrate(response.project);
+
+    const project = extractProject(response);
+
+    if (!project) {
+      throw new Error("No project returned from backend");
+    }
+
+    return Project.hydrate(project);
   }
 
   async delete(id: string): Promise<void> {

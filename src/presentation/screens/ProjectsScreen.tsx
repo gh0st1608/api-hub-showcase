@@ -51,7 +51,11 @@ export function ProjectsScreen() {
             toast("Proyecto actualizado", "success");
             setEditingId(null);
           },
-          onError: () => toast("No se pudo actualizar el proyecto", "error"),
+          onError: (error) => {
+            console.error("UPDATE PROJECT ERROR", error);
+
+            toast("No se pudo actualizar el proyecto", "error");
+          },
         }
       );
       return;
@@ -59,7 +63,11 @@ export function ProjectsScreen() {
 
     createProject.mutate(payload, {
       onSuccess: () => toast("Proyecto creado", "success"),
-      onError: () => toast("No se pudo crear el proyecto", "error"),
+      onError: (error) => {
+        console.error("CREATE PROJECT ERROR", error);
+
+        toast("No se pudo crear el proyecto", "error");
+      },
     });
   };
 
@@ -94,8 +102,6 @@ export function ProjectsScreen() {
                   title: editingProject.title,
                   description: editingProject.description,
                   link: editingProject.link,
-                  html: editingProject.html,
-                  yaml: editingProject.yaml,
                   tags: editingProject.tags.join(", "),
                 }
               : undefined
@@ -165,9 +171,7 @@ export function ProjectsScreen() {
                   header: "Diseño",
                   render: (project) => (
                     <span className="text-slate-600">
-                      {typeof project.html === "string"
-                        ? project.html
-                        : project.html?.name || "—"}
+                      {project.html || "—"}
                     </span>
                   ),
                 },
