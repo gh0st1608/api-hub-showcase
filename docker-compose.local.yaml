@@ -1,0 +1,166 @@
+  version: '3.8'
+
+  services:
+    sonarqube:
+      image: sonarqube:community
+      container_name: sonarqube
+      depends_on:
+        - sonar-db
+      ports:
+        - "9000:9000"
+      environment:
+        SONAR_JDBC_URL: jdbc:postgresql://sonar-db:5432/sonar
+        SONAR_JDBC_USERNAME: sonar
+        SONAR_JDBC_PASSWORD: sonar
+      volumes:
+        - sonar_data:/opt/sonarqube/data
+        - sonar_extensions:/opt/sonarqube/extensions
+
+    sonar-db:
+      image: postgres:15
+      container_name: sonar-db
+      environment:
+        POSTGRES_USER: sonar
+        POSTGRES_PASSWORD: sonar
+        POSTGRES_DB: sonar
+      volumes:
+        - sonar_db:/var/lib/postgresql/data
+
+    otel-collector:
+      image: otel/opentelemetry-collector:latest
+      container_name: otel-collector
+      command: ["--config=/etc/otelcol/config.yaml"]
+      volumes:
+        - ./otel-collector-config.yaml:/etc/otelcol/config.yaml
+      ports:
+        - "4317:4317" # OTLP gRPC
+        - "4318:4318" # OTLP HTTP
+        - "9464:9464" # Prometheus metrics
+      environment:
+        NEW_RELIC_LICENSE_KEY: ${NEW_RELIC_LICENSE_KEY}
+      depends_on:
+        - sonar-db
+
+    app-db:
+      image: postgres:15
+      container_name: app-db
+      ports:
+        - "5432:5432"
+      environment:
+        POSTGRES_USER: ${DB_USER:-appuser}
+        POSTGRES_PASSWORD: ${DB_PASSWORD:-appsecret}
+        POSTGRES_DB: ${DB_NAME:-appdb}
+      volumes:
+        - app_db:/var/lib/postgresql/data
+      healthcheck:
+        test: ["CMD-SHELL", "pg_isready -U ${DB_USER:-appuser} -d ${DB_NAME:-appdb}"]
+        interval: 10s
+        timeout: 5s
+        retries: 5
+
+    opa:
+      image: openpolicyagent/opa:latest-rootless
+      container_name: opa
+      ports:
+        - "8181:8181"
+      command:
+        - "run"
+        - "--server"
+        - "--addr=0.0.0.0:8181"
+        - "--log-level=info"
+        - "/policies"
+      volumes:
+        - ./policies:/policies:ro
+      healthcheck:
+        test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:8181/health"]
+        interval: 10s
+        timeout: 5s
+        retries: 5
+      # ── Keycloak (IdP local para pruebas de OIDC/JWT) ──────────────────────────
+      #
+      # Admin UI:  http://localhost:8080  (admin / admin)
+      # OIDC:      http://localhost:8080/realms/dev
+      # JWKS:      http://localhost:8080/realms/dev/protocol/openid-connect/certs
+      # Token:     http://localhost:8080/realms/dev/protocol/openid-connect/token
+      #
+      # Configuración mínima del .env para conectar la API:
+      #   AUTH_ENABLED=true
+      #   JWT_ISSUER=http://localhost:8080/realms/dev
+      #   JWT_AUDIENCE=api-service
+      #   JWKS_URI=http://localhost:8080/realms/dev/protocol/openid-connect/certs
+      #
+      # El realm "dev" y el client "api-service" se importan automáticamente desde
+      # ./keycloak/realm-dev.json al levantar el contenedor por primera vez.
+    keycloak:
+      image: quay.io/keycloak/keycloak:24.0
+      container_name: keycloak
+      command: start-dev --import-realm
+      ports:
+        - "8080:8080"
+      environment:
+        KEYCLOAK_ADMIN: admin
+        KEYCLOAK_ADMIN_PASSWORD: admin
+        KC_DB: postgres
+        KC_DB_URL: jdbc:postgresql://keycloak-db:5432/keycloak
+        KC_DB_USERNAME: keycloak
+        KC_DB_PASSWORD: keycloak
+        KC_HOSTNAME_STRICT: "false"
+        KC_HOSTNAME_STRICT_HTTPS: "false"
+        KC_HTTP_ENABLED: "true"
+      volumes:
+        - ./keycloak:/opt/keycloak/data/import:ro
+      depends_on:
+        keycloak-db:
+          condition: service_healthy
+      healthcheck:
+        test: ["CMD-SHELL", "curl -sf http://localhost:8080/realms/master || exit 1"]
+        interval: 15s
+        timeout: 10s
+        retries: 8
+        start_period: 40s
+
+    keycloak-db:
+      image: postgres:15
+      container_name: keycloak-db
+      environment:
+        POSTGRES_USER: keycloak
+        POSTGRES_PASSWORD: keycloak
+        POSTGRES_DB: keycloak
+      volumes:
+        - keycloak_db:/var/lib/postgresql/data
+      healthcheck:
+        test: ["CMD-SHELL", "pg_isready -U keycloak -d keycloak"]
+        interval: 10s
+        timeout: 5s
+        retries: 5
+
+    flocci:
+      image: floci/floci:latest
+      container_name: flocci
+      ports:
+        - '4566:4566'   # LocalStack/Flocci AWS endpoint
+      environment:
+        - SERVICES=sns,sqs
+        - AWS_ACCESS_KEY_ID=test
+        - AWS_SECRET_ACCESS_KEY=test
+        - AWS_DEFAULT_REGION=us-east-1
+      volumes:
+        - flocci-data:/data
+    
+    prometheus:
+      image: prom/prometheus
+      container_name: prometheus
+      ports:
+        - "9090:9090"
+      volumes:
+        - ./prometheus.yaml:/etc/prometheus/prometheus.yml
+      depends_on:
+        - otel-collector
+
+  volumes:
+    sonar_data:
+    sonar_extensions:
+    sonar_db:
+    app_db:
+    keycloak_db:
+    flocci-data:
