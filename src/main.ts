@@ -1,25 +1,14 @@
 // src/main.ts
 import 'dotenv/config';
 import './bootstrap/otel';
-import { NestFactory } from '@nestjs/core';
-import { configureApp } from './bootstrap/configure-app';
-import { AppModule } from './app.module';
-import { NestExpressApplication } from '@nestjs/platform-express';
-import { join } from 'path';
+import { createApp } from './bootstrap/create-app';
 
 async function init() {
-  const app = await NestFactory.create<NestExpressApplication>(AppModule);
-
-  app.useStaticAssets(
-    join(process.cwd(), 'uploads'),
-    {
-      prefix: '/uploads/',
-    },
-  );
+  const { app } = await createApp({
+    serveLocalUploads: (process.env.FILE_STORAGE_DRIVER ?? 'local') === 'local',
+  });
 
   app.enableShutdownHooks();
-
-  await configureApp(app);
   await app.listen(process.env.PORT ?? 3000);
 
   // Graceful shutdown — ECS sends SIGTERM before SIGKILL (default stopTimeout: 30s)

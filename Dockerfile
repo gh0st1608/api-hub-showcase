@@ -24,7 +24,7 @@ RUN addgroup -g 1001 -S nodejs && adduser -S nodejs -u 1001
 
 WORKDIR /app
 
-COPY --from=builder --chown=nodejs:nodejs /app/.build ./.build
+COPY --from=builder --chown=nodejs:nodejs /app/dist ./dist
 COPY --from=builder --chown=nodejs:nodejs /app/node_modules ./node_modules
 COPY --from=builder --chown=nodejs:nodejs /app/package*.json ./
 
@@ -38,4 +38,4 @@ HEALTHCHECK --interval=30s --timeout=5s --start-period=15s --retries=3 \
 
 # Use tini as entrypoint so SIGTERM reaches Node (not swallowed by npm/sh)
 ENTRYPOINT ["/sbin/tini", "--"]
-CMD ["node", ".build/src/main.js"]
+CMD ["node", "dist/src/main.js"]

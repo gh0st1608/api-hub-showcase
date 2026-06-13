@@ -31,9 +31,26 @@ const schema = z.object({
   // ── Database (Postgres / TypeORM) ─────────────────────────────────────────
   DB_HOST: z.string().default('localhost'),
   DB_PORT: z.string().default('5432').transform(Number),
-  DB_USER: z.string().min(1, 'DB_USER is required'),
-  DB_PASSWORD: z.string().min(1, 'DB_PASSWORD is required'),
-  DB_NAME: z.string().min(1, 'DB_NAME is required'),
+  DB_USER: z.string().optional(),
+  DB_PASSWORD: z.string().optional(),
+  DB_NAME: z.string().optional(),
+
+  PROJECT_REPOSITORY_DRIVER: z
+    .enum(['memory', 'typeorm', 'dynamo'])
+    .default('memory'),
+
+  FILE_STORAGE_DRIVER: z
+    .enum(['local', 's3'])
+    .default('local'),
+
+  AWS_REGION: z.string().default('us-east-1'),
+  AWS_S3_BUCKET: z.string().optional(),
+  AWS_S3_ENDPOINT: z.string().url().optional(),
+  AWS_S3_PUBLIC_BASE_URL: z.string().url().optional(),
+  AWS_S3_FORCE_PATH_STYLE: z
+    .string()
+    .default('false')
+    .transform(v => v === 'true'),
   // ── Authentication (OIDC / JWT) ───────────────────────────────────────
   AUTH_ENABLED: z.string().default('true').transform(v => v === 'true'),
   JWT_ISSUER: z.string().url().optional(),
@@ -77,6 +94,38 @@ export function appConfig(env: Record<string, unknown>) {
     throw new Error(
       'NEW_RELIC_LICENSE_KEY is required when OTEL_EXPORTER_OTLP_ENDPOINT is not set',
     );
+  }
+
+  if (result.data.PROJECT_REPOSITORY_DRIVER === 'typeorm') {
+    const missing = ['DB_USER', 'DB_PASSWORD', 'DB_NAME'].filter(
+      key => !result.data[key as keyof typeof result.data],
+    );
+
+    if (missing.length) {
+      throw new Error(
+        `TypeORM project repository requires vars: ${missing.join(', ')}`,
+      );
+    }
+  }
+
+  if (result.data.FILE_STORAGE_DRIVER === 's3' && !result.data.AWS_S3_BUCKET) {
+    throw new Error('AWS_S3_BUCKET is required when FILE_STORAGE_DRIVER is s3');
+  }
+
+  const isRunningInLambda =
+    !!process.env.AWS_LAMBDA_FUNCTION_NAME ||
+    process.env.AWS_EXECUTION_ENV?.startsWith('AWS_Lambda');
+
+  if (isRunningInLambda) {
+    if (result.data.FILE_STORAGE_DRIVER !== 's3') {
+      throw new Error('FILE_STORAGE_DRIVER must be s3 when running in AWS Lambda');
+    }
+
+    if (result.data.PROJECT_REPOSITORY_DRIVER !== 'typeorm') {
+      throw new Error(
+        'PROJECT_REPOSITORY_DRIVER must be typeorm when running in AWS Lambda',
+      );
+    }
   }
 
   // Enforce JWT config when auth is enabled

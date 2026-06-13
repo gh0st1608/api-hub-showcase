@@ -1,0 +1,45 @@
+name: Backend Deploy
+
+on:
+  push:
+    branches:
+      - develop
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build backend
+        run: npm run build
+
+      - name: Remove dev dependencies
+        run: npm prune --omit=dev
+
+      - name: Package Lambda artifact
+        run: |
+          zip -r backend.zip dist package.json package-lock.json node_modules
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+      - name: Configure Lambda handler
+        run: aws lambda update-function-configuration --function-name "${{ secrets.LAMBDA_FUNCTION_NAME }}" --handler "dist/src/lambda.handler"
+
+      - name: Update Lambda code
+        run: aws lambda update-function-code --function-name "${{ secrets.LAMBDA_FUNCTION_NAME }}" --zip-file "fileb://backend.zip"

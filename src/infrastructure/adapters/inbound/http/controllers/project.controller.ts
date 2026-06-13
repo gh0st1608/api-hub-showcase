@@ -34,6 +34,8 @@ import { UpdateProjectUseCase } from '@application/usecase/update-project.usecas
 import { Project } from '@domain/entities/project.entity';
 import { PaginatedResult } from '@domain/ports/paginate.port';
 import { multerConfig } from '@app/infrastructure/multer/config';
+import { ProjectPreviewResponseDto } from '@app/application/dto/response/response-custom.dto';
+import { GetProjectPreviewUseCase } from '@app/application/usecase/get-project-preview.usecase';
 
 @ApiTags('Projects')
 @Controller('projects')
@@ -48,11 +50,15 @@ export class ProjectController {
     @Inject(GetProjectByIdUseCase)
     private readonly getProject: GetProjectByIdUseCase,
 
+    @Inject(GetProjectPreviewUseCase)
+    private readonly getProjectPreview: GetProjectPreviewUseCase,
+
     @Inject(UpdateProjectUseCase)
     private readonly updateProject: UpdateProjectUseCase,
 
     @Inject(DeleteProjectUseCase)
     private readonly deleteProject: DeleteProjectUseCase,
+
   ) {}
 
   @Post()
@@ -110,6 +116,17 @@ export class ProjectController {
   async getById(@Param('id') id: string): Promise<Project> {
     return this.getProject.execute(id);
   }
+
+  @Get(':id/preview')
+  @ApiOperation({
+    summary: 'Get preview by ID',
+    description: 'Returns a single project by ID.',
+  })
+  @ApiOkResponse({ type: ProjectPreviewResponseDto, description: 'Preview found' })
+  async preview(@Param('id') id: string): Promise<ProjectPreviewResponseDto> {
+    return this.getProjectPreview.execute(id);
+  }
+
 
   @Patch(':id')
   @HttpCode(HttpStatus.OK)

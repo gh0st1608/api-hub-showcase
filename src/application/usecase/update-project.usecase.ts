@@ -24,7 +24,12 @@ export class UpdateProjectUseCase {
     const existing = await this.projectRepository.findById(id);
     if (!existing) throw new ProjectNotFoundException();
 
-    const updated = existing.update(body);
+    const { html, yaml, ...rest } = body;
+    const updated = existing.update({
+      ...rest,
+      ...(typeof html === 'string' ? { html } : {}),
+      ...(typeof yaml === 'string' ? { yaml } : {}),
+    });
     const result = await this.projectRepository.update(updated);
 
     this.metrics.increment('project.updated.success');

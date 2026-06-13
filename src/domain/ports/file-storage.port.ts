@@ -9,6 +9,11 @@ export interface FileStoragePort {
     file: Express.Multer.File,
   ): Promise<string>;
 
+  generateSignedUrl(
+    key: string,
+    expiresIn?: number,
+  ): Promise<string>;
+
   deleteProject(
     projectId: string,
   ): Promise<void>;

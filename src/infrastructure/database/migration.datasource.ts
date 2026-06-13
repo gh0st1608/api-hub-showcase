@@ -1,5 +1,6 @@
 import 'dotenv/config';
 import { DataSource } from 'typeorm';
+import { ProjectModel } from '@infrastructure/adapters/outbound/persistence/models/project.model';
 import { SampleModel } from '@infrastructure/adapters/outbound/persistence/models/sample.model';
 
 /**
@@ -16,6 +17,6 @@ export default new DataSource({
   username: process.env.DB_USER,
   password: process.env.DB_PASSWORD,
   database: process.env.DB_NAME,
-  entities: [SampleModel],
+  entities: [SampleModel, ProjectModel],
   migrations: ['src/infrastructure/database/migrations/*.ts'],
 });

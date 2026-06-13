@@ -1,0 +1,101 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: backend-apihub serverless stack
+
+Parameters:
+  FunctionName:
+    Type: String
+    Default: backend-apihub
+  StageName:
+    Type: String
+    Default: prod
+  DatabaseHost:
+    Type: String
+  DatabasePort:
+    Type: Number
+    Default: 5432
+  DatabaseUser:
+    Type: String
+  DatabasePassword:
+    Type: String
+    NoEcho: true
+  DatabaseName:
+    Type: String
+  JwtIssuer:
+    Type: String
+  JwtAudience:
+    Type: String
+  JwksUri:
+    Type: String
+  AuthEnabled:
+    Type: String
+    AllowedValues: ['true', 'false']
+    Default: 'true'
+  NewRelicLicenseKey:
+    Type: String
+    NoEcho: true
+
+Resources:
+  BackendFilesBucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketEncryption:
+        ServerSideEncryptionConfiguration:
+          - ServerSideEncryptionByDefault:
+              SSEAlgorithm: AES256
+
+  BackendApi:
+    Type: AWS::Serverless::HttpApi
+    Properties:
+      StageName: !Ref StageName
+
+  BackendFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Ref FunctionName
+      Runtime: nodejs20.x
+      Handler: dist/src/lambda.handler
+      CodeUri: .
+      MemorySize: 1024
+      Timeout: 29
+      Events:
+        Api:
+          Type: HttpApi
+          Properties:
+            ApiId: !Ref BackendApi
+            Path: /{proxy+}
+            Method: ANY
+      Policies:
+        - S3CrudPolicy:
+            BucketName: !Ref BackendFilesBucket
+      Environment:
+        Variables:
+          NODE_ENV: production
+          PORT: '3000'
+          PROJECT_REPOSITORY_DRIVER: typeorm
+          FILE_STORAGE_DRIVER: s3
+          AWS_REGION: !Ref AWS::Region
+          AWS_S3_BUCKET: !Ref BackendFilesBucket
+          DB_HOST: !Ref DatabaseHost
+          DB_PORT: !Ref DatabasePort
+          DB_USER: !Ref DatabaseUser
+          DB_PASSWORD: !Ref DatabasePassword
+          DB_NAME: !Ref DatabaseName
+          AUTH_ENABLED: !Ref AuthEnabled
+          JWT_ISSUER: !Ref JwtIssuer
+          JWT_AUDIENCE: !Ref JwtAudience
+          JWKS_URI: !Ref JwksUri
+          NEW_RELIC_LICENSE_KEY: !Ref NewRelicLicenseKey
+          OTEL_SERVICE_NAME: backend-apihub
+          OTEL_SERVICE_NAMESPACE: backend
+          OTEL_SERVICE_VERSION: '1.0.0'
+          OTEL_METRIC_EXPORT_INTERVAL: '10000'
+          EVENT_BUS: sns
+
+Outputs:
+  ApiUrl:
+    Value: !GetAtt BackendApi.ApiEndpoint
+  FilesBucketName:
+    Value: !Ref BackendFilesBucket
+  LambdaFunctionName:
+    Value: !Ref BackendFunction

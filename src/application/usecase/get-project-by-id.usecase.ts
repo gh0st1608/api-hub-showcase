@@ -13,6 +13,7 @@ export class GetProjectByIdUseCase {
 
   async execute(id: string): Promise<Project> {
     const project = await this.projectRepository.findById(id);
+    
     if (!project) throw new ProjectNotFoundException();
 
     return project;

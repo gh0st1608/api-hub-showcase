@@ -22,3 +22,8 @@ export class CreateSampleResponseDto {
   @ApiProperty({ example: 'Sample created successfully' })
   message: string;
 }
+
+export class ProjectPreviewResponseDto {
+  @ApiProperty({ example: 'https://example.com/preview' })
+  url: string;
+}

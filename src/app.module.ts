@@ -5,13 +5,14 @@ import { APP_FILTER } from '@nestjs/core';
 
 import { ObservabilityModule } from '@infrastructure/observability/observability.module';
 import { AuthModule } from '@app/auth.module';
-//import { DatabaseModule } from '@infrastructure/database/database.module';
+import { DatabaseModule } from '@infrastructure/database/database.module';
 import { EventModule } from '@app/event.module';
 import { ProjectModule } from '@app/project.module';
 //import { SampleModule } from '@app/sample.module';
 import { HealthModule } from '@infrastructure/adapters/inbound/http/health/health.module';
 import { HttpExceptionFilter } from '@infrastructure/adapters/inbound/http/filters/http-error.filter';
 import { appConfig } from '@app/bootstrap/config.schema';
+
 
 @Module({
   imports: [
@@ -49,10 +50,8 @@ import { appConfig } from '@app/bootstrap/config.schema';
 
     ObservabilityModule,
     AuthModule,
-    //DatabaseModule,
     EventModule,
     ProjectModule,
-    //SampleModule,
     HealthModule,
   ],
   providers: [

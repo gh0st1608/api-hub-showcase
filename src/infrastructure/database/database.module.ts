@@ -1,5 +1,6 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { ProjectModel } from '@infrastructure/adapters/outbound/persistence/models/project.model';
 import { SampleModel } from '@infrastructure/adapters/outbound/persistence/models/sample.model';
 
 /**
@@ -25,7 +26,7 @@ import { SampleModel } from '@infrastructure/adapters/outbound/persistence/model
           password: process.env.DB_PASSWORD,
           database: process.env.DB_NAME,
 
-          entities: [SampleModel],
+          entities: [SampleModel, ProjectModel],
 
           migrations: ['dist/src/infrastructure/database/migrations/*.js'],
           migrationsRun: isProd,
