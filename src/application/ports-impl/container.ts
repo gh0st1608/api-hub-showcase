@@ -5,6 +5,7 @@ import { GetProjectByIdUseCase } from "@application/usecases/get-project-by-id.u
 import { CreateProjectUseCase } from "@application/usecases/create-project.usecase";
 import { UpdateProjectUseCase } from "@application/usecases/update-project.usecase";
 import { DeleteProjectUseCase } from "@application/usecases/delete-project.usecase";
+import { GetProjectPreviewUseCase } from "@application/usecases/get-project-preview.usecase";
 
 const httpClient = new FetchHttpClient();
 const projectRepository = new ProjectApiRepository(httpClient);
@@ -16,5 +17,6 @@ export const container = {
     create: new CreateProjectUseCase(projectRepository),
     update: new UpdateProjectUseCase(projectRepository),
     delete: new DeleteProjectUseCase(projectRepository),
+    preview: new GetProjectPreviewUseCase(projectRepository),
   },
 };

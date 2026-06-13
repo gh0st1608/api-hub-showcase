@@ -1,5 +1,8 @@
 import { ArrowUpRight, Boxes, ExternalLink } from "lucide-react";
-import { useProjects } from "@application/hooks/use-projects";
+import {
+  useProjects,
+  useProjectPreview,
+} from "@application/hooks/use-projects";
 import type { Project } from "@domain/entities/project.entity";
 import { Badge } from "@presentation/components/core/Badge";
 import { Button } from "@presentation/components/core/Button";
@@ -25,10 +28,18 @@ function getFileName(path?: string): string {
   return path.split("/").pop() ?? path;
 }
 
-const API_BASE_URL = import.meta.env.VITE_API_URL ?? "http://localhost:3000";
-
 function ProjectCard({ project }: { project: Project }) {
-  const designHref = project.html ? `${API_BASE_URL}${project.html}` : null;
+  const previewMutation = useProjectPreview();
+
+  const handlePreview = async () => {
+    try {
+      const url = await previewMutation.mutateAsync(project.id);
+
+      window.open(url, "_blank", "noopener,noreferrer");
+    } catch (error) {
+      console.error("Error opening preview", error);
+    }
+  };
 
   const designLabel = getFileName(project.html);
 
@@ -98,18 +109,16 @@ function ProjectCard({ project }: { project: Project }) {
               Ver web
             </Button>
           </a>
-          {designHref ? (
-            <a
-              href={designHref}
-              target="_blank"
-              rel="noreferrer"
-              className="inline-flex"
+          {project.html ? (
+            <Button
+              variant="secondary"
+              className="rounded-full px-5"
+              disabled={previewMutation.isPending}
+              onClick={handlePreview}
             >
-              <Button variant="secondary" className="rounded-full px-5">
-                <ArrowUpRight className="h-4 w-4" />
-                Ver diseño
-              </Button>
-            </a>
+              <ArrowUpRight className="h-4 w-4" />
+              {previewMutation.isPending ? "Abriendo..." : "Ver diseño"}
+            </Button>
           ) : null}
         </div>
       </CardContent>

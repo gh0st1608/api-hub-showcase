@@ -163,4 +163,12 @@ export class ProjectApiRepository implements ProjectRepositoryPort {
   async delete(id: string): Promise<void> {
     await this.httpClient.delete<unknown>(`/projects/${id}`);
   }
+
+  async getPreviewUrl(id: string): Promise<string> {
+    const response = await this.httpClient.get<{
+      url: string;
+    }>(`/projects/${id}/preview`);
+
+    return response.url;
+  }
 }

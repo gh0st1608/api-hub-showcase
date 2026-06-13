@@ -10,4 +10,5 @@ export interface ProjectRepositoryPort {
   create(input: CreateProjectInput): Promise<Project>;
   update(id: string, input: UpdateProjectInput): Promise<Project>;
   delete(id: string): Promise<void>;
+  getPreviewUrl(id: string): Promise<string>;
 }

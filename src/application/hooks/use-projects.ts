@@ -44,3 +44,10 @@ export function useDeleteProject() {
     },
   });
 }
+
+export function useProjectPreview() {
+  return useMutation({
+    mutationFn: (projectId: string) =>
+      container.projects.preview.execute(projectId),
+  });
+}
