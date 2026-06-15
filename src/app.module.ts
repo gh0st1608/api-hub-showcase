@@ -5,7 +5,7 @@ import { APP_FILTER } from '@nestjs/core';
 
 import { ObservabilityModule } from '@infrastructure/observability/observability.module';
 import { AuthModule } from '@app/auth.module';
-import { DatabaseModule } from '@infrastructure/database/database.module';
+//import { DatabaseModule } from '@infrastructure/database/database.module';
 import { EventModule } from '@app/event.module';
 import { ProjectModule } from '@app/project.module';
 //import { SampleModule } from '@app/sample.module';
@@ -25,7 +25,7 @@ import { appConfig } from '@app/bootstrap/config.schema';
     LoggerModule.forRoot({
       pinoHttp: {
         transport:
-          process.env.NODE_ENV !== 'production'
+          process.env.NODE_ENV !== 'prod'
             ? {
                 target: 'pino-pretty',
                 options: {

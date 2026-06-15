@@ -9,8 +9,8 @@ const schema = z.object({
     .refine(n => n > 0 && n < 65536, 'PORT must be a valid port number'),
 
   NODE_ENV: z
-    .enum(['development', 'production', 'test'])
-    .default('development'),
+    .enum(['dev', 'prod', 'test'])
+    .default('dev'),
 
   // ── OpenTelemetry ──────────────────────────────────────────────────────────
   OTEL_SERVICE_NAME: z.string().min(1, 'OTEL_SERVICE_NAME is required'),
@@ -145,7 +145,7 @@ export function appConfig(env: Record<string, unknown>) {
   }
 
   // In production: auth must be on and fail-open must be off
-  if (result.data.NODE_ENV === 'production') {
+  if (result.data.NODE_ENV === 'prod') {
     if (!result.data.AUTH_ENABLED) {
       throw new Error('AUTH_ENABLED must be true in production');
     }

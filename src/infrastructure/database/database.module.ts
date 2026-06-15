@@ -15,8 +15,8 @@ import { SampleModel } from '@infrastructure/adapters/outbound/persistence/model
   imports: [
     TypeOrmModule.forRootAsync({
       useFactory: () => {
-        const isProd = process.env.NODE_ENV === 'production';
-        const isDev = process.env.NODE_ENV === 'development';
+        const isProd = process.env.NODE_ENV === 'prod';
+        const isDev = process.env.NODE_ENV === 'dev';
 
         return {
           type: 'postgres',
