@@ -7,6 +7,16 @@ esbuild.build({
   target: 'node20',
   outfile: 'bundle/lambda.js',
   minify: true,
-  sourcemap: false,
-  external: [],
+  keepNames: true,
+
+  external: [
+    '@nestjs/microservices',
+    '@nestjs/microservices/*',
+    '@nestjs/websockets',
+    '@nestjs/websockets/*',
+    '@nestjs/mongoose',
+    '@nestjs/sequelize',
+    '@mikro-orm/core',
+    'class-transformer/storage',
+  ],
 }).catch(() => process.exit(1));
