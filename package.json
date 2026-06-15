@@ -4,6 +4,7 @@
   "scripts": {
     "dev": "tsx watch src/main.ts",
     "build": "tsc && tsc-alias",
+    "bundle": "node scripts/build-lambda.js",
     "docs": "tsc-watch --onSuccess \"node dist/scripts/serve-docs.js\"",
     "migration:generate": "tsc && typeorm migration:generate -d dist/src/infrastructure/database/migration.datasource.js",
     "migration:run": "tsc && typeorm migration:run -d dist/src/infrastructure/database/migration.datasource.js",
@@ -75,6 +76,7 @@
     "@types/pg": "^8.20.0",
     "@typescript-eslint/eslint-plugin": "^6.0.0",
     "@typescript-eslint/parser": "^6.0.0",
+    "esbuild": "^0.28.1",
     "eslint": "^8.0.0",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-prettier": "^5.5.6",
