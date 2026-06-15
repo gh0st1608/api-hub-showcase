@@ -121,9 +121,9 @@ export function appConfig(env: Record<string, unknown>) {
       throw new Error('FILE_STORAGE_DRIVER must be s3 when running in AWS Lambda');
     }
 
-    if (result.data.PROJECT_REPOSITORY_DRIVER !== 'typeorm') {
+    if (result.data.PROJECT_REPOSITORY_DRIVER !== 'dynamo') {
       throw new Error(
-        'PROJECT_REPOSITORY_DRIVER must be typeorm when running in AWS Lambda',
+        'PROJECT_REPOSITORY_DRIVER must be dynamo when running in AWS Lambda',
       );
     }
   }
