@@ -5,6 +5,7 @@
     "dev": "tsx watch src/main.ts",
     "build": "tsc && tsc-alias",
     "bundle": "node scripts/build-lambda.js",
+    "build:lambda": "npm run build && npm run bundle",
     "docs": "tsc-watch --onSuccess \"node dist/scripts/serve-docs.js\"",
     "migration:generate": "tsc && typeorm migration:generate -d dist/src/infrastructure/database/migration.datasource.js",
     "migration:run": "tsc && typeorm migration:run -d dist/src/infrastructure/database/migration.datasource.js",
