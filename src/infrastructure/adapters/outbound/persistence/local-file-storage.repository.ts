@@ -7,6 +7,9 @@ import { join } from 'path';
 export class LocalFileStorageRepositoryImpl
   implements FileStoragePort
 {
+  generateSignedUrl(key: string, expiresIn?: number): Promise<string> {
+    throw new Error('Method not implemented.');
+  }
   private readonly uploadsRoot = join(
     process.cwd(),
     'uploads',

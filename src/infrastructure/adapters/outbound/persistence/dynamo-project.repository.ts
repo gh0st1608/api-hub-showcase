@@ -10,7 +10,7 @@ import {
   ScanCommand,
 } from '@aws-sdk/lib-dynamodb';
 import { Inject, Injectable } from '@nestjs/common';
-import { ProjectItem, ProjectMapper } from './mappers/project.mapper';
+import { ProjectPersistence, ProjectMapper } from './mappers/project.mapper';
 import { SaveFailedException } from './exceptions/save-failed.exception';
 import { QueryFailedException } from './exceptions/query-failed.exception';
 
@@ -37,7 +37,7 @@ export class DynamoProjectRepositoryImpl implements ProjectRepositoryPort {
       );
 
       let items = (result.Items ?? []).map((item) =>
-        ProjectMapper.toDomain(item as ProjectItem),
+        ProjectMapper.toDomain(item as ProjectPersistence),
       );
 
       if (search) {
@@ -121,7 +121,7 @@ export class DynamoProjectRepositoryImpl implements ProjectRepositoryPort {
         return null;
       }
 
-      return ProjectMapper.toDomain(result.Item as ProjectItem);
+      return ProjectMapper.toDomain(result.Item as ProjectPersistence);
     } catch {
       throw new QueryFailedException();
     }

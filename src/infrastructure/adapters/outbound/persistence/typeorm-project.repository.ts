@@ -31,7 +31,7 @@ export class TypeOrmProjectRepositoryImpl
 
   async update(project: Project): Promise<Project> {
     try {
-      const existing = await this.repo.findOneBy({ id: project.id });
+      const existing = await this.repo.findOneBy({ projectId: project.id });
       if (!existing) {
         throw new QueryFailedException();
       }
@@ -53,7 +53,7 @@ export class TypeOrmProjectRepositoryImpl
 
   async delete(id: string): Promise<void> {
     try {
-      await this.repo.delete({ id });
+      await this.repo.delete({ projectId: id });
     } catch {
       throw new QueryFailedException();
     }
@@ -110,7 +110,7 @@ export class TypeOrmProjectRepositoryImpl
 
   async findById(id: string): Promise<Project | null> {
     try {
-      const model = await this.repo.findOneBy({ id });
+      const model = await this.repo.findOneBy({ projectId: id });
       return model ? ProjectMapper.toDomain(model) : null;
     } catch {
       throw new QueryFailedException();

@@ -9,7 +9,7 @@ import {
 @Entity('projects')
 export class ProjectModel {
   @PrimaryColumn({ type: 'uuid' })
-  id: string;
+  projectId: string;
 
   @Column({ type: 'varchar', length: 120, name: 'group_name' })
   group: string;

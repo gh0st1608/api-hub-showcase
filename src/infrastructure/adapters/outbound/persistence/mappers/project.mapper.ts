@@ -1,20 +1,20 @@
 import { Project } from '@domain/entities/project.entity';
 
-export interface ProjectItem {
+export interface ProjectPersistence {
   projectId: string;
   group: string;
   title: string;
   description: string;
   link: string;
-  html: string;
-  yaml: string;
-  tags: string[];
-  createdAt: string;
-  updatedAt: string;
+  html?: string;
+  yaml?: string;
+  tags?: string[];
+  createdAt: string | Date;
+  updatedAt: string | Date;
 }
 
 export class ProjectMapper {
-  static toDomain(item: ProjectItem): Project {
+  static toDomain(item: ProjectPersistence): Project {
     return Project.hydrate({
       id: item.projectId,
       group: item.group,
@@ -24,12 +24,18 @@ export class ProjectMapper {
       html: item.html ?? '',
       yaml: item.yaml ?? '',
       tags: item.tags ?? [],
-      createdAt: item.createdAt,
-      updatedAt: item.updatedAt,
+      createdAt:
+        item.createdAt instanceof Date
+          ? item.createdAt.toISOString()
+          : item.createdAt,
+      updatedAt:
+        item.updatedAt instanceof Date
+          ? item.updatedAt.toISOString()
+          : item.updatedAt,
     });
   }
 
-  static toPersistence(project: Project): ProjectItem {
+  static toPersistence(project: Project): ProjectPersistence {
     return {
       projectId: project.id,
       group: project.group,
