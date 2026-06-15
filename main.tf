@@ -1,101 +1,71 @@
-# Importar roles
+module "frontend_bucket" {
+  source = "./modules/s3-static-site"
+
+  bucket_name   = var.frontend_bucket_name
+  force_destroy = var.frontend_force_destroy
+  tags          = local.common_tags
+}
+
+module "monitoring" {
+  source = "./modules/monitoring"
+
+  project_name                    = var.project_name
+  environment                     = var.environment
+  lambda_name                     = var.lambda_name
+  api_name                        = "${local.name_prefix}-http-api"
+  log_retention_days              = var.log_retention_days
+  enable_basic_alarms             = var.enable_basic_alarms
+  lambda_error_alarm_threshold    = var.lambda_error_alarm_threshold
+  lambda_throttle_alarm_threshold = var.lambda_throttle_alarm_threshold
+  tags                            = local.common_tags
+}
+
 module "iam" {
-  source = "./modules/iam-roles"
+  source = "./modules/iam"
+
+  project_name         = var.project_name
+  environment          = var.environment
+  lambda_name          = var.lambda_name
+  lambda_log_group_arn = module.monitoring.lambda_log_group_arn
+  tags                 = local.common_tags
 }
 
-# Lambda Telemedicine
-/* module "lambda_telemedicine" {
-  source          = "./modules/lambda"
-  name            = "telemedicine-service"
-  handler         = "dist/main.handler"
-  artifact_path   = "../dist/telemedicine.zip"
-  lambda_role_arn = module.iam.lambda_exec_role_arn
-} */
+module "backend_lambda" {
+  source = "./modules/lambda"
 
-# Lambda Reclamos
-/* module "lambda_reclamos" {
-  source          = "./modules/lambda"
-  name            = "reclamos-service"
-  handler         = "dist/main.handler"
-  artifact_path   = "../dist/reclamos.zip"
-  lambda_role_arn = module.iam.lambda_exec_role_arn
-} */
-
-# API Gateway multi-servicio
-/* module "api_gateway" {
-  source            = "./modules/apigateway"
-  name              = "main-api-gateway"
-  path_part         = "v1"
-  lambda_invoke_arn = module.lambda_telemedicine.lambda_arn
-} */
-
-module "trigger_design_foodstore" {
-  source             = "./modules/codebuild"
-  name               = "trigger-design-foodstore-sdc"
-  description        = "Build para diseño de Foodstore"
-  repo_url           = "https://github.com/gh0st1608/api-hub-showcase"
-  buildspec_path     = "foodstore-sdc/buildspec.yml"
-  branch             = "designs"
-  service_role_arn   = module.iam.codebuild_service_role_arn
-  codeconnection_arn = "arn:aws:codeconnections:us-east-1:248268265208:connection/a1e7bba0-3f3b-4399-a9e1-5b1e6f710c99"
+  function_name         = var.lambda_name
+  role_arn              = module.iam.lambda_execution_role_arn
+  package_file          = var.lambda_package_path
+  handler               = var.lambda_handler
+  runtime               = var.lambda_runtime
+  memory_size           = var.lambda_memory
+  timeout               = var.lambda_timeout
+  environment_variables = local.lambda_environment
+  tags                  = local.common_tags
 }
 
-module "trigger_design_claim" {
-  source             = "./modules/codebuild"
-  name               = "trigger-design-claim-cargocom"
-  description        = "Build para diseño de Claim"
-  repo_url           = "https://github.com/gh0st1608/api-hub-showcase"
-  buildspec_path     = "claim-cargocom/buildspec.yml"
-  branch             = "designs"
-  service_role_arn   = module.iam.codebuild_service_role_arn
-  codeconnection_arn = "arn:aws:codeconnections:us-east-1:248268265208:connection/a1e7bba0-3f3b-4399-a9e1-5b1e6f710c99"
+module "api_gateway" {
+  source = "./modules/api-gateway"
+
+  api_name             = "${local.name_prefix}-http-api"
+  lambda_function_name = module.backend_lambda.function_name
+  lambda_invoke_arn    = module.backend_lambda.invoke_arn
+  stage_name           = var.api_stage_name
+  cors_allowed_origins = var.cors_allowed_origins
+  access_log_group_arn = module.monitoring.api_access_log_group_arn
+  tags                 = local.common_tags
 }
 
+module "cloudfront" {
+  source = "./modules/cloudfront"
 
-module "hub_site" {
-  source            = "./modules/s3-static-site"
-  bucket_name       = "hub.solutionserj.com"
-  cloudfront_oai_id = module.cloudfront_multisite.cf_oai_id # ✅ usar ID, no path
-  tags              = local.common_tags
+  bucket_name                    = module.frontend_bucket.bucket_name
+  s3_bucket_arn                  = module.frontend_bucket.bucket_arn
+  s3_bucket_regional_domain_name = module.frontend_bucket.bucket_regional_domain_name
+  aliases                        = local.frontend_aliases
+  domain_name                    = var.domain_name
+  acm_certificate_arn            = var.acm_certificate_arn
+  route53_hosted_zone_id         = var.route53_hosted_zone_id
+  price_class                    = var.cloudfront_price_class
+  tags                           = local.common_tags
 }
-
-module "showcase_site" {
-  source            = "./modules/s3-static-site"
-  bucket_name       = "showcase.solutionserj.com"
-  cloudfront_oai_id = module.cloudfront_multisite.cf_oai_id # ✅ usar ID, no path
-  tags              = local.common_tags
-}
-
-module "designs_bucket" {
-  source      = "./modules/s3-static-site"
-  bucket_name = "apihub-designs"
-  tags        = local.common_tags
-
-  # Si tu módulo requiere el parámetro, puedes pasar null o comentarlo
-  cloudfront_oai_id = module.cloudfront_multisite.cf_oai_id
-}
-
-module "cloudfront_multisite" {
-  source      = "./modules/cloudfront-multisite"
-  aliases     = var.aliases
-  cf_cert_arn = var.cf_cert_arn
-
-  sites = [
-    {
-      name   = "hub"
-      bucket = module.hub_site.bucket_name
-    },
-    {
-      name   = "showcase"
-      bucket = module.showcase_site.bucket_name
-    },
-    {
-      name   = "apihub-designs"
-      bucket = module.designs_bucket.bucket_name
-    }
-  ]
-
-  tags = local.common_tags
-}
-
-

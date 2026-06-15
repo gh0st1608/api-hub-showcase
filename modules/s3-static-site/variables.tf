@@ -1,14 +1,16 @@
 variable "bucket_name" {
-  description = "Nombre del bucket S3 para el sitio estático"
+  description = "Private S3 bucket name."
   type        = string
 }
 
-variable "cloudfront_oai_id" {
-  description = "ID of the CloudFront Origin Access Identity"
-  type        = string
+variable "force_destroy" {
+  description = "Allow destroying a non-empty bucket."
+  type        = bool
+  default     = false
 }
 
 variable "tags" {
-  type    = map(string)
-  default = {}
+  description = "Resource tags."
+  type        = map(string)
+  default     = {}
 }

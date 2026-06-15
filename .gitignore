@@ -11,3 +11,4 @@ modules/.build/
 secrets.yaml
 *.tfvars
 credentials.tfrc.json
+environments/*/backend.hcl

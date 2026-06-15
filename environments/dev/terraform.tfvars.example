@@ -1,0 +1,13 @@
+project_name         = "api-hub-showcase"
+environment          = "dev"
+aws_region           = "us-east-1"
+frontend_bucket_name = "api-hub-showcase-dev-frontend"
+lambda_name          = "api-hub-showcase-dev-api"
+lambda_memory        = 512
+lambda_timeout       = 15
+domain_name          = ""
+
+# Optional examples
+# lambda_package_path = "../artifacts/backend.zip"
+# acm_certificate_arn = "arn:aws:acm:us-east-1:123456789012:certificate/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
+# route53_hosted_zone_id = "Z1234567890"
