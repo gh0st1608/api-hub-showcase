@@ -72,6 +72,11 @@ const schema = z.object({
 
   // ── Event Bus ────────────────────────────────────────────────────────────
   EVENT_BUS: z.enum(['sns']).default('sns'),
+
+  LOGGER_LOCAL: z
+  .string()
+  .default('false')
+  .transform(v => v === 'true'),
 });
 
 /**

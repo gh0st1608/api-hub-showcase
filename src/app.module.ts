@@ -25,7 +25,7 @@ import { appConfig } from '@app/bootstrap/config.schema';
     LoggerModule.forRoot({
       pinoHttp: {
         transport:
-          process.env.NODE_ENV !== 'prod'
+          process.env.LOGGER_LOCAL === 'true'
             ? {
                 target: 'pino-pretty',
                 options: {
