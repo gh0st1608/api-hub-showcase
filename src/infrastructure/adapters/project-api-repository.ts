@@ -69,12 +69,12 @@ export class ProjectApiRepository implements ProjectRepositoryPort {
       await this.httpClient.get<ListProjectsResponse>("/projects");
 
     const items = response.items ?? response.projects ?? [];
-    return items.map((item) =>
-      Project.hydrate({
-        ...item,
-        tags: typeof item.tags === "string" ? JSON.parse(item.tags) : item.tags,
-      })
-    );
+
+    const projects = items.map((item) => {
+      return Project.hydrate(item);
+    });
+
+    return projects;
   }
 
   async findById(id: string): Promise<Project | null> {
@@ -101,8 +101,8 @@ export class ProjectApiRepository implements ProjectRepositoryPort {
     formData.append("html", input.html);
     formData.append("yaml", input.yaml);
 
-    input.tags.forEach((tag) => {
-      formData.append("tags", tag);
+    input.tags.forEach((tag, index) => {
+      formData.append(`tags[${index}]`, tag);
     });
 
     const createResponse = await this.httpClient.post<CreateProjectResponse>(
@@ -145,8 +145,8 @@ export class ProjectApiRepository implements ProjectRepositoryPort {
     }
 
     if (input.tags) {
-      input.tags.forEach((tag) => {
-        formData.append("tags", tag);
+      input.tags.forEach((tag, index) => {
+        formData.append(`tags[${index}]`, tag);
       });
     }
 

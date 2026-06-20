@@ -6,9 +6,7 @@ export class ListProjectsUseCase {
 
   async execute(): Promise<Project[]> {
     const projects = await this.repository.findAll();
-    return projects.sort(
-      (a, b) =>
-        new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
-    );
+
+    return projects;
   }
 }

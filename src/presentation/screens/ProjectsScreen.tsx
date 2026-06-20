@@ -51,9 +51,7 @@ export function ProjectsScreen() {
             toast("Proyecto actualizado", "success");
             setEditingId(null);
           },
-          onError: (error) => {
-            console.error("UPDATE PROJECT ERROR", error);
-
+          onError: (_error) => {
             toast("No se pudo actualizar el proyecto", "error");
           },
         }
@@ -63,9 +61,7 @@ export function ProjectsScreen() {
 
     createProject.mutate(payload, {
       onSuccess: () => toast("Proyecto creado", "success"),
-      onError: (error) => {
-        console.error("CREATE PROJECT ERROR", error);
-
+      onError: (_error) => {
         toast("No se pudo crear el proyecto", "error");
       },
     });
@@ -209,9 +205,8 @@ export function ProjectsScreen() {
       <Card className="rounded-[1.75rem] border-dashed border-[color:var(--color-border-strong)] bg-white/80 shadow-sm">
         <CardContent className="p-6 text-sm text-slate-500">
           <div className="flex items-center gap-2 text-slate-700">
-            <FolderKanban className="h-4 w-4" /> El CRUD de Project queda
-            disponible aquí y el dashboard refleja únicamente los proyectos
-            publicados.
+            <FolderKanban className="h-4 w-4" /> Dashboard refleja únicamente
+            los proyectos publicados.
           </div>
         </CardContent>
       </Card>

@@ -154,7 +154,6 @@ function LoadingState() {
 
 export function CatalogScreen() {
   const { data = [], isLoading, isError } = useProjects();
-
   return (
     <div className="flex flex-col gap-8 pb-10">
       <section className="relative overflow-hidden rounded-[2rem] border border-[color:var(--color-border-strong)] bg-[radial-gradient(circle_at_top_left,_rgba(14,165,233,0.18),_transparent_28%),linear-gradient(145deg,_#fffef8_0%,_#f8fbff_52%,_#eef7f2_100%)] p-6 shadow-[0_24px_60px_rgba(15,23,42,0.08)] lg:p-8">

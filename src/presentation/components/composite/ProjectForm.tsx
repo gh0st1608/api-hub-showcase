@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { useEffect, useMemo } from "react";
 import { Button } from "@presentation/components/core/Button";
 import {
   Card,
@@ -57,8 +57,12 @@ export function ProjectForm({
     [defaultValues]
   );
 
-  const { values, errors, handleChange, handleSubmit, reset } =
+  const { values, errors, handleChange, handleSubmit, reset, setValues } =
     useForm<ProjectFormValues>(initialValues, validate);
+
+  useEffect(() => {
+    setValues(initialValues);
+  }, [initialValues, setValues]);
 
   return (
     <Card className="rounded-[1.5rem] border-[color:var(--color-border)] bg-white/90 shadow-sm">

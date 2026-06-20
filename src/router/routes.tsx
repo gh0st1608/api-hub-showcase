@@ -2,6 +2,7 @@
 
 import { lazy, Suspense } from "react";
 import { createBrowserRouter, Navigate } from "react-router-dom";
+
 import { MainLayout } from "@presentation/components/layout/MainLayout";
 import { Skeleton } from "@presentation/components/core/Skeleton";
 
@@ -26,7 +27,7 @@ function PageLoader() {
   );
 }
 
-export const router = createBrowserRouter([
+const routes = [
   {
     path: "/",
     element: <Navigate to="/catalog" replace />,
@@ -62,10 +63,14 @@ export const router = createBrowserRouter([
         <div className="flex h-full flex-col items-center justify-center gap-4 text-slate-500">
           <p className="text-6xl font-bold text-slate-200">404</p>
           <p className="text-lg">
-            La ruta solicitada no existe en el catalogo.
+            La ruta solicitada no existe en el catálogo.
           </p>
         </div>
       </MainLayout>
     ),
   },
-]);
+];
+
+export const router = createBrowserRouter(routes, {
+  basename: import.meta.env.BASE_URL,
+});
