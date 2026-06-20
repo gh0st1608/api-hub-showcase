@@ -101,7 +101,9 @@ export class ProjectApiRepository implements ProjectRepositoryPort {
     formData.append("html", input.html);
     formData.append("yaml", input.yaml);
 
-    formData.append("tags", JSON.stringify(input.tags));
+    input.tags.forEach((tag) => {
+      formData.append("tags", tag);
+    });
 
     const createResponse = await this.httpClient.post<CreateProjectResponse>(
       "/projects",
@@ -143,7 +145,9 @@ export class ProjectApiRepository implements ProjectRepositoryPort {
     }
 
     if (input.tags) {
-      formData.append("tags", JSON.stringify(input.tags));
+      input.tags.forEach((tag) => {
+        formData.append("tags", tag);
+      });
     }
 
     const response = await this.httpClient.patch<SingleProjectResponse>(
