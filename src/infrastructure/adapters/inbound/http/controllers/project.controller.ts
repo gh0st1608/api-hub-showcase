@@ -58,7 +58,6 @@ export class ProjectController {
 
     @Inject(DeleteProjectUseCase)
     private readonly deleteProject: DeleteProjectUseCase,
-
   ) {}
 
   @Post()
@@ -122,13 +121,24 @@ export class ProjectController {
     summary: 'Get preview by ID',
     description: 'Returns a single project by ID.',
   })
-  @ApiOkResponse({ type: ProjectPreviewResponseDto, description: 'Preview found' })
+  @ApiOkResponse({
+    type: ProjectPreviewResponseDto,
+    description: 'Preview found',
+  })
   async preview(@Param('id') id: string): Promise<ProjectPreviewResponseDto> {
     return this.getProjectPreview.execute(id);
   }
 
-
   @Patch(':id')
+  @UseInterceptors(
+    FileFieldsInterceptor(
+      [
+        { name: 'html', maxCount: 1 },
+        { name: 'yaml', maxCount: 1 },
+      ],
+      multerConfig,
+    ),
+  )
   @HttpCode(HttpStatus.OK)
   @ApiOperation({
     summary: 'Update a project',
@@ -137,8 +147,17 @@ export class ProjectController {
   @ApiOkResponse({ type: Project, description: 'Project updated successfully' })
   async update(
     @Param('id') id: string,
+
+    @UploadedFiles()
+    files: {
+      html?: Express.Multer.File[];
+      yaml?: Express.Multer.File[];
+    },
+
     @Body() body: UpdateProjectDto,
   ): Promise<Project> {
+    console.log('PATCH BODY', body);
+
     return this.updateProject.execute(id, body);
   }
 

@@ -38,7 +38,7 @@ export class CreateProjectUseCase {
   async execute(body: CreateProjectDto): Promise<Project> {
     try {
       const { group, title, description, link, tags } = body;
-
+      console.log('CreateProjectUseCase.execute called with:', body)
       const input: CreateProjectInput = {
         group,
         title,
