@@ -156,8 +156,6 @@ export class ProjectController {
 
     @Body() body: UpdateProjectDto,
   ): Promise<Project> {
-    console.log('PATCH BODY', body);
-
     return this.updateProject.execute(id, body);
   }
 
