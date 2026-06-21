@@ -72,5 +72,5 @@ const routes = [
 ];
 
 export const router = createBrowserRouter(routes, {
-  basename: import.meta.env.BASE_URL,
+  basename: import.meta.env.BASE_URL.replace(/\/$/, ""),
 });
