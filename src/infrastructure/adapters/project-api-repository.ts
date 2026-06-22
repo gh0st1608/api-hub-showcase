@@ -138,6 +138,8 @@ export class ProjectApiRepository implements ProjectRepositoryPort {
 
     if (input.link) formData.append("link", input.link);
 
+    if (input.url) formData.append("link", input.url);
+
     if (input.html) {
       formData.append("html", input.html);
     }
