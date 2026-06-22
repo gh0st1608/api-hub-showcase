@@ -23,6 +23,9 @@ export class ProjectModel {
   @Column({ type: 'text' })
   link: string;
 
+  @Column({ type: 'text' })
+  url: string;
+
   @Column({ type: 'text', nullable: true, default: '' })
   html: string;
 
