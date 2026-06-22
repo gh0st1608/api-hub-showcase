@@ -52,7 +52,7 @@ function ProjectCard({ project }: { project: Project }) {
               <Badge className="bg-[color:var(--color-accent-soft)] text-[color:var(--color-accent-ink)]">
                 {project.group}
               </Badge>
-              <Badge>{project.id}</Badge>
+              {/* <Badge>{project.id}</Badge> */}
             </div>
             <div>
               <h3 className="text-lg font-semibold text-slate-950">

@@ -33,8 +33,6 @@ function validate(values: ProjectFormValues) {
     errors.title = "El título es obligatorio";
   if (!String(values.group ?? "").trim())
     errors.group = "El grupo es obligatorio";
-  if (!String(values.url ?? "").trim())
-    errors.url = "La URL del proyecto es obligatoria";
   return errors;
 }
 
