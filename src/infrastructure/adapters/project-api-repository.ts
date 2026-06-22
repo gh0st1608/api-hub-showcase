@@ -98,6 +98,7 @@ export class ProjectApiRepository implements ProjectRepositoryPort {
     formData.append("title", input.title);
     formData.append("description", input.description);
     formData.append("link", input.link);
+    formData.append("url", input.url);
 
     formData.append("html", input.html);
     formData.append("yaml", input.yaml);
