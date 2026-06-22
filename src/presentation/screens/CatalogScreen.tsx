@@ -99,7 +99,7 @@ function ProjectCard({ project }: { project: Project }) {
 
         <div className="mt-auto flex flex-wrap gap-3">
           <a
-            href={project.link}
+            href={project.url}
             target="_blank"
             rel="noreferrer"
             className="inline-flex"
@@ -173,7 +173,7 @@ export function CatalogScreen() {
               <StatCard label="Proyectos" value={data.length} />
               <StatCard
                 label="Con web"
-                value={data.filter((project) => project.link).length}
+                value={data.filter((project) => project.url).length}
               />
               <StatCard
                 label="Con diseño"

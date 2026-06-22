@@ -13,6 +13,7 @@ export type ProjectFormValues = {
   title: string;
   description: string;
   link: string;
+  url: string;
   html: File;
   yaml: File;
   tags: string;
@@ -32,8 +33,8 @@ function validate(values: ProjectFormValues) {
     errors.title = "El título es obligatorio";
   if (!String(values.group ?? "").trim())
     errors.group = "El grupo es obligatorio";
-  if (!String(values.link ?? "").trim())
-    errors.link = "La URL del proyecto es obligatoria";
+  if (!String(values.url ?? "").trim())
+    errors.url = "La URL del proyecto es obligatoria";
   return errors;
 }
 
@@ -50,6 +51,7 @@ export function ProjectForm({
       title: defaultValues?.title ?? "",
       description: defaultValues?.description ?? "",
       link: defaultValues?.link ?? "",
+      url: defaultValues?.url ?? "",
       html: defaultValues?.html ?? new File([], ""),
       yaml: defaultValues?.yaml ?? new File([], ""),
       tags: defaultValues?.tags ?? "",
@@ -111,6 +113,14 @@ export function ProjectForm({
             onChange={handleChange}
             error={errors.link}
             placeholder="https://github.com/account/repo"
+          />
+          <Input
+            label="Url del proyecto"
+            name="url"
+            value={String(values.url ?? "")}
+            onChange={handleChange}
+            error={errors.url}
+            placeholder="https://mydemopage.com"
           />
           <div className="grid gap-4 md:grid-cols-2">
             <Input

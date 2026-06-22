@@ -3,6 +3,7 @@ export interface CreateProjectDto {
   title: string;
   description: string;
   link: string;
+  url: string;
 
   html: File;
   yaml: File;
@@ -15,6 +16,7 @@ export interface UpdateProjectDto {
   title?: string;
   description?: string;
   link?: string;
+  url?: string;
 
   html?: File;
   yaml?: File;

@@ -35,6 +35,7 @@ export function ProjectsScreen() {
       title: values.title,
       description: values.description,
       link: values.link,
+      url: values.url,
       html: values.html,
       yaml: values.yaml,
       tags: values.tags
@@ -167,7 +168,7 @@ export function ProjectsScreen() {
                   header: "Diseño",
                   render: (project) => (
                     <span className="text-slate-600">
-                      {project.html || "—"}
+                      {project.html ? "Si" : "—"}
                     </span>
                   ),
                 },

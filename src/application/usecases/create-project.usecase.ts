@@ -11,6 +11,7 @@ export class CreateProjectUseCase {
       title: dto.title.trim(),
       description: dto.description.trim(),
       link: dto.link.trim(),
+      url: dto.url.trim(),
 
       html: dto.html,
       yaml: dto.yaml,

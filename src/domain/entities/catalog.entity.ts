@@ -6,6 +6,7 @@ export interface DesignCatalogItem {
   summary?: string;
   html: string;
   yaml: string;
+  url: string;
   lastUpdated: string;
   tags?: string[];
 }

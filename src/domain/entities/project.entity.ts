@@ -4,6 +4,7 @@ export interface ProjectProps {
   title: string;
   description: string;
   link: string;
+  url: string;
 
   html: string;
   yaml: string;
@@ -19,6 +20,7 @@ export interface CreateProjectInput {
   title: string;
   description: string;
   link: string;
+  url: string;
   html: File;
   yaml: File;
   tags: string[];
@@ -29,6 +31,7 @@ export interface UpdateProjectInput {
   title?: string;
   description?: string;
   link?: string;
+  url?: string;
   html?: File;
   yaml?: File;
   tags?: string[];
@@ -40,6 +43,7 @@ export class Project {
   readonly title: string;
   readonly description: string;
   readonly link: string;
+  readonly url: string;
 
   readonly html: string;
   readonly yaml: string;
@@ -55,6 +59,7 @@ export class Project {
     this.title = props.title;
     this.description = props.description;
     this.link = props.link;
+    this.url = props.url;
 
     this.html = props.html;
     this.yaml = props.yaml;
@@ -76,6 +81,7 @@ export class Project {
       title: this.title,
       description: this.description,
       link: this.link,
+      url: this.url,
       html: this.html,
       yaml: this.yaml,
       tags: this.tags,
