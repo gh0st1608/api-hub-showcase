@@ -11,6 +11,7 @@ const designSchema = z.object({
   html: z.string().min(1),
   yaml: z.string().min(1),
   lastUpdated: z.string().min(1),
+  url: z.string().min(1),
   tags: z.array(z.string()).optional(),
 });
 

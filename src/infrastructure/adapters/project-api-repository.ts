@@ -12,6 +12,7 @@ interface ProjectApiResponse {
   title: string;
   description: string;
   link: string;
+  url: string;
   html: string;
   yaml: string;
   tags: string[];
