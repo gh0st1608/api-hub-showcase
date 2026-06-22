@@ -105,23 +105,23 @@ export function ProjectForm({
             placeholder="Describe el proyecto"
           />
           <Input
-            label="URL del sitio"
+            label="Repositorio del proyecto"
             name="link"
             value={String(values.link ?? "")}
             onChange={handleChange}
             error={errors.link}
-            placeholder="https://example.com"
+            placeholder="https://github.com/account/repo"
           />
           <div className="grid gap-4 md:grid-cols-2">
             <Input
-              label="HTML"
+              label="Diseño API"
               name="html"
               type="file"
               accept=".html"
               onChange={handleChange}
             />
             <Input
-              label="YAML"
+              label="Artefacto"
               name="yaml"
               type="file"
               accept=".yaml,.yml"

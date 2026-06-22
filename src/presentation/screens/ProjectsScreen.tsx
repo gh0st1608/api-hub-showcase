@@ -150,7 +150,7 @@ export function ProjectsScreen() {
                 },
                 {
                   key: "link",
-                  header: "Web",
+                  header: "Repositorio",
                   render: (project) => (
                     <a
                       href={project.link}

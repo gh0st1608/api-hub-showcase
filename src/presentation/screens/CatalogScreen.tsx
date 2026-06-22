@@ -78,7 +78,7 @@ function ProjectCard({ project }: { project: Project }) {
           </div>
           <div className="rounded-2xl border border-[color:var(--color-border)] bg-[color:var(--color-surface-muted)] px-4 py-3">
             <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-400">
-              Web
+              Repositorio
             </p>
             <p className="mt-1 font-medium text-slate-900">{project.link}</p>
           </div>
