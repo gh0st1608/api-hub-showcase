@@ -37,13 +37,14 @@ export class CreateProjectUseCase {
 
   async execute(body: CreateProjectDto): Promise<Project> {
     try {
-      const { group, title, description, link, tags } = body;
+      const { group, title, description, link, tags, url } = body;
 
       const input: CreateProjectInput = {
         group,
         title,
         description,
         link,
+        url,
         tags,
         html: '',
         yaml: '',

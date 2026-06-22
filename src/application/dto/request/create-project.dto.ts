@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { Transform } from 'class-transformer';
-import { IsArray, IsOptional, IsString, MinLength } from 'class-validator';
+import { IsArray, IsNotEmpty, IsOptional, IsString, MinLength } from 'class-validator';
 
 export class CreateProjectDto {
   @ApiProperty({
@@ -31,13 +31,24 @@ export class CreateProjectDto {
   description?: string;
 
   @ApiProperty({
-    example: 'https://example.com/project',
+    example: 'https://github.com/project',
     description: 'Project link',
     minLength: 1,
   })
   @IsString()
+  @IsOptional()
   @MinLength(1)
   link: string;
+
+  @ApiProperty({
+    example: 'https://mydemopage.com/',
+    description: 'Project url',
+    minLength: 1,
+  })
+  @IsString()
+  @IsNotEmpty()
+  @MinLength(1)
+  url: string;
 
   @ApiProperty({
     example: 'index.html',

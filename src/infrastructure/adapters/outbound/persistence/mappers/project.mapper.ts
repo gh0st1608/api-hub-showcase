@@ -6,6 +6,7 @@ export interface ProjectPersistence {
   title: string;
   description: string;
   link: string;
+  url: string;
   html?: string;
   yaml?: string;
   tags?: string[];
@@ -21,6 +22,7 @@ export class ProjectMapper {
       title: item.title,
       description: item.description,
       link: item.link,
+      url: item.url,
       html: item.html ?? '',
       yaml: item.yaml ?? '',
       tags: item.tags ?? [],
@@ -42,6 +44,7 @@ export class ProjectMapper {
       title: project.title,
       description: project.description,
       link: project.link,
+      url: project.url,
       html: project.html,
       yaml: project.yaml,
       tags: project.tags,

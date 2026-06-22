@@ -6,6 +6,7 @@ export interface ProjectProps {
   title: string;
   description: string;
   link: string;
+  url: string;
   html: string;
   yaml: string;
   tags: string[];
@@ -18,6 +19,7 @@ export interface CreateProjectInput {
   title: string;
   description: string;
   link: string;
+  url: string;
   html: string;
   yaml: string;
   tags: string[];
@@ -28,6 +30,7 @@ export interface UpdateProjectInput {
   title?: string;
   description?: string;
   link?: string;
+  url?: string;
   html?: string;
   yaml?: string;
   tags?: string[];
@@ -39,6 +42,7 @@ export class Project {
   readonly title: string;
   readonly description: string;
   readonly link: string;
+  readonly url: string;
   readonly html: string;
   readonly yaml: string;
   readonly tags: string[];
@@ -51,6 +55,7 @@ export class Project {
     this.title = props.title;
     this.description = props.description;
     this.link = props.link;
+    this.url = props.url;
     this.html = props.html;
     this.yaml = props.yaml;
     this.tags = props.tags;
@@ -61,7 +66,7 @@ export class Project {
   static validate(input: CreateProjectInput): void {
     if (!input.title?.trim()) throw new ValidationError('Title is required');
     if (!input.group?.trim()) throw new ValidationError('Group is required');
-    if (!input.link?.trim()) throw new ValidationError('Link is required');
+    if (!input.url?.trim()) throw new ValidationError('Url is required');
   }
 
   static create(input: CreateProjectInput): Project {
@@ -75,6 +80,7 @@ export class Project {
       title: input.title,
       description: input.description,
       link: input.link,
+      url: input.url,
       html: input.html,
       yaml: input.yaml,
       tags: input.tags ?? [],
@@ -104,6 +110,7 @@ export class Project {
       title: this.title,
       description: this.description,
       link: this.link,
+      url: this.url,
       html: this.html,
       yaml: this.yaml,
       tags: this.tags,

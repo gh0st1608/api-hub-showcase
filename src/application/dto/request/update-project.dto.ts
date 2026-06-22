@@ -1,6 +1,6 @@
 import { ApiPropertyOptional } from '@nestjs/swagger';
 import { Transform } from 'class-transformer';
-import { IsArray, IsOptional, IsString, MinLength } from 'class-validator';
+import { IsArray, IsNotEmpty, IsOptional, IsString, MinLength } from 'class-validator';
 
 export class UpdateProjectDto {
   @ApiPropertyOptional({
@@ -40,6 +40,16 @@ export class UpdateProjectDto {
   @IsString()
   @MinLength(1)
   link?: string;
+
+  @ApiPropertyOptional({
+    example: 'https://mydemopage.com/',
+    description: 'Project url',
+    minLength: 1,
+  })
+  @IsNotEmpty()
+  @IsString()
+  @MinLength(1)
+  url?: string;
 
   @ApiPropertyOptional({
     example: 'index.html',
