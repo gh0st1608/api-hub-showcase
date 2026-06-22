@@ -46,7 +46,7 @@ export class UpdateProjectDto {
     description: 'Project url',
     minLength: 1,
   })
-  @IsNotEmpty()
+  @IsOptional()
   @IsString()
   @MinLength(1)
   url?: string;

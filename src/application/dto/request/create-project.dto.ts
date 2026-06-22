@@ -46,7 +46,7 @@ export class CreateProjectDto {
     minLength: 1,
   })
   @IsString()
-  @IsNotEmpty()
+  @IsOptional()
   @MinLength(1)
   url: string;
 
