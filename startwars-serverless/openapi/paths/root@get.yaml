@@ -1,0 +1,23 @@
+parameters:
+  - $ref: ../components/parameters/Channel.yaml
+  - $ref: ../components/parameters/ApiKey.yaml
+
+get:
+  operationId: getRoot
+  summary: Get API Root
+  description: >
+    Recupera la metadata principal de la API y los recursos disponibles
+    para el dominio de personajes de Star Wars.
+  tags:
+    - Root
+  responses:
+    '200':
+      $ref: ../components/responses/GetRootResponse.yaml
+    '400':
+      $ref: ../components/statusCodes/BadRequestResponse.yaml
+    '500':
+      $ref: ../components/statusCodes/InternalServerErrorResponse.yaml
+    default:
+      $ref: ../components/statusCodes/UnexpectedErrorResponse.yaml
+  security:
+    - api_key: []

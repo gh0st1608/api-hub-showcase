@@ -1,0 +1,48 @@
+type: object
+description: Devuelve la definicion funcional del recurso People.
+properties:
+  Data:
+    type: object
+    properties:
+      resource:
+        type: string
+        description: Nombre del recurso documentado.
+        example: people
+      fields:
+        type: array
+        description: Campos funcionales expuestos por el recurso.
+        items:
+          type: object
+          properties:
+            name:
+              type: string
+              example: name
+            type:
+              type: string
+              example: string
+            required:
+              type: boolean
+              example: true
+            description:
+              type: string
+              example: Nombre visible del personaje.
+          required:
+            - name
+            - type
+            - required
+            - description
+      statusCode:
+        type: integer
+        description: Codigo http del resultado de la operacion.
+        example: 200
+      message:
+        type: string
+        description: Mensaje funcional del resultado.
+        example: Esquema del recurso obtenido correctamente
+    required:
+      - resource
+      - fields
+      - statusCode
+      - message
+required:
+  - Data

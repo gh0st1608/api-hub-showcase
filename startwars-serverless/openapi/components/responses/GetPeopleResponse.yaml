@@ -1,0 +1,28 @@
+description: Retorna el listado paginado de personajes.
+content:
+  application/json:
+    schema:
+      allOf:
+        - $ref: ../schemas/model_response/StandardResponse.yaml
+        - $ref: ../schemas/model_response/GetPeopleRes.yaml
+    examples:
+      Personajes-Encontrados:
+        summary: Lista paginada de personajes
+        value:
+          Data:
+            items:
+              - id: '1'
+                name: Luke Skywalker
+                height: "172"
+                mass: "77"
+                hair_color: blond
+                skin_color: fair
+                eye_color: blue
+                birth_year: 19BBY
+                gender: male
+                homeworld: https://swapi.py4e.com/api/planets/1/
+                createdAt: '2026-06-29T10:30:00Z'
+            count: 1
+            nextCursor: null
+            statusCode: 200
+            message: Personajes encontrados correctamente

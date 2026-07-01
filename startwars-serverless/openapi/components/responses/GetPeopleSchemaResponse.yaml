@@ -1,0 +1,28 @@
+description: Retorna la definicion funcional del recurso People.
+content:
+  application/json:
+    schema:
+      allOf:
+        - $ref: ../schemas/model_response/StandardResponse.yaml
+        - $ref: ../schemas/model_response/GetPeopleSchemaRes.yaml
+    examples:
+      Esquema-People:
+        summary: Definicion funcional del recurso
+        value:
+          Data:
+            resource: people
+            fields:
+              - name: name
+                type: string
+                required: true
+                description: Nombre visible del personaje.
+              - name: height
+                type: string
+                required: true
+                description: Altura reportada del personaje.
+              - name: birth_year
+                type: string
+                required: true
+                description: Anio de nacimiento dentro de la cronologia.
+            statusCode: 200
+            message: Esquema del recurso obtenido correctamente

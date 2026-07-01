@@ -1,0 +1,28 @@
+description: Retorna la informacion del personaje creado.
+
+content:
+  application/json:
+    schema:
+      allOf:
+        - $ref: ../schemas/model_response/StandardResponse.yaml
+        - $ref: ../schemas/model_response/CreatePeopleRes.yaml
+
+    examples:
+      Personaje-Creado:
+        summary: Creacion de personaje
+        value:
+          Data:
+            person:
+              id: '1'
+              name: Luke Skywalker
+              height: "172"
+              mass: "77"
+              hair_color: blond
+              skin_color: fair
+              eye_color: blue
+              birth_year: 19BBY
+              gender: male
+              homeworld: https://swapi.py4e.com/api/planets/1/
+              createdAt: '2026-06-29T10:30:00Z'
+            statusCode: 201
+            message: Personaje creado correctamente

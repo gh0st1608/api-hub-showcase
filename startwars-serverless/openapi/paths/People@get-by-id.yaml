@@ -1,0 +1,32 @@
+parameters:
+  - $ref: ../components/parameters/Channel.yaml
+  - $ref: ../components/parameters/ApiKey.yaml
+  - name: id
+    in: path
+    description: Identificador unico del recurso People.
+    required: true
+    schema:
+      type: string
+      minLength: 1
+      maxLength: 50
+      example: '1'
+
+get:
+  operationId: getPeopleOne
+  summary: Get People by Id
+  description: Recupera el detalle de un personaje por identificador.
+  tags:
+    - People
+  responses:
+    '200':
+      $ref: ../components/responses/GetPeopleByIdResponse.yaml
+    '400':
+      $ref: ../components/statusCodes/BadRequestResponse.yaml
+    '404':
+      $ref: ../components/statusCodes/NotFoundResponse.yaml
+    '500':
+      $ref: ../components/statusCodes/InternalServerErrorResponse.yaml
+    default:
+      $ref: ../components/statusCodes/UnexpectedErrorResponse.yaml
+  security:
+    - api_key: []

@@ -1,0 +1,19 @@
+parameters:
+  - $ref: ../components/parameters/Channel.yaml
+  - $ref: ../components/parameters/ApiKey.yaml
+
+get:
+  operationId: getPeopleSchema
+  summary: Get Schema People
+  description: Recupera la definicion funcional del recurso People.
+  tags:
+    - People
+  responses:
+    '200':
+      $ref: ../components/responses/GetPeopleSchemaResponse.yaml
+    '500':
+      $ref: ../components/statusCodes/InternalServerErrorResponse.yaml
+    default:
+      $ref: ../components/statusCodes/UnexpectedErrorResponse.yaml
+  security:
+    - api_key: []

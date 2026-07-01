@@ -1,0 +1,35 @@
+description: Retorna la metadata principal de la API.
+content:
+  application/json:
+    schema:
+      allOf:
+        - $ref: ../schemas/model_response/StandardResponse.yaml
+        - $ref: ../schemas/model_response/GetRootRes.yaml
+    examples:
+      Recursos-Disponibles:
+        summary: Descubrimiento de recursos disponibles
+        value:
+          Data:
+            service: API de Negocio Star Wars
+            version: 1.0.0
+            environment: dev
+            resources:
+              - name: Root
+                path: /
+                methods:
+                  - GET
+              - name: People
+                path: /people
+                methods:
+                  - GET
+                  - POST
+              - name: People
+                path: /people/{id}
+                methods:
+                  - GET
+              - name: PeopleSchema
+                path: /people/schema
+                methods:
+                  - GET
+            statusCode: 200
+            message: Recursos disponibles obtenidos correctamente

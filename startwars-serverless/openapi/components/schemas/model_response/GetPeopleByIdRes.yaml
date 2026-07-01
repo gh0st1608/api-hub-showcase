@@ -1,0 +1,22 @@
+type: object
+description: Devuelve el detalle de un personaje.
+properties:
+  Data:
+    type: object
+    properties:
+      person:
+        $ref: ./PeopleItem.yaml
+      statusCode:
+        type: integer
+        description: Codigo http del resultado de la operacion.
+        example: 200
+      message:
+        type: string
+        description: Mensaje funcional del resultado.
+        example: Personaje encontrado correctamente
+    required:
+      - person
+      - statusCode
+      - message
+required:
+  - Data

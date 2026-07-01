@@ -1,0 +1,56 @@
+type: object
+description: Devuelve la metadata principal de la API.
+properties:
+  Data:
+    type: object
+    properties:
+      service:
+        type: string
+        description: Nombre funcional de la API.
+        example: API de Negocio Star Wars
+      version:
+        type: string
+        description: Version publicada del contrato.
+        example: 1.0.0
+      environment:
+        type: string
+        description: Ambiente principal documentado.
+        example: dev
+      resources:
+        type: array
+        description: Recursos disponibles en la API.
+        items:
+          type: object
+          properties:
+            name:
+              type: string
+              example: People
+            path:
+              type: string
+              example: /people
+            methods:
+              type: array
+              items:
+                type: string
+                example: GET
+          required:
+            - name
+            - path
+            - methods
+      statusCode:
+        type: integer
+        description: Codigo http del resultado de la operacion.
+        example: 200
+      message:
+        type: string
+        description: Mensaje funcional del resultado.
+        example: Recursos disponibles obtenidos correctamente
+    required:
+      - service
+      - version
+      - environment
+      - resources
+      - statusCode
+      - message
+required:
+  - Data

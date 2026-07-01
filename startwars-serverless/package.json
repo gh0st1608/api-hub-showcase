@@ -1,0 +1,20 @@
+{
+    "name": "api-starwars-serverless",
+    "version": "1.0.0",
+    "dependencies": {
+        "@aws-sdk/client-s3": "^3.914.0",
+        "@redocly/openapi-cli": "0.12.16",
+        "dotenv": "^17.2.3"
+    },
+    "private": true,
+    "scripts": {
+        "start": "openapi preview-docs --port 8084 openapi/openapi.yaml",
+        "build": "openapi bundle openapi/openapi.yaml -o dist/starwars-serverless.yaml",
+        "build-html": "redoc-cli bundle ./dist/starwars-serverless.yaml --output ./dist/starwars-serverless.html -t ./docs/index.html",
+        "test": "openapi validate openapi/openapi.yaml"
+    },
+    "devDependencies": {
+        "@redocly/openapi-cli": "0.12.7",
+        "redoc-cli": "^0.13.21"
+    }
+}

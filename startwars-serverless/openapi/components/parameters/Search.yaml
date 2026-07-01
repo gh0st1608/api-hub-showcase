@@ -1,0 +1,9 @@
+name: search
+in: query
+description: Texto libre para filtrar personajes por nombre.
+required: false
+schema:
+  type: string
+  minLength: 1
+  maxLength: 120
+  example: Luke

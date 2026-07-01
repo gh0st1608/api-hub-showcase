@@ -1,0 +1,60 @@
+type: object
+description: Esquema para crear un personaje del dominio Star Wars.
+properties:
+  Data:
+    type: object
+    properties:
+      person:
+        type: object
+        properties:
+          name:
+            type: string
+            minLength: 1
+            maxLength: 120
+            example: Luke Skywalker
+          height:
+            type: string
+            maxLength: 10
+            example: "172"
+          mass:
+            type: string
+            maxLength: 10
+            example: "77"
+          hair_color:
+            type: string
+            maxLength: 50
+            example: blond
+          skin_color:
+            type: string
+            maxLength: 50
+            example: fair
+          eye_color:
+            type: string
+            maxLength: 50
+            example: blue
+          birth_year:
+            type: string
+            maxLength: 20
+            example: 19BBY
+          gender:
+            type: string
+            maxLength: 30
+            example: male
+          homeworld:
+            type: string
+            format: uri
+            nullable: true
+            example: https://swapi.py4e.com/api/planets/1/
+        required:
+          - name
+          - height
+          - mass
+          - hair_color
+          - skin_color
+          - eye_color
+          - birth_year
+          - gender
+    required:
+      - person
+required:
+  - Data

@@ -1,0 +1,29 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      nodejs: 20
+    commands:
+      - echo "Instalando dependencias.."
+      - cd startwars-serverless
+      - npm install
+
+  build:
+    commands:
+      - echo "Ejecutando build.."
+      - npm run build
+      - npm run build-html
+
+  post_build:
+    commands:
+      - echo "Copiando archivos a S3.."
+      - aws s3 cp dist/ s3://apihub-designs/ --recursive
+      - echo "Haciendo publico el HTML..."
+      - aws s3api put-object-acl --bucket apihub-designs --key starwars-serverless.html --acl public-read
+      - node update-manifest.js
+
+artifacts:
+  files:
+    - '**/*'
+  base-directory: startwars-serverless/dist

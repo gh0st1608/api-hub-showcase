@@ -1,0 +1,36 @@
+type: object
+description: Devuelve un listado paginado de personajes.
+properties:
+  Data:
+    type: object
+    properties:
+      items:
+        type: array
+        description: Coleccion de personajes encontrados.
+        items:
+          $ref: ./PeopleItem.yaml
+      count:
+        type: integer
+        description: Cantidad de resultados retornados en la pagina actual.
+        example: 1
+      nextCursor:
+        type: string
+        nullable: true
+        description: Cursor para recuperar la siguiente pagina.
+        example: null
+      statusCode:
+        type: integer
+        description: Codigo http del resultado de la operacion.
+        example: 200
+      message:
+        type: string
+        description: Mensaje funcional del resultado.
+        example: Personajes encontrados correctamente
+    required:
+      - items
+      - count
+      - nextCursor
+      - statusCode
+      - message
+required:
+  - Data

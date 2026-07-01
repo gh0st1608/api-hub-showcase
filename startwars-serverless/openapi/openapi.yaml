@@ -1,0 +1,67 @@
+openapi: 3.0.3
+
+info:
+  version: 1.0.0
+  title: API de Negocio Star Wars
+  description: >
+    API de negocio Star Wars, donde se definen los recursos
+    funcionales del universo Star Wars.
+
+      Recursos:
+
+        - Root
+        - People
+
+  contact:
+    name: Erick Galindo Aguilar
+    email: erickmga123@gmail.com
+    url: https://storage.googleapis.com/starwars-design-dev/starwars-dev.html
+    x-role: API Designer
+
+  x-catalog:
+    x-id-proxy: api-ne-starwars
+    x-id-product: internal-product-dev-starwars
+    x-id-catalog: api-ne-starwars
+
+servers:
+  - url: https://api-dev.starwars.com/api-ne-starwars/v1
+    description: Servidor Desarrollo
+
+tags:
+  - name: Root
+    description: >
+      Agrupa los servicios del recurso Root
+
+  - name: People
+    description: >
+      Agrupa los servicios del recurso People
+
+paths:
+
+  /:
+    $ref: paths/root@get.yaml
+
+  /people:
+    $ref: paths/People@create@get-list.yaml
+
+  /people/{id}:
+    $ref: paths/People@get-by-id.yaml
+
+  /people/schema:
+    $ref: paths/People@schema@get.yaml
+
+components:
+
+  securitySchemes:
+
+    api_key:
+      description: Codigo unico del Cliente.
+      type: apiKey
+      name: x-api-key
+      in: header
+
+    bearerAuth:
+      description: Token JWT.
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

@@ -1,0 +1,82 @@
+parameters:
+  - $ref: ../components/parameters/Channel.yaml
+  - $ref: ../components/parameters/ApiKey.yaml
+
+get:
+  operationId: getPeople
+  summary: Get People
+  description: >
+    Procesos: Consulta paginada de personajes.
+
+
+    Funcionalidad: Recuperar personajes por nombre, limite y cursor.
+
+
+    Objetivo: Exponer el catalogo de personajes del dominio Star Wars.
+
+  tags:
+    - People
+
+  parameters:
+    - $ref: ../components/parameters/Search.yaml
+    - $ref: ../components/parameters/Limit.yaml
+    - $ref: ../components/parameters/Cursor.yaml
+
+  responses:
+    '200':
+      $ref: ../components/responses/GetPeopleResponse.yaml
+    '400':
+      $ref: ../components/statusCodes/BadRequestResponse.yaml
+    '401':
+      $ref: ../components/statusCodes/UnauthorizedResponse.yaml
+    '403':
+      $ref: ../components/statusCodes/ForbiddenResponse.yaml
+    '404':
+      $ref: ../components/statusCodes/NotFoundResponse.yaml
+    '500':
+      $ref: ../components/statusCodes/InternalServerErrorResponse.yaml
+    default:
+      $ref: ../components/statusCodes/UnexpectedErrorResponse.yaml
+  security:
+    - api_key: []
+
+post:
+  operationId: createPeople
+  summary: Create Person
+  description: >
+    Procesos: Creacion de un personaje.
+
+
+    Funcionalidad: Registrar un personaje del universo Star Wars.
+
+
+    Objetivo: Incorporar nuevos personajes al dominio de negocio.
+
+
+    Comentarios:
+
+  tags:
+    - People
+
+  requestBody:
+    $ref: ../components/requestBodies/CreatePeopleRequest.yaml
+
+  responses:
+    '201':
+      $ref: ../components/responses/CreatePeopleResponse.yaml
+    '400':
+      $ref: ../components/statusCodes/BadRequestResponse.yaml
+    '401':
+      $ref: ../components/statusCodes/UnauthorizedResponse.yaml
+    '403':
+      $ref: ../components/statusCodes/ForbiddenResponse.yaml
+    '404':
+      $ref: ../components/statusCodes/NotFoundResponse.yaml
+    '409':
+      $ref: ../components/statusCodes/ConflictResponse.yaml
+    '500':
+      $ref: ../components/statusCodes/InternalServerErrorResponse.yaml
+    default:
+      $ref: ../components/statusCodes/UnexpectedErrorResponse.yaml
+  security:
+    - api_key: []

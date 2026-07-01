@@ -1,0 +1,61 @@
+type: object
+description: Representa un personaje del universo Star Wars.
+properties:
+  id:
+    type: string
+    description: Identificador del personaje.
+    example: '1'
+  name:
+    type: string
+    description: Nombre del personaje.
+    example: Luke Skywalker
+  height:
+    type: string
+    description: Altura reportada del personaje.
+    example: "172"
+  mass:
+    type: string
+    description: Peso reportado del personaje.
+    example: "77"
+  hair_color:
+    type: string
+    description: Color de cabello.
+    example: blond
+  skin_color:
+    type: string
+    description: Color de piel.
+    example: fair
+  eye_color:
+    type: string
+    description: Color de ojos.
+    example: blue
+  birth_year:
+    type: string
+    description: Anio de nacimiento segun la cronologia de Star Wars.
+    example: 19BBY
+  gender:
+    type: string
+    description: Genero del personaje.
+    example: male
+  homeworld:
+    type: string
+    format: uri
+    nullable: true
+    description: URL del planeta de origen.
+    example: https://swapi.py4e.com/api/planets/1/
+  createdAt:
+    type: string
+    format: date-time
+    nullable: true
+    description: Fecha de registro del personaje en el dominio.
+    example: '2026-06-29T10:30:00Z'
+required:
+  - id
+  - name
+  - height
+  - mass
+  - hair_color
+  - skin_color
+  - eye_color
+  - birth_year
+  - gender

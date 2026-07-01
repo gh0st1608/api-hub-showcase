@@ -1,0 +1,881 @@
+openapi: 3.0.3
+info:
+  version: 1.0.0
+  title: API de Negocio Star Wars
+  description: >
+    API de negocio Star Wars, donde se definen los recursos funcionales del
+    universo Star Wars.
+
+      Recursos:
+
+        - Root
+        - People
+  contact:
+    name: Erick Galindo Aguilar
+    email: erickmga123@gmail.com
+    url: 'https://storage.googleapis.com/starwars-design-dev/starwars-dev.html'
+    x-role: API Designer
+  x-catalog:
+    x-id-proxy: api-ne-starwars
+    x-id-product: internal-product-dev-starwars
+    x-id-catalog: api-ne-starwars
+servers:
+  - url: 'https://api-dev.starwars.com/api-ne-starwars/v1'
+    description: Servidor Desarrollo
+tags:
+  - name: Root
+    description: |
+      Agrupa los servicios del recurso Root
+  - name: People
+    description: |
+      Agrupa los servicios del recurso People
+paths:
+  /:
+    parameters:
+      - $ref: '#/components/parameters/Channel'
+      - $ref: '#/components/parameters/ApiKey'
+    get:
+      operationId: getRoot
+      summary: Get API Root
+      description: >
+        Recupera la metadata principal de la API y los recursos disponibles para
+        el dominio de personajes de Star Wars.
+      tags:
+        - Root
+      responses:
+        '200':
+          $ref: '#/components/responses/GetRootResponse'
+        '400':
+          $ref: '#/components/responses/BadRequestResponse'
+        '500':
+          $ref: '#/components/responses/InternalServerErrorResponse'
+        default:
+          $ref: '#/components/responses/UnexpectedErrorResponse'
+      security:
+        - api_key: []
+  /people:
+    parameters:
+      - $ref: '#/components/parameters/Channel'
+      - $ref: '#/components/parameters/ApiKey'
+    get:
+      operationId: getPeople
+      summary: Get People
+      description: |
+        Procesos: Consulta paginada de personajes.
+
+        Funcionalidad: Recuperar personajes por nombre, limite y cursor.
+
+        Objetivo: Exponer el catalogo de personajes del dominio Star Wars.
+      tags:
+        - People
+      parameters:
+        - $ref: '#/components/parameters/Search'
+        - $ref: '#/components/parameters/Limit'
+        - $ref: '#/components/parameters/Cursor'
+      responses:
+        '200':
+          $ref: '#/components/responses/GetPeopleResponse'
+        '400':
+          $ref: '#/components/responses/BadRequestResponse'
+        '401':
+          $ref: '#/components/responses/UnauthorizedResponse'
+        '403':
+          $ref: '#/components/responses/ForbiddenResponse'
+        '404':
+          $ref: '#/components/responses/NotFoundResponse'
+        '500':
+          $ref: '#/components/responses/InternalServerErrorResponse'
+        default:
+          $ref: '#/components/responses/UnexpectedErrorResponse'
+      security:
+        - api_key: []
+    post:
+      operationId: createPeople
+      summary: Create Person
+      description: |
+        Procesos: Creacion de un personaje.
+
+        Funcionalidad: Registrar un personaje del universo Star Wars.
+
+        Objetivo: Incorporar nuevos personajes al dominio de negocio.
+
+        Comentarios:
+      tags:
+        - People
+      requestBody:
+        $ref: '#/components/requestBodies/CreatePeopleRequest'
+      responses:
+        '201':
+          $ref: '#/components/responses/CreatePeopleResponse'
+        '400':
+          $ref: '#/components/responses/BadRequestResponse'
+        '401':
+          $ref: '#/components/responses/UnauthorizedResponse'
+        '403':
+          $ref: '#/components/responses/ForbiddenResponse'
+        '404':
+          $ref: '#/components/responses/NotFoundResponse'
+        '409':
+          $ref: '#/components/responses/ConflictResponse'
+        '500':
+          $ref: '#/components/responses/InternalServerErrorResponse'
+        default:
+          $ref: '#/components/responses/UnexpectedErrorResponse'
+      security:
+        - api_key: []
+  '/people/{id}':
+    parameters:
+      - $ref: '#/components/parameters/Channel'
+      - $ref: '#/components/parameters/ApiKey'
+      - name: id
+        in: path
+        description: Identificador unico del recurso People.
+        required: true
+        schema:
+          type: string
+          minLength: 1
+          maxLength: 50
+          example: '1'
+    get:
+      operationId: getPeopleOne
+      summary: Get People by Id
+      description: Recupera el detalle de un personaje por identificador.
+      tags:
+        - People
+      responses:
+        '200':
+          $ref: '#/components/responses/GetPeopleByIdResponse'
+        '400':
+          $ref: '#/components/responses/BadRequestResponse'
+        '404':
+          $ref: '#/components/responses/NotFoundResponse'
+        '500':
+          $ref: '#/components/responses/InternalServerErrorResponse'
+        default:
+          $ref: '#/components/responses/UnexpectedErrorResponse'
+      security:
+        - api_key: []
+  /people/schema:
+    parameters:
+      - $ref: '#/components/parameters/Channel'
+      - $ref: '#/components/parameters/ApiKey'
+    get:
+      operationId: getPeopleSchema
+      summary: Get Schema People
+      description: Recupera la definicion funcional del recurso People.
+      tags:
+        - People
+      responses:
+        '200':
+          $ref: '#/components/responses/GetPeopleSchemaResponse'
+        '500':
+          $ref: '#/components/responses/InternalServerErrorResponse'
+        default:
+          $ref: '#/components/responses/UnexpectedErrorResponse'
+      security:
+        - api_key: []
+components:
+  securitySchemes:
+    api_key:
+      description: Codigo unico del Cliente.
+      type: apiKey
+      name: x-api-key
+      in: header
+    bearerAuth:
+      description: Token JWT.
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  parameters:
+    Channel:
+      name: channel
+      in: header
+      description: Canal de la aplicación.
+      required: false
+      schema:
+        type: string
+        enum:
+          - APP
+          - WEB
+          - OIT
+        minLength: 3
+        maxLength: 20
+        example: WEB
+    ApiKey:
+      name: x-api-key
+      in: header
+      description: Código único del Cliente.
+      required: true
+      schema:
+        type: string
+        minLength: 10
+        maxLength: 40
+        example: 125THE7YFR510TD2756
+    Search:
+      name: search
+      in: query
+      description: Texto libre para filtrar personajes por nombre.
+      required: false
+      schema:
+        type: string
+        minLength: 1
+        maxLength: 120
+        example: Luke
+    Limit:
+      name: limit
+      in: query
+      description: Cantidad maxima de personajes a retornar por pagina.
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 10
+        example: 10
+    Cursor:
+      name: cursor
+      in: query
+      description: Cursor de paginacion para recuperar la siguiente pagina.
+      required: false
+      schema:
+        type: string
+        maxLength: 200
+        example: eyJpZCI6IjEwIn0=
+  schemas:
+    StandardResponse:
+      type: object
+      properties:
+        Data:
+          type: object
+      required:
+        - Data
+    GetRootRes:
+      type: object
+      description: Devuelve la metadata principal de la API.
+      properties:
+        Data:
+          type: object
+          properties:
+            service:
+              type: string
+              description: Nombre funcional de la API.
+              example: API de Negocio Star Wars
+            version:
+              type: string
+              description: Version publicada del contrato.
+              example: 1.0.0
+            environment:
+              type: string
+              description: Ambiente principal documentado.
+              example: dev
+            resources:
+              type: array
+              description: Recursos disponibles en la API.
+              items:
+                type: object
+                properties:
+                  name:
+                    type: string
+                    example: People
+                  path:
+                    type: string
+                    example: /people
+                  methods:
+                    type: array
+                    items:
+                      type: string
+                      example: GET
+                required:
+                  - name
+                  - path
+                  - methods
+            statusCode:
+              type: integer
+              description: Codigo http del resultado de la operacion.
+              example: 200
+            message:
+              type: string
+              description: Mensaje funcional del resultado.
+              example: Recursos disponibles obtenidos correctamente
+          required:
+            - service
+            - version
+            - environment
+            - resources
+            - statusCode
+            - message
+      required:
+        - Data
+    StandardError:
+      type: object
+      properties:
+        code:
+          type: number
+          format: double
+          description: Código interno de error si se desea especificar
+          example: '-'
+        title:
+          type: string
+          description: >-
+            Representa el código de estado HTTP obtenido del sistema proveedor,
+            concatenado con su descripción.
+          example: Descripción del error
+        status:
+          type: integer
+          description: Código http de la respuesta
+          example: 200
+        dateTime:
+          type: string
+          description: >-
+            Representa la fecha y hora del error presentado, se usa el formato
+            YYYY-MM-DDTHH:mm:SSZ
+          example: '2024-08-12T16:34:22'
+        message:
+          type: array
+          description: Array de errores
+          items:
+            type: string
+            example: >-
+              Petición ejecutada satisfactoriamente, start javaw -jar
+              project-1.0-SNAPSHOT.jar
+      required:
+        - code
+        - title
+        - message
+        - status
+        - dateTime
+    StandardResponseError:
+      properties:
+        Error:
+          $ref: '#/components/schemas/StandardError'
+        Data:
+          type: object
+      required:
+        - Error
+        - Data
+    PeopleItem:
+      type: object
+      description: Representa un personaje del universo Star Wars.
+      properties:
+        id:
+          type: string
+          description: Identificador del personaje.
+          example: '1'
+        name:
+          type: string
+          description: Nombre del personaje.
+          example: Luke Skywalker
+        height:
+          type: string
+          description: Altura reportada del personaje.
+          example: '172'
+        mass:
+          type: string
+          description: Peso reportado del personaje.
+          example: '77'
+        hair_color:
+          type: string
+          description: Color de cabello.
+          example: blond
+        skin_color:
+          type: string
+          description: Color de piel.
+          example: fair
+        eye_color:
+          type: string
+          description: Color de ojos.
+          example: blue
+        birth_year:
+          type: string
+          description: Anio de nacimiento segun la cronologia de Star Wars.
+          example: 19BBY
+        gender:
+          type: string
+          description: Genero del personaje.
+          example: male
+        homeworld:
+          type: string
+          format: uri
+          nullable: true
+          description: URL del planeta de origen.
+          example: 'https://swapi.py4e.com/api/planets/1/'
+        createdAt:
+          type: string
+          format: date-time
+          nullable: true
+          description: Fecha de registro del personaje en el dominio.
+          example: '2026-06-29T10:30:00Z'
+      required:
+        - id
+        - name
+        - height
+        - mass
+        - hair_color
+        - skin_color
+        - eye_color
+        - birth_year
+        - gender
+    GetPeopleRes:
+      type: object
+      description: Devuelve un listado paginado de personajes.
+      properties:
+        Data:
+          type: object
+          properties:
+            items:
+              type: array
+              description: Coleccion de personajes encontrados.
+              items:
+                $ref: '#/components/schemas/PeopleItem'
+            count:
+              type: integer
+              description: Cantidad de resultados retornados en la pagina actual.
+              example: 1
+            nextCursor:
+              type: string
+              nullable: true
+              description: Cursor para recuperar la siguiente pagina.
+              example: null
+            statusCode:
+              type: integer
+              description: Codigo http del resultado de la operacion.
+              example: 200
+            message:
+              type: string
+              description: Mensaje funcional del resultado.
+              example: Personajes encontrados correctamente
+          required:
+            - items
+            - count
+            - nextCursor
+            - statusCode
+            - message
+      required:
+        - Data
+    CreatePeopleReq:
+      type: object
+      description: Esquema para crear un personaje del dominio Star Wars.
+      properties:
+        Data:
+          type: object
+          properties:
+            person:
+              type: object
+              properties:
+                name:
+                  type: string
+                  minLength: 1
+                  maxLength: 120
+                  example: Luke Skywalker
+                height:
+                  type: string
+                  maxLength: 10
+                  example: '172'
+                mass:
+                  type: string
+                  maxLength: 10
+                  example: '77'
+                hair_color:
+                  type: string
+                  maxLength: 50
+                  example: blond
+                skin_color:
+                  type: string
+                  maxLength: 50
+                  example: fair
+                eye_color:
+                  type: string
+                  maxLength: 50
+                  example: blue
+                birth_year:
+                  type: string
+                  maxLength: 20
+                  example: 19BBY
+                gender:
+                  type: string
+                  maxLength: 30
+                  example: male
+                homeworld:
+                  type: string
+                  format: uri
+                  nullable: true
+                  example: 'https://swapi.py4e.com/api/planets/1/'
+              required:
+                - name
+                - height
+                - mass
+                - hair_color
+                - skin_color
+                - eye_color
+                - birth_year
+                - gender
+          required:
+            - person
+      required:
+        - Data
+    CreatePeopleRes:
+      type: object
+      description: Devuelve la representacion del personaje creado.
+      properties:
+        Data:
+          type: object
+          properties:
+            person:
+              $ref: '#/components/schemas/PeopleItem'
+            statusCode:
+              type: integer
+              description: Codigo http del resultado de la operacion.
+              example: 201
+            message:
+              type: string
+              description: Mensaje funcional del resultado.
+              example: Personaje creado correctamente
+          required:
+            - person
+            - statusCode
+            - message
+      required:
+        - Data
+    GetPeopleByIdRes:
+      type: object
+      description: Devuelve el detalle de un personaje.
+      properties:
+        Data:
+          type: object
+          properties:
+            person:
+              $ref: '#/components/schemas/PeopleItem'
+            statusCode:
+              type: integer
+              description: Codigo http del resultado de la operacion.
+              example: 200
+            message:
+              type: string
+              description: Mensaje funcional del resultado.
+              example: Personaje encontrado correctamente
+          required:
+            - person
+            - statusCode
+            - message
+      required:
+        - Data
+    GetPeopleSchemaRes:
+      type: object
+      description: Devuelve la definicion funcional del recurso People.
+      properties:
+        Data:
+          type: object
+          properties:
+            resource:
+              type: string
+              description: Nombre del recurso documentado.
+              example: people
+            fields:
+              type: array
+              description: Campos funcionales expuestos por el recurso.
+              items:
+                type: object
+                properties:
+                  name:
+                    type: string
+                    example: name
+                  type:
+                    type: string
+                    example: string
+                  required:
+                    type: boolean
+                    example: true
+                  description:
+                    type: string
+                    example: Nombre visible del personaje.
+                required:
+                  - name
+                  - type
+                  - required
+                  - description
+            statusCode:
+              type: integer
+              description: Codigo http del resultado de la operacion.
+              example: 200
+            message:
+              type: string
+              description: Mensaje funcional del resultado.
+              example: Esquema del recurso obtenido correctamente
+          required:
+            - resource
+            - fields
+            - statusCode
+            - message
+      required:
+        - Data
+  responses:
+    GetRootResponse:
+      description: Retorna la metadata principal de la API.
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: '#/components/schemas/StandardResponse'
+              - $ref: '#/components/schemas/GetRootRes'
+          examples:
+            Recursos-Disponibles:
+              summary: Descubrimiento de recursos disponibles
+              value:
+                Data:
+                  service: API de Negocio Star Wars
+                  version: 1.0.0
+                  environment: dev
+                  resources:
+                    - name: Root
+                      path: /
+                      methods:
+                        - GET
+                    - name: People
+                      path: /people
+                      methods:
+                        - GET
+                        - POST
+                    - name: People
+                      path: '/people/{id}'
+                      methods:
+                        - GET
+                    - name: PeopleSchema
+                      path: /people/schema
+                      methods:
+                        - GET
+                  statusCode: 200
+                  message: Recursos disponibles obtenidos correctamente
+    BadRequestResponse:
+      description: Bad Request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/StandardResponseError'
+          example:
+            Error:
+              code: 400
+              status: BAD_REQUEST
+              dateTime: '2024-08-13 2024-08-12T16:33:12Z'
+              title: Petición incorrecta
+              message: La url solicitada tiene error de sintaxis
+            Data: null
+    InternalServerErrorResponse:
+      description: Internal Server Error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/StandardResponseError'
+          example:
+            Error:
+              code: 500
+              status: INTERNAL_SERVER_ERROR
+              dateTime: '2024-08-13 2024-08-12T16:33:12Z'
+              title: Error general en el servidor de consulta.
+              message: Se ha producido un error inesperado en el servidor.
+            Data: null
+    UnexpectedErrorResponse:
+      description: Unexpected error response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/StandardResponseError'
+          example:
+            Error:
+              code: 500
+              status: INTERNAL_SERVER_ERROR
+              dateTime: '2024-08-13 2024-08-12T16:33:12Z'
+              title: Error general en el servidor
+              message: Error inesperado en el Servidor
+            Data: null
+    GetPeopleResponse:
+      description: Retorna el listado paginado de personajes.
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: '#/components/schemas/StandardResponse'
+              - $ref: '#/components/schemas/GetPeopleRes'
+          examples:
+            Personajes-Encontrados:
+              summary: Lista paginada de personajes
+              value:
+                Data:
+                  items:
+                    - id: '1'
+                      name: Luke Skywalker
+                      height: '172'
+                      mass: '77'
+                      hair_color: blond
+                      skin_color: fair
+                      eye_color: blue
+                      birth_year: 19BBY
+                      gender: male
+                      homeworld: 'https://swapi.py4e.com/api/planets/1/'
+                      createdAt: '2026-06-29T10:30:00Z'
+                  count: 1
+                  nextCursor: null
+                  statusCode: 200
+                  message: Personajes encontrados correctamente
+    UnauthorizedResponse:
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/StandardResponseError'
+          example:
+            Error:
+              code: 401
+              status: UNAUTHORIZED
+              dateTime: '2024-08-13 2024-08-12T16:33:12Z'
+              title: La petición requiere autenticación
+              message: Es necesario autenticar para obtener la respuesta solicitada
+            Data: null
+    ForbiddenResponse:
+      description: Forbidden
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/StandardResponseError'
+          example:
+            Error:
+              code: 403
+              status: FORBIDDEN
+              dateTime: '2024-08-13 2024-08-12T16:33:12Z'
+              title: >-
+                El cliente no posee los permisos necesarios para cierto
+                contenido.
+              message: El cliente no está autorizado a realizar la petición.
+            data: null
+    NotFoundResponse:
+      description: Not Found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/StandardResponseError'
+          example:
+            Error:
+              code: 404
+              status: NOT_FOUND
+              dateTime: '2024-08-13 2024-08-12T16:33:12Z'
+              title: Recurso no encontrado.
+              message: El servidor no pudo encontrar el contenido solicitado
+            Data: null
+    CreatePeopleResponse:
+      description: Retorna la informacion del personaje creado.
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: '#/components/schemas/StandardResponse'
+              - $ref: '#/components/schemas/CreatePeopleRes'
+          examples:
+            Personaje-Creado:
+              summary: Creacion de personaje
+              value:
+                Data:
+                  person:
+                    id: '1'
+                    name: Luke Skywalker
+                    height: '172'
+                    mass: '77'
+                    hair_color: blond
+                    skin_color: fair
+                    eye_color: blue
+                    birth_year: 19BBY
+                    gender: male
+                    homeworld: 'https://swapi.py4e.com/api/planets/1/'
+                    createdAt: '2026-06-29T10:30:00Z'
+                  statusCode: 201
+                  message: Personaje creado correctamente
+    ConflictResponse:
+      description: Conflict
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/StandardResponseError'
+          example:
+            Error:
+              code: 409
+              status: CONFLICT
+              dateTime: '2024-08-13 2024-08-12T16:33:12Z'
+              title: conflicto en la solicitud.
+              message: La petición tiene conflicto con el estado actual del servidor.
+            Data: null
+    GetPeopleByIdResponse:
+      description: Retorna la informacion detallada de un personaje.
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: '#/components/schemas/StandardResponse'
+              - $ref: '#/components/schemas/GetPeopleByIdRes'
+          examples:
+            Personaje-Encontrado:
+              summary: Consulta de personaje por identificador
+              value:
+                Data:
+                  person:
+                    id: '1'
+                    name: Luke Skywalker
+                    height: '172'
+                    mass: '77'
+                    hair_color: blond
+                    skin_color: fair
+                    eye_color: blue
+                    birth_year: 19BBY
+                    gender: male
+                    homeworld: 'https://swapi.py4e.com/api/planets/1/'
+                    createdAt: '2026-06-29T10:30:00Z'
+                  statusCode: 200
+                  message: Personaje encontrado correctamente
+    GetPeopleSchemaResponse:
+      description: Retorna la definicion funcional del recurso People.
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: '#/components/schemas/StandardResponse'
+              - $ref: '#/components/schemas/GetPeopleSchemaRes'
+          examples:
+            Esquema-People:
+              summary: Definicion funcional del recurso
+              value:
+                Data:
+                  resource: people
+                  fields:
+                    - name: name
+                      type: string
+                      required: true
+                      description: Nombre visible del personaje.
+                    - name: height
+                      type: string
+                      required: true
+                      description: Altura reportada del personaje.
+                    - name: birth_year
+                      type: string
+                      required: true
+                      description: Anio de nacimiento dentro de la cronologia.
+                  statusCode: 200
+                  message: Esquema del recurso obtenido correctamente
+  requestBodies:
+    CreatePeopleRequest:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/CreatePeopleReq'
+          examples:
+            Crear-Personaje:
+              summary: Registro de personaje
+              value:
+                Data:
+                  person:
+                    name: Luke Skywalker
+                    height: '172'
+                    mass: '77'
+                    hair_color: blond
+                    skin_color: fair
+                    eye_color: blue
+                    birth_year: 19BBY
+                    gender: male
+                    homeworld: 'https://swapi.py4e.com/api/planets/1/'
